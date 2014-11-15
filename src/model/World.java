@@ -71,4 +71,8 @@ public class World implements Serializable {
 		// TODO everything here
 		throw new UnsupportedOperationException("Unimplemented.");
 	}
+	
+	public static World createWorld(int x) {
+		return null;
+	}
 }

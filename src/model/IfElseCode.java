@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import model.Code.Proposition;;
 
 /**
  * This is a IfElse code object type for if statement blocks that include the condition,
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  */
 public class IfElseCode extends Code {
 
-	String condition;
+	Proposition prop;
 	ArrayList<Code> body1;
 	ArrayList<Code> body2;
 	
@@ -22,13 +23,13 @@ public class IfElseCode extends Code {
 	
 	/**
 	 * Constructor for an object representing an if else in Karel.
-	 * @param condition the if condition
+	 * @param prop the if condition
 	 * @param body1 the if body
 	 * @param body2 the else body
 	 */
-	public IfElseCode(String condition, ArrayList<Code> body1, ArrayList<Code> body2) {
+	public IfElseCode(Proposition prop, ArrayList<Code> body1, ArrayList<Code> body2) {
 		this.evalCondition=true;
-		this.condition = condition;
+		this.prop = prop;
 		this.body1 = body1;
 		this.body2 = body2;
 	}
@@ -36,8 +37,8 @@ public class IfElseCode extends Code {
 	 * Get the if condition.
 	 * @return the if condition if it exists, else null
 	 */
-	public String getCondition() {
-		return condition;
+	public Proposition getCondition() {
+		return prop;
 	}
 	
 	/**
@@ -60,9 +61,9 @@ public class IfElseCode extends Code {
 	 * Set the if condition.
 	 * @param c if condition
 	 */
-	public void setCondition(String c) {
+	public void setCondition(Proposition c) {
 		evalCondition = true;
-		condition = c;
+		prop = c;
 	}
 	
 	/**

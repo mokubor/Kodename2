@@ -12,13 +12,13 @@ package model;
  */
 public class BasicCode extends Code {
 
-	String instruction;
+	final Action instruction;
 	
 	/**
 	 * This is a constructor for the BasicCode object
 	 * @param instruction a string that represents a single basic Karel instruction.
 	 */
-	public BasicCode(String instruction) {
+	public BasicCode(Action instruction) {
 		super();
 		this.instruction = instruction;
 	}
@@ -27,7 +27,7 @@ public class BasicCode extends Code {
 	 * This method is used to retrieve the instruction string stored in this BasicCode.
 	 * @return a string that represents a single basic Karel instruction.
 	 */
-	public String getInstruction(){
+	public Action getInstruction(){
 		return this.instruction;
 	}
 }

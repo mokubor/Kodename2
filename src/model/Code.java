@@ -9,5 +9,9 @@ import java.io.Serializable;
  * @see java.util.ArrayList
  *
  */
-public class Code implements Serializable {
+public abstract class Code implements Serializable {
+	
+	public enum Action { MOVE, TURN_LEFT, TURN_RIGHT, PICK_UP, PUT_DOWN }
+	public enum Proposition { IS_WALL_IN_FRONT }
+	
 }
