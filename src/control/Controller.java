@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import model.BasicCode;
 import model.Code;
@@ -62,7 +63,18 @@ public class Controller implements Serializable {
 	}
 	
 	/**
-	 * Find a macro by name.
+	 * Determine whether a macro of a given name exists.
+	 * 
+	 * @param name string name of the macro
+	 * @return true iff the macro exists
+	 */
+	public boolean hasMacro(String name) {
+		return macros.containsKey(name);
+	}
+	
+	/**
+	 * Find a macro by name. Since no UI should ask for a nonexistent macro, this throws
+	 * an exception if that case does occur.
 	 * 
 	 * @param name the name of the macro
 	 * @return the CustomCode object representing the macro
@@ -75,10 +87,17 @@ public class Controller implements Serializable {
 		return macros.get(name);
 	}
 
+	/**
+	 * Return the user's Karel program.
+	 * 
+	 * @return the list containing all blocks of code in the Karel program
+	 */
+	public ArrayList<Code> getCodeList() {
+		return codeList;
+	}
 	
 	/**
 	 * Parses the codeList, populates the queue of BasicCode instructions.
-	 * @return
 	 */
 	public void parseCode() {
 		deque = new LinkedList<BasicCode>();
