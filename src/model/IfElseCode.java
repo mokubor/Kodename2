@@ -16,11 +16,7 @@ public class IfElseCode extends Code {
 	Proposition prop;
 	ArrayList<Code> body1;
 	ArrayList<Code> body2;
-	
-	
-	/* No setter for this field. It is managed internally. */
-	boolean evalCondition;
-	
+
 	/**
 	 * Constructor for an object representing an if else in Karel.
 	 * @param prop the if condition
@@ -28,7 +24,6 @@ public class IfElseCode extends Code {
 	 * @param body2 the else body
 	 */
 	public IfElseCode(Proposition prop, ArrayList<Code> body1, ArrayList<Code> body2) {
-		this.evalCondition=true;
 		this.prop = prop;
 		this.body1 = body1;
 		this.body2 = body2;
@@ -62,7 +57,6 @@ public class IfElseCode extends Code {
 	 * @param c if condition
 	 */
 	public void setCondition(Proposition c) {
-		evalCondition = true;
 		prop = c;
 	}
 	

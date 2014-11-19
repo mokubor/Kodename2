@@ -1,5 +1,6 @@
 package model;
 
+
 /**
  * This is a Basic code object type for a single Karel instruction
  * <p>
@@ -10,7 +11,7 @@ package model;
  * @author Kodename team
  *
  */
-public class BasicCode extends Code {
+public class BasicCode extends Code{
 
 	final Action instruction;
 	

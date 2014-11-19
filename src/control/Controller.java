@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
@@ -12,8 +13,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 import model.BasicCode;
 import model.Code;
 import model.CustomCode;
+import model.IfElseCode;
 import model.KRuntimeException;
 import model.Karel;
+import model.LoopCode;
 import model.World;
 
 /**
@@ -30,7 +33,7 @@ public class Controller implements Serializable {
 	final World world;
 	Map<String, CustomCode> macros;
 	ArrayList<Code> codeList;
-	Deque<BasicCode> deque;
+	Deque<Executable> deque;
 	
 	/**
 	 * Instantiate a controller, representing a new game / new session.
@@ -98,11 +101,58 @@ public class Controller implements Serializable {
 	
 	/**
 	 * Parses the codeList, populates the queue of BasicCode instructions.
+	 * 
+	 * @modifies the deque, such that it holds a sequence of BasicCode that
+	 * is equivalent to the user's Karel program
 	 */
 	public void parseCode() {
-		deque = new LinkedList<BasicCode>();
-		// TODO implement
-		throw new UnsupportedOperationException("Not implemented.");
+		deque = new LinkedList<Executable>();
+		for(int i = 0; i < codeList.size(); i++) {
+			deque.addAll(eval(codeList.get(i), i));
+		}
+	}
+	
+	private LinkedList<Executable> eval(Code code, int line) {
+		LinkedList<Executable> list = new LinkedList<Executable>();
+		if (code instanceof BasicCode) {
+			list.add(new Instruction(line, (BasicCode) code));
+		} else if (code instanceof IfElseCode) {
+			IfElseCode iec = (IfElseCode) code;
+			LinkedList<Executable> branch1 = new LinkedList<Executable>();
+			LinkedList<Executable> branch2 = new LinkedList<Executable>();
+			Iterator<Code> iter = iec.getBody1().iterator();
+			while (iter.hasNext()) {
+				branch1.addAll(eval(iter.next(), line));
+			}
+			iter = iec.getBody2().iterator();
+			while (iter.hasNext()) {
+				branch2.addAll(eval(iter.next(), line));
+			}
+			branch1.add(new Jump(line, branch2.size() + 1));
+			
+			list.add(new BranchOnFalse(line, iec.getCondition(), branch1.size() + 1));
+			list.addAll(branch1);
+			list.addAll(branch2);
+			
+		} else if (code instanceof LoopCode) {
+			LinkedList<Executable> sublist = new LinkedList<Executable>();
+			LoopCode lc = (LoopCode) code;
+			Iterator<Code> iterator = lc.getBody().iterator();
+			while(iterator.hasNext()) {
+				sublist.addAll(eval(iterator.next(), line));
+			}
+			for(int i = 0; i < lc.getCounter(); i++) {
+				list.addAll(sublist);
+			}
+		} else if (code instanceof CustomCode) {
+			Iterator<Code> iterator = ((CustomCode)code).getCodeBody().iterator();
+			while(iterator.hasNext()) {
+				list.addAll(eval(iterator.next(), line));
+			}
+		} else {
+			throw new IllegalArgumentException("Unrecognized code type.");
+		}
+		return list;
 	}
 	
 	/**
