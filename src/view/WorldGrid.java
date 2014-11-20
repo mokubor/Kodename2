@@ -26,10 +26,10 @@ public class WorldGrid extends JPanel {
 		JPanel panel = new JPanel(layout);
 	
 		panel.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-
+		int i = 0;
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
-				JLabel label = new JLabel("Label");
+				JLabel label = new JLabel("   "+i+"   ");
 				label.setVisible(true);
 				label.setSize(10, 10);
 				if (row == 0) {
@@ -65,6 +65,7 @@ public class WorldGrid extends JPanel {
 					}
 				}
 				panel.add(label);
+				i++;
 			}
 		}
 	

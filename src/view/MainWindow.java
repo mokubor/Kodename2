@@ -11,21 +11,21 @@ import javax.swing.JPanel;
 public class MainWindow extends JFrame{
 	
 	JPanel action;
-	//JPanel pseudo;
+	JPanel pseudo;
 	JPanel world;
 	
 	MainWindow(int x, int y){
 		super("Main Window");
 		
 		action = new ActionPanel();
-		//pseudo = new PseudocodePanel();
+		pseudo = new PseudocodePanel();
 		world = new WorldPanel(x, y);
 		
 		setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
 		add(action);
 		add(Box.createRigidArea(new Dimension(0,10)));
-		//add(pseudo);
-		//add(Box.createRigidArea(new Dimension(0,10)));
+		add(pseudo);
+		add(Box.createRigidArea(new Dimension(0,10)));
 		add(world);
 		add(Box.createRigidArea(new Dimension(0,10)));
 		
