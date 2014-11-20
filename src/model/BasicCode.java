@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 
 /**
  * This is a Basic code object type for a single Karel instruction
@@ -11,7 +13,7 @@ package model;
  * @author Kodename team
  *
  */
-public class BasicCode extends Code{
+public class BasicCode extends Code implements Serializable {
 
 	final Action instruction;
 	

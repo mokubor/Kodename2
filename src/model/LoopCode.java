@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * 
  * @author Kodename team
  */
-public class LoopCode extends Code {
+public class LoopCode extends Code implements Serializable {
 
 	ArrayList<Code> body;
 	int counter;

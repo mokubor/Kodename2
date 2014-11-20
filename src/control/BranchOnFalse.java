@@ -1,5 +1,7 @@
 package control;
 
+import java.io.Serializable;
+
 import model.Code.Proposition;
 
 /**
@@ -10,7 +12,7 @@ import model.Code.Proposition;
  * @author Stephen Chung
  *
  */
-public class BranchOnFalse extends Executable {
+public class BranchOnFalse extends Executable implements Serializable {
 
 	final Proposition prop;
 	final int offset;

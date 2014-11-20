@@ -1,6 +1,8 @@
 package control;
 
-class Jump extends Executable {
+import java.io.Serializable;
+
+class Jump extends Executable implements Serializable {
 
 	/**
 	 * If this jump instruction is instruction n, the next instruction

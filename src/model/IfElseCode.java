@@ -1,6 +1,8 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+
 import model.Code.Proposition;;
 
 /**
@@ -11,7 +13,7 @@ import model.Code.Proposition;;
  * @see java.util.ArrayList
  *
  */
-public class IfElseCode extends Code {
+public class IfElseCode extends Code implements Serializable {
 
 	Proposition prop;
 	ArrayList<Code> body1;

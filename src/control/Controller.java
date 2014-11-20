@@ -6,6 +6,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -28,11 +29,16 @@ import model.World;
  * @author Kodename team
  */
 public class Controller implements Serializable {
-	
+
+	private static final long serialVersionUID = 1L;
+
 	final Karel karel;
 	final World world;
 	Map<String, CustomCode> macros;
-	ArrayList<Code> codeList;
+	List<Code> codeList;
+	boolean canExecute;
+	
+	// not available to other classes
 	Deque<Executable> deque;
 	
 	/**
@@ -48,6 +54,7 @@ public class Controller implements Serializable {
 		macros = new HashMap<String, CustomCode>();
 		codeList = new ArrayList<Code>();
 		deque = null;
+		canExecute = false;
 	}
 	
 	/**
@@ -95,7 +102,7 @@ public class Controller implements Serializable {
 	 * 
 	 * @return the list containing all blocks of code in the Karel program
 	 */
-	public ArrayList<Code> getCodeList() {
+	public List<Code> getCodeList() {
 		return codeList;
 	}
 	
@@ -105,15 +112,19 @@ public class Controller implements Serializable {
 	 * @modifies the deque, such that it holds a sequence of BasicCode that
 	 * is equivalent to the user's Karel program
 	 */
-	public void parseCode() {
+	public void compile() {
 		deque = new LinkedList<Executable>();
 		for(int i = 0; i < codeList.size(); i++) {
 			deque.addAll(eval(codeList.get(i), i));
 		}
+		canExecute = true;
 	}
 	
 	private LinkedList<Executable> eval(Code code, int line) {
+		
+		// this is the deque that will be returned
 		LinkedList<Executable> list = new LinkedList<Executable>();
+		
 		if (code instanceof BasicCode) {
 			list.add(new Instruction(line, (BasicCode) code));
 		} else if (code instanceof IfElseCode) {
@@ -128,12 +139,13 @@ public class Controller implements Serializable {
 			while (iter.hasNext()) {
 				branch2.addAll(eval(iter.next(), line));
 			}
-			branch1.add(new Jump(line, branch2.size() + 1));
 			
-			list.add(new BranchOnFalse(line, iec.getCondition(), branch1.size() + 1));
+			// branch instruction comes first
+			list.add(new BranchOnFalse(line, iec.getCondition(), branch1.size()));
 			list.addAll(branch1);
+			// if branch1 taken, jump past all of branch2
+			list.add(new Jump(line, branch2.size()));
 			list.addAll(branch2);
-			
 		} else if (code instanceof LoopCode) {
 			LinkedList<Executable> sublist = new LinkedList<Executable>();
 			LoopCode lc = (LoopCode) code;
@@ -167,6 +179,10 @@ public class Controller implements Serializable {
 	public String execute(){
 		if (deque == null) {
 			throw new IllegalStateException("You must parse the code before executing.");
+		}
+		if (!canExecute) {
+			throw new IllegalStateException("Cannot execute code now. Not compiled, or"
+					+ " execution reached error, or execution reached end.");
 		}
 		// TODO calls executePrivate, catches any exceptions
 		return null;

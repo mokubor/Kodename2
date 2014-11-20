@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * @see java.util.ArrayList
  *
  */
-public class CustomCode extends Code {
+public class CustomCode extends Code implements Serializable {
 	
 	String name;
 	ArrayList<Code> body;

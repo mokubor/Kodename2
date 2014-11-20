@@ -1,9 +1,11 @@
 package control;
 
+import java.io.Serializable;
+
 import model.BasicCode;
 import model.Code.Action;
 
-class Instruction extends Executable {
+class Instruction extends Executable implements Serializable {
 
 	final Action action;
 	

@@ -1,6 +1,8 @@
 package control;
 
-class Executable {
+import java.io.Serializable;
+
+class Executable implements Serializable {
 
 	int lineNumber;
 	
