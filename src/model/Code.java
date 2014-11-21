@@ -12,6 +12,6 @@ import java.io.Serializable;
 public abstract class Code implements Serializable {
 	
 	public enum Action { MOVE, TURN_LEFT, TURN_RIGHT, PICK_UP, PUT_DOWN }
-	public enum Proposition { IS_WALL_IN_FRONT }
+	public enum Proposition { IS_FRONT_CLEAR, IS_LEFT_CLEAR, IS_RIGHT_CLEAR, IS_FACING_NORTH, IS_FACING_SOUTH, IS_FACING_EAST, IS_FACING_WEST, NEXT_TO_BEEPER }
 	
 }

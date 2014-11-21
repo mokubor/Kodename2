@@ -13,12 +13,16 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import model.BasicCode;
 import model.Code;
+import model.Code.Action;
+import model.Code.Proposition;
 import model.CustomCode;
 import model.IfElseCode;
 import model.KRuntimeException;
 import model.Karel;
+import model.Karel.Facing;
 import model.LoopCode;
 import model.World;
+import model.World.Contents;
 
 /**
  * Controller acts as a communication medium between the code that the user has created for Karel and any
@@ -31,6 +35,7 @@ import model.World;
 public class Controller implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private String executionMessage;
 
 	final Karel karel;
 	final World world;
@@ -132,10 +137,13 @@ public class Controller implements Serializable {
 			LinkedList<Executable> branch1 = new LinkedList<Executable>();
 			LinkedList<Executable> branch2 = new LinkedList<Executable>();
 			Iterator<Code> iter = iec.getBody1().iterator();
+			
 			while (iter.hasNext()) {
 				branch1.addAll(eval(iter.next(), line));
 			}
+			
 			iter = iec.getBody2().iterator();
+			
 			while (iter.hasNext()) {
 				branch2.addAll(eval(iter.next(), line));
 			}
@@ -150,14 +158,17 @@ public class Controller implements Serializable {
 			LinkedList<Executable> sublist = new LinkedList<Executable>();
 			LoopCode lc = (LoopCode) code;
 			Iterator<Code> iterator = lc.getBody().iterator();
+			
 			while(iterator.hasNext()) {
 				sublist.addAll(eval(iterator.next(), line));
 			}
+			
 			for(int i = 0; i < lc.getCounter(); i++) {
 				list.addAll(sublist);
 			}
 		} else if (code instanceof CustomCode) {
 			Iterator<Code> iterator = ((CustomCode)code).getCodeBody().iterator();
+			
 			while(iterator.hasNext()) {
 				list.addAll(eval(iterator.next(), line));
 			}
@@ -176,7 +187,7 @@ public class Controller implements Serializable {
 	 * indicating where execution failed
 	 * @throws IllegalStateException if the code has not bee parsed
 	 */
-	public String execute(){
+	public boolean execute(){
 		if (deque == null) {
 			throw new IllegalStateException("You must parse the code before executing.");
 		}
@@ -184,8 +195,153 @@ public class Controller implements Serializable {
 			throw new IllegalStateException("Cannot execute code now. Not compiled, or"
 					+ " execution reached error, or execution reached end.");
 		}
-		// TODO calls executePrivate, catches any exceptions
-		return null;
+
+		if(deque.isEmpty()){
+			this.executionMessage = "Code has finished running";
+			return false;
+		}
+		
+		Executable exe = deque.removeFirst();
+		
+		if(exe instanceof Instruction){
+			Instruction instr = (Instruction)exe;
+			
+			try{
+				callKarel(instr.action);
+			}catch(KRuntimeException kre){
+				this.executionMessage = kre.getMessage();
+				return false;
+			}catch(RuntimeException re){
+				this.executionMessage = re.getMessage();
+				return false;
+			}
+			
+			this.executionMessage = _getExecutionMessage(instr.action);
+			return true;
+		}else if(exe instanceof BranchOnFalse){
+			
+			BranchOnFalse bof = (BranchOnFalse)exe;
+			
+			if(evaluateProposition(bof.prop)){
+				exe = deque.removeFirst();
+				Instruction instr = (Instruction)exe;
+				
+				try{
+					callKarel(instr.action);
+				}catch(KRuntimeException kre){
+					this.executionMessage = kre.getMessage();
+					return false;
+				}catch(RuntimeException re){
+					this.executionMessage = re.getMessage();
+					return false;
+				}
+				
+				this.executionMessage = _getExecutionMessage(instr.action);
+			}else{
+				goToOffset(bof.offset);
+				exe = deque.removeFirst();
+				Instruction instr = (Instruction)exe;
+				
+				try{
+					callKarel(instr.action);
+				}catch(KRuntimeException kre){
+					this.executionMessage = kre.getMessage();
+					return false;
+				}catch(RuntimeException re){
+					this.executionMessage = re.getMessage();
+					return false;
+				}
+				
+				this.executionMessage = _getExecutionMessage(instr.action);
+				// if bof is false, pop offset and evaluate (offset must pop off Jump)
+			}
+			return true;
+		}else if(exe instanceof Jump){
+			Jump jump = (Jump)exe;
+			goToOffset(jump.offset);
+			exe = deque.removeFirst();
+			Instruction instr = (Instruction)exe;
+			
+			try{
+				callKarel(instr.action);
+			}catch(KRuntimeException kre){
+				this.executionMessage = kre.getMessage();
+				return false;
+			}catch(RuntimeException re){
+				this.executionMessage = re.getMessage();
+				return false;
+			}
+			
+			this.executionMessage = _getExecutionMessage(instr.action);
+			return true;
+		}else{
+			throw new RuntimeException("Unknown object in code");
+		}
+	}
+	
+	private void goToOffset(int offset){
+		for(int i = 0; i<offset; i++){
+			this.deque.removeFirst();
+		}
+	}
+	
+	private boolean evaluateProposition(Proposition prop){
+		
+		switch(prop){
+			
+			case IS_FRONT_CLEAR:	
+									break;
+			case IS_LEFT_CLEAR:		
+									break;
+			case IS_RIGHT_CLEAR:	
+									break;
+			case IS_FACING_NORTH:	if(karel.getFacing() == Facing.NORTH){
+										return true;
+									}
+									break;
+			case IS_FACING_SOUTH:	if(karel.getFacing() == Facing.SOUTH){
+										return true;
+									}
+									break;
+			case IS_FACING_EAST:	if(karel.getFacing() == Facing.EAST){
+										return true;
+									}
+									break;
+			case IS_FACING_WEST:	if(karel.getFacing() == Facing.WEST){
+										return true;
+									}
+									break;
+			case NEXT_TO_BEEPER:	if(world.getContents(karel.getX(), karel.getY()) == Contents.BEEPER){
+										return true;
+									}
+									break;
+			default:				return false;
+		
+		}
+		throw new IllegalArgumentException("Unknown proposition used");
+	}
+	
+	private String _getExecutionMessage(Action a){
+		
+		String msg;
+		
+		switch(a){
+		
+			case MOVE:			msg = "Karel moved";
+								break;
+			case TURN_LEFT:		msg = "Karel turned left";
+								break;
+			case TURN_RIGHT:	msg = "Karel turned right";
+								break;
+			case PICK_UP:		msg = "Karel picked up a beeper";
+								break;
+			case PUT_DOWN:		msg = "Karel put down a beeper";
+								break;
+			default:			msg = "ERROR: could not execute";
+								break;		
+		}
+		
+		return msg;
 	}
 	
 	/**
@@ -213,6 +369,9 @@ public class Controller implements Serializable {
 			throw new RuntimeException("Controller cannot execute this unknown action: " + action);
 		}
 	}
-
+	
+	public String getExecutionMessage(){
+		return this.executionMessage;
+	}
 }
 

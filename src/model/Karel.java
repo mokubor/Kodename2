@@ -188,6 +188,10 @@ public class Karel implements Serializable {
         }
         return true;
 	}
+	
+	public Facing getFacing(){
+		return this.facing;
+	}
  
 
 }
