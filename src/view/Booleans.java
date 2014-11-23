@@ -21,24 +21,27 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+// Pop up dialog for when conditional loop or if statement is selected, a boolean is selected to determine test condition
 public class Booleans  {
 	
 	public Booleans() {
 		
-		String[] listofBooleans = new String[6];
+		String[] listofBooleans = {"Facing East", "Facing West", "Facing North", "Facing South", "Beeper Here", "Facing Wall"};
 		
-		listofBooleans[0] = "   Facing East   ";
-		listofBooleans[1] = "   Facing West   ";
-		listofBooleans[2] = "   Facing North   ";
-		listofBooleans[3] = "   Facing South   ";
-		listofBooleans[4] = "   Facing Beeper   ";
-		listofBooleans[5] = "   Facing Wall   ";
-				
-		JList list = new JList(listofBooleans);
-        JPanel panel = new JPanel();
-        panel.add(list);
-        JOptionPane.showMessageDialog(null, panel, "Please select one of the booleans", JOptionPane.OK_CANCEL_OPTION);
+		int selectedBoolean = -1;					
+
+		// Currently it loops until an option is selected. So it won't accept closing of dialog. Maybe we should allow
+		// users to X out of it and then we would not print if/loop statement in pseudocode.
+		while (selectedBoolean == -1) {
+			selectedBoolean = JOptionPane.showOptionDialog(null,
+				    "Please select one of the following conditions that determine whether ensuing statements execute",
+				    "Test Condition for If statement or Loop", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+				    null, listofBooleans, listofBooleans[5]);
+			
+		}
 		
+		// Print statement to show how value would be used
+		System.out.println("You selected: " + listofBooleans[selectedBoolean]);
 	}
 	
 	public static void main(String[] args) {
