@@ -202,81 +202,42 @@ public class Controller implements Serializable {
 		}
 		
 		Executable exe = deque.removeFirst();
+		Instruction instr;
 		
 		if(exe instanceof Instruction){
-			Instruction instr = (Instruction)exe;
-			
-			try{
-				callKarel(instr.action);
-			}catch(KRuntimeException kre){
-				this.executionMessage = kre.getMessage();
-				return false;
-			}catch(RuntimeException re){
-				this.executionMessage = re.getMessage();
-				return false;
-			}
-			
-			this.executionMessage = _getExecutionMessage(instr.action);
-			return true;
+			instr = (Instruction)exe;
 		}else if(exe instanceof BranchOnFalse){
 			
 			BranchOnFalse bof = (BranchOnFalse)exe;
 			
 			if(evaluateProposition(bof.prop)){
 				exe = deque.removeFirst();
-				Instruction instr = (Instruction)exe;
-				
-				try{
-					callKarel(instr.action);
-				}catch(KRuntimeException kre){
-					this.executionMessage = kre.getMessage();
-					return false;
-				}catch(RuntimeException re){
-					this.executionMessage = re.getMessage();
-					return false;
-				}
-				
-				this.executionMessage = _getExecutionMessage(instr.action);
+				instr = (Instruction)exe;
 			}else{
 				goToOffset(bof.offset);
 				exe = deque.removeFirst();
-				Instruction instr = (Instruction)exe;
-				
-				try{
-					callKarel(instr.action);
-				}catch(KRuntimeException kre){
-					this.executionMessage = kre.getMessage();
-					return false;
-				}catch(RuntimeException re){
-					this.executionMessage = re.getMessage();
-					return false;
-				}
-				
-				this.executionMessage = _getExecutionMessage(instr.action);
+				instr = (Instruction)exe;	
 				// if bof is false, pop offset and evaluate (offset must pop off Jump)
 			}
-			return true;
 		}else if(exe instanceof Jump){
 			Jump jump = (Jump)exe;
 			goToOffset(jump.offset);
 			exe = deque.removeFirst();
-			Instruction instr = (Instruction)exe;
-			
-			try{
-				callKarel(instr.action);
-			}catch(KRuntimeException kre){
-				this.executionMessage = kre.getMessage();
-				return false;
-			}catch(RuntimeException re){
-				this.executionMessage = re.getMessage();
-				return false;
-			}
-			
-			this.executionMessage = _getExecutionMessage(instr.action);
-			return true;
+			instr = (Instruction)exe;
 		}else{
 			throw new RuntimeException("Unknown object in code");
 		}
+		
+		try{
+			callKarel(instr.action);
+		}catch(KRuntimeException kre){
+			this.executionMessage = kre.getMessage();
+			return false;
+		}catch(RuntimeException re){
+			this.executionMessage = re.getMessage();
+			return false;
+		}		
+		return true;		
 	}
 	
 	private void goToOffset(int offset){
@@ -285,37 +246,128 @@ public class Controller implements Serializable {
 		}
 	}
 	
+	private boolean isFrontClear(){
+		
+		Facing facing = karel.getFacing();
+		
+		switch(facing){
+		
+			case NORTH: if(world.getContents(karel.getX(), karel.getY()+1) == Contents.WALL){
+							return false;
+						}
+						break;
+			case SOUTH: if(world.getContents(karel.getX(), karel.getY()-1) == Contents.WALL){
+							return false;
+						}
+						break;
+			case EAST: 	if(world.getContents(karel.getX()+1, karel.getY()) == Contents.WALL){
+							return false;
+						}
+						break;
+			case WEST:	if(world.getContents(karel.getX(), karel.getY()+1) == Contents.WALL){
+							return false;
+						}
+						break;
+		
+		}
+		
+		return false;
+		
+	}
+	
+	private boolean isLeftClear(){
+		
+		Facing facing = karel.getFacing();
+		
+		switch(facing){
+		
+			case NORTH: if(world.getContents(karel.getX()-1, karel.getY()) == Contents.WALL){
+							return false;
+						}
+						break;
+			case SOUTH: if(world.getContents(karel.getX()+1, karel.getY()) == Contents.WALL){
+							return false;
+						}
+						break;
+			case EAST: 	if(world.getContents(karel.getX(), karel.getY()+1) == Contents.WALL){
+							return false;
+						}
+						break;
+			case WEST:	if(world.getContents(karel.getX(), karel.getY()-1) == Contents.WALL){
+							return false;
+						}
+						break;
+		
+		}
+		
+		return false;
+		
+	}
+	
+	private boolean isRightClear(){
+		
+		Facing facing = karel.getFacing();
+		
+		switch(facing){
+		
+			case NORTH: if(world.getContents(karel.getX()+1, karel.getY()) == Contents.WALL){
+							return false;
+						}
+						break;
+			case SOUTH: if(world.getContents(karel.getX()-11, karel.getY()) == Contents.WALL){
+							return false;
+						}
+						break;
+			case EAST: 	if(world.getContents(karel.getX(), karel.getY()-11) == Contents.WALL){
+							return false;
+						}
+						break;
+			case WEST:	if(world.getContents(karel.getX(), karel.getY()+1) == Contents.WALL){
+							return false;
+						}
+						break;
+		
+		}
+		
+		return false;
+		
+	}
+	
+	private boolean isFacing(Proposition prop){
+		
+		switch(prop){
+		case IS_FACING_NORTH:	if(karel.getFacing() == Facing.NORTH){
+									return true;
+								}
+		case IS_FACING_SOUTH:	if(karel.getFacing() == Facing.SOUTH){
+									return true;
+								}
+		case IS_FACING_EAST:	if(karel.getFacing() == Facing.EAST){
+									return true;
+								}
+		case IS_FACING_WEST:	if(karel.getFacing() == Facing.WEST){
+									return true;
+								}
+		}
+		
+		return false;
+		
+	}
+	
 	private boolean evaluateProposition(Proposition prop){
 		
 		switch(prop){
 			
-			case IS_FRONT_CLEAR:	
-									break;
-			case IS_LEFT_CLEAR:		
-									break;
-			case IS_RIGHT_CLEAR:	
-									break;
-			case IS_FACING_NORTH:	if(karel.getFacing() == Facing.NORTH){
-										return true;
-									}
-									break;
-			case IS_FACING_SOUTH:	if(karel.getFacing() == Facing.SOUTH){
-										return true;
-									}
-									break;
-			case IS_FACING_EAST:	if(karel.getFacing() == Facing.EAST){
-										return true;
-									}
-									break;
-			case IS_FACING_WEST:	if(karel.getFacing() == Facing.WEST){
-										return true;
-									}
-									break;
+			case IS_FRONT_CLEAR:	return isFrontClear();
+			case IS_LEFT_CLEAR:		return isLeftClear();
+			case IS_RIGHT_CLEAR:	return isRightClear();
+			case IS_FACING_NORTH:
+			case IS_FACING_SOUTH:
+			case IS_FACING_EAST:
+			case IS_FACING_WEST:	return isFacing(prop);			
 			case NEXT_TO_BEEPER:	if(world.getContents(karel.getX(), karel.getY()) == Contents.BEEPER){
 										return true;
 									}
-									break;
-			default:				return false;
 		
 		}
 		throw new IllegalArgumentException("Unknown proposition used");
