@@ -87,6 +87,10 @@ public class Controller implements Serializable {
 		return macros.containsKey(name);
 	}
 	
+	public Map<String, CustomCode> getMacroMap(){
+		return this.macros;
+	}
+	
 	/**
 	 * Find a macro by name. Since no UI should ask for a nonexistent macro, this throws
 	 * an exception if that case does occur.
@@ -202,42 +206,38 @@ public class Controller implements Serializable {
 		}
 		
 		Executable exe = deque.removeFirst();
-		Instruction instr;
 		
 		if(exe instanceof Instruction){
-			instr = (Instruction)exe;
+			Instruction instr = (Instruction)exe;
+			try{
+				callKarel(instr.action);
+			}catch(KRuntimeException kre){
+				this.executionMessage = kre.getMessage();
+				return false;
+			}catch(RuntimeException re){
+				this.executionMessage = re.getMessage();
+				return false;
+			}
+			this.executionMessage = _getExecutionMessage(instr.action);
+			return true;
 		}else if(exe instanceof BranchOnFalse){
 			
 			BranchOnFalse bof = (BranchOnFalse)exe;
 			
 			if(evaluateProposition(bof.prop)){
-				exe = deque.removeFirst();
-				instr = (Instruction)exe;
+				return execute();
 			}else{
 				goToOffset(bof.offset);
-				exe = deque.removeFirst();
-				instr = (Instruction)exe;	
+				return execute();	
 				// if bof is false, pop offset and evaluate (offset must pop off Jump)
 			}
 		}else if(exe instanceof Jump){
 			Jump jump = (Jump)exe;
 			goToOffset(jump.offset);
-			exe = deque.removeFirst();
-			instr = (Instruction)exe;
+			return execute();
 		}else{
 			throw new RuntimeException("Unknown object in code");
-		}
-		
-		try{
-			callKarel(instr.action);
-		}catch(KRuntimeException kre){
-			this.executionMessage = kre.getMessage();
-			return false;
-		}catch(RuntimeException re){
-			this.executionMessage = re.getMessage();
-			return false;
 		}		
-		return true;		
 	}
 	
 	private void goToOffset(int offset){
@@ -365,9 +365,7 @@ public class Controller implements Serializable {
 			case IS_FACING_SOUTH:
 			case IS_FACING_EAST:
 			case IS_FACING_WEST:	return isFacing(prop);			
-			case NEXT_TO_BEEPER:	if(world.getContents(karel.getX(), karel.getY()) == Contents.BEEPER){
-										return true;
-									}
+			case NEXT_TO_BEEPER:	return world.getContents(karel.getX(), karel.getY()) == Contents.BEEPER;
 		
 		}
 		throw new IllegalArgumentException("Unknown proposition used");
