@@ -30,6 +30,7 @@ public class BasicActions extends JPanel{
 		list.setFixedCellWidth(120);
 		list.setEnabled(true);
 		list.setVisible(true);
+		list.setDragEnabled(true);
 		//list.setSelectedIndex(0);
 		
 		Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);

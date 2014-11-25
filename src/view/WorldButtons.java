@@ -16,6 +16,7 @@ public class WorldButtons extends JPanel{
 			if(source == play){
 				/**begin program execution*/	
 				
+				
 			}
 
 		}
@@ -29,6 +30,9 @@ public class WorldButtons extends JPanel{
 		
 		setLayout(new FlowLayout(FlowLayout.CENTER,15,20));
 		
-		add(play);		
+		add(play);
+		
+		
+		
 	}
 }

@@ -13,20 +13,46 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+
+import control.*;
+//import control.Controller;
 
 public class Customs extends JPanel{
-	static Object[] custom_code;
+	static String[] custom_code;
 	static JList list;
 	static DefaultListModel model;
-	JPanel buttons;
+	static JPanel buttons;
+	static Controller cntrl;
 	
-	public Customs(){
+	public Customs(Controller _cntrl){
 		super();
 		
 		//retrieve any cusom code elements that may have already been created
+		
+		cntrl = _cntrl;
+		
+		/*initalize buttons*/
+		buttons = new CustomButtons();
+		
+		
 		/**check if list of custom codes is empty, if it is, 
 		 * initialize array to one*/
-		custom_code = new Object[1];
+		//if(cntrl.getMacroMap() == null || cntrl.getMacroMap().size() <= 0){
+			custom_code = new String[2];
+			custom_code[0] = "No Custom Actions created";
+			CustomButtons.delete.setEnabled(false);
+		//}
+		//else{
+			//custom_code = new String[cntrl.getMacroMap().size()];
+			//retrieving key string values from hashmap and converting to array
+			//custom_code = cntrl.getMacroMap().keySet().toArray();
+			//CustomButtons.delete,setEnabled(true);
+		//}
 		
 		/**make default model*/
 		model = new DefaultListModel();
@@ -42,10 +68,10 @@ public class Customs extends JPanel{
 		list.setFixedCellWidth(140);
 		list.setEnabled(true);
 		list.setVisible(true);
+		list.setDragEnabled(true);
 		//list.setSelectedIndex(0);
 		
-		/*initalize buttons*/
-		buttons = new CustomButtons();
+
 		
 		/*layout*/
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
@@ -63,5 +89,18 @@ public class Customs extends JPanel{
 		setVisible(true);
 		//setPreferredSize(new Dimension(100,100));
 		
+	}
+	
+	static int getIndex(){
+		return list.getSelectedIndex();
+	}
+	
+	static String getKey(){
+		return (String)list.getSelectedValue();
+	}
+	
+	static void delete(){
+		model.remove(getIndex());
+		list.setSelectedIndex(-1);
 	}
 }

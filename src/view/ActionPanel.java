@@ -8,16 +8,19 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+
+import control.Controller;
 
 public class ActionPanel extends JPanel{
 	JPanel custom_actions;
 	JPanel basic_actions;
 	JPanel conditioned_actions;
 	
-	public ActionPanel(){
+	public ActionPanel(Controller cntrl){
 		super();
 		
-		custom_actions = new Customs();
+		custom_actions = new Customs(cntrl );
 		basic_actions = new BasicActions();
 		conditioned_actions = new Conditions();
 		

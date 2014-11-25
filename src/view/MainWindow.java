@@ -7,17 +7,19 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import control.*;
 
 public class MainWindow extends JFrame{
 	
 	JPanel action;
 	JPanel pseudo;
 	JPanel world;
+	static Controller cntrl;
 	
 	MainWindow(int x, int y){
 		super("Main Window");
 		
-		action = new ActionPanel();
+		action = new ActionPanel(cntrl);
 		pseudo = new PseudocodePanel();
 		world = new WorldPanel(x, y);
 		
@@ -31,8 +33,10 @@ public class MainWindow extends JFrame{
 		
 	}
 	
-	public static void createMainWindow(int x, int y) {
-		
+	public static void createMainWindow(int x, int y/*, Controller cntrl*/) {
+		//initialize controller
+		//cntrl = new Controller(x, y);
+	
 		JFrame frame = new MainWindow(x,y);
 		frame.setSize(300, 300);
 		frame.pack();
