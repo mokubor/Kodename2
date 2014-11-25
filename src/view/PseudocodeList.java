@@ -18,6 +18,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.BorderFactory;
 
+import model.*;
+
 // Class to display what actions the user is adding to their program.
 // For now it includes basic moves, but it means nothing, just meant to display strings.
 public class PseudocodeList extends JPanel {
@@ -92,7 +94,12 @@ public class PseudocodeList extends JPanel {
                 if (dl.isInsert()) {
                     if (dl.getIndex() >= 0|| dl.getIndex()>= list.getModel().getSize()) {
                     	System.out.println(dl.getIndex() + " -> " +data);
+                    	
+                    	Code temp = Util.matchStringToCode(data.trim());
+                    	MainWindow.updateCodeList(temp);
+                    	
                     	((DefaultListModel)list.getModel()).addElement(data);
+                    	
                     	System.out.println("size after insert "+ list.getModel().getSize());
                     	
                     }

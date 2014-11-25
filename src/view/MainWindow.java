@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import control.*;
+import model.*;
 
 public class MainWindow extends JFrame{
 	
@@ -63,6 +64,10 @@ public class MainWindow extends JFrame{
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+	}
+	
+	public static void updateCodeList(Code c){
+		cntrl.getCodeList().add(c);
 	}
 
 }
