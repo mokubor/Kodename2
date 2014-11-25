@@ -69,6 +69,7 @@ public class Controller implements Serializable {
 	 * @param cc the macro body
 	 * @return null if no macro of the given name existed, else the previous macro body
 	 * (that has just been replaced)
+	 * @deprecated
 	 */
 	public CustomCode addMacro(String name, CustomCode cc) {
 		if (name == null || cc == null) {
@@ -82,11 +83,17 @@ public class Controller implements Serializable {
 	 * 
 	 * @param name string name of the macro
 	 * @return true iff the macro exists
+	 * @deprecated
 	 */
 	public boolean hasMacro(String name) {
 		return macros.containsKey(name);
 	}
 	
+	/**
+	 * Provide full access to macro map, for the views.
+	 * 
+	 * @return the map of macro names to macro bodies
+	 */
 	public Map<String, CustomCode> getMacroMap(){
 		return this.macros;
 	}
@@ -98,6 +105,7 @@ public class Controller implements Serializable {
 	 * @param name the name of the macro
 	 * @return the CustomCode object representing the macro
 	 * @throws IllegalArgumentException if no macro of the given name exists
+	 * @deprecated
 	 */
 	public CustomCode getMacro(String name) {
 		if (!macros.containsKey(name)) {
@@ -129,6 +137,13 @@ public class Controller implements Serializable {
 		canExecute = true;
 	}
 	
+	/**
+	 * Evaluate a Code object, transforming into one or more Executables.
+	 * 
+	 * @param code element to be evaluated
+	 * @param line top-level line number
+	 * @return a LinkedList (implementing deque) of Executables
+	 */
 	private LinkedList<Executable> eval(Code code, int line) {
 		
 		// this is the deque that will be returned
