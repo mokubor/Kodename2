@@ -53,6 +53,7 @@ public class CustomCode extends Code implements Serializable {
 	 * @assume the new name is different from the old name
 	 */
 	public void setName(String name){
+		this.name = name;
 	}
 	
 	/**
@@ -65,6 +66,7 @@ public class CustomCode extends Code implements Serializable {
 	 * @assume changes have been made to the body list currently contained in the custom code
 	 */
 	public void setCodeBody(ArrayList<Code> body){
+		this.body = body;
 	}
 
 }

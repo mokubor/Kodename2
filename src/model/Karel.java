@@ -140,9 +140,17 @@ public class Karel implements Serializable {
 	 * the end of the world
 	 */
 	public void move() throws KRuntimeException {
-		assert(invariantsMaintained());
-        throw new UnsupportedOperationException("Not yet implemented.");
-        
+		
+		if(this.facing==Facing.SOUTH){
+			yPosition--;
+		}else if(this.facing==Facing.EAST){
+			xPosition++;
+		}else if(this.facing==Facing.WEST){
+			xPosition--;
+		}else if(this.facing==Facing.NORTH){
+			yPosition++;
+		}
+		assert(invariantsMaintained());        
 	}
 
 	/**
