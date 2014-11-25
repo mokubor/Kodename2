@@ -60,8 +60,9 @@ public class Controller implements Serializable {
 	 * @param y number of rows in the world
 	 * @return a new controller
 	 */
-	public Controller(int x, int y) {
-		world = new World(x, y);
+	public Controller(/*int x, int y,*/ World w) {
+		//world = new World(x, y);
+		world = w;
 		karel = new Karel(world, 0, 0);
 		macros = new HashMap<String, CustomCode>();
 		codeList = new ArrayList<Code>();
@@ -409,5 +410,6 @@ public class Controller implements Serializable {
 	public String getExecutionMessage(){
 		return this.executionMessage;
 	}
+	
 }
 

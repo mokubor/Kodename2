@@ -7,7 +7,7 @@ import javax.swing.JTextArea;
 import javax.swing.JPanel;
 
 public class WorldConsole extends JPanel{
-	JTextArea console;
+	static JTextArea console;
 	
 	public WorldConsole(){
 		super();
@@ -20,7 +20,7 @@ public class WorldConsole extends JPanel{
 		add(console);
 	}
 	
-	void edit(String t){
+	static void edit(String t){
 		console.setText(t);
 	}
 	

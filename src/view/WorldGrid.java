@@ -24,6 +24,17 @@ public class WorldGrid extends JPanel {
 		GridLayout layout = new GridLayout(rows, cols);
 		
 		JPanel panel = new JPanel(layout);
+		
+		//delete
+		/*JLabel wall = new JLabel(" W ");
+		wall.setVisible(true);
+		wall.setSize(10, 10);
+		JLabel beeper = new JLabel(" B ");
+		beeper.setVisible(true);
+		beeper.setSize(10, 10);
+		JLabel Karel = new JLabel (" K ");
+		Karel.setVisible(true);
+		Karel.setSize(10, 10);*/
 	
 		panel.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 		int i = 0;
@@ -64,21 +75,25 @@ public class WorldGrid extends JPanel {
 	                                                                	Color.BLACK));
 					}
 				}
-				panel.add(label);
+				
+				
+					panel.add(label);//take out of else
+				
 				i++;
+				
 			}
 		}
 	
 		add(panel);
 	}
 	
-	/*
-	public static void main(String[] args) {
+	
+	/*public static void main(String[] args) {
 		JFrame temp = new JFrame();
 		
 		temp.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 20));
 		
-		WorldGrid ap = new WorldGrid(10, 10);
+		WorldGrid ap = new WorldGrid(6, 6);
 		
 		temp.add(ap);
 		temp.setSize(140, 600);
@@ -89,6 +104,6 @@ public class WorldGrid extends JPanel {
 		//temp.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		temp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		temp.pack();
-	}
-	*/
+	}*/
+	
 }

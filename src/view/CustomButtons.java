@@ -38,8 +38,8 @@ public class CustomButtons extends JPanel {
 	
 	public CustomButtons(){
 		super();
-		create = new JButton("Create Custom Actions");
-		delete = new JButton ("Delete Custom Actions");
+		create = new JButton("Create");
+		delete = new JButton ("Delete");
 		
 		create.setPreferredSize(new Dimension(20, 20));
 		delete.setPreferredSize(new Dimension(20, 20));

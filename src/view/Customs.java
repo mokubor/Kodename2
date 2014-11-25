@@ -42,17 +42,17 @@ public class Customs extends JPanel{
 		
 		/**check if list of custom codes is empty, if it is, 
 		 * initialize array to one*/
-		//if(cntrl.getMacroMap() == null || cntrl.getMacroMap().size() <= 0){
+		if(cntrl.getMacroMap() == null || cntrl.getMacroMap().size() <= 0){
 			custom_code = new String[2];
 			custom_code[0] = "No Custom Actions created";
 			CustomButtons.delete.setEnabled(false);
-		//}
-		//else{
+		}
+		else{
 			//custom_code = new String[cntrl.getMacroMap().size()];
 			//retrieving key string values from hashmap and converting to array
-			//custom_code = cntrl.getMacroMap().keySet().toArray();
-			//CustomButtons.delete,setEnabled(true);
-		//}
+			custom_code = (String[]) cntrl.getMacroMap().keySet().toArray();
+			CustomButtons.delete.setEnabled(true);
+		}
 		
 		/**make default model*/
 		model = new DefaultListModel();

@@ -34,7 +34,7 @@ public class Main {
 		temp.pack();*/
 		int x = 10;
 		int y = 10;
-		MainWindow.createMainWindow(x, y);
+		//MainWindow.createMainWindow(x, y);
 	}
 
 }

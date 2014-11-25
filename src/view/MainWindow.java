@@ -19,11 +19,13 @@ public class MainWindow extends JFrame{
 	PseudocodeList pL = new PseudocodeList();
 	PseudocodeButtons pB = new PseudocodeButtons();	
 	
-	MainWindow(int x, int y){
+	MainWindow(int x, int y, Controller _cntrl){
 		super("Main Window");
 		
+		cntrl = _cntrl;
 		action = new ActionPanel(cntrl);
-		world = new WorldPanel(x, y);
+		world = new WorldPanel(x, y, cntrl);
+		
 		
 		//setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
 		add(action, BorderLayout.WEST);
@@ -50,11 +52,11 @@ public class MainWindow extends JFrame{
 		frame.setLocationRelativeTo(null);
 	}*/
 	
-	public static void createMainWindow(int x, int y) {
+	public static void createMainWindow(int x, int y, Controller _cntrl) {
 		
-		cntrl = new Controller(x, y);
+		//cntrl = new Controller(x, y);
 		
-		JFrame frame = new MainWindow(x,y);
+		JFrame frame = new MainWindow(x,y, _cntrl);
 		frame.setSize(300, 300);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
