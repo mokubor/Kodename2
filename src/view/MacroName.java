@@ -1,18 +1,22 @@
 package view;
 
-import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 // Class to allow users to make name for macro and save it.
 public class MacroName extends JPanel {
 
+	
 	JLabel label = new JLabel("Macro Name:");
-	JTextField tx = new JTextField(25);
-	JButton but = new JButton("Save");
+	
+	public JTextField tx = new JTextField(25);
+	public JButton but = new JButton("Save");
 	
 	JPanel topPanel = new JPanel();
 	
@@ -22,6 +26,6 @@ public class MacroName extends JPanel {
 		topPanel.add(tx);
 		topPanel.add(but);
 		
-		add(topPanel, BorderLayout.NORTH);
-	}
+		add(topPanel);
+}
 }

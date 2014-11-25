@@ -23,6 +23,8 @@ public class StartPageWorldList extends JPanel {
 	JList jlist;
 	JScrollPane scroller;
 	
+	public String[] displayList = {"World 1", "World 2", "World 3", "World 4", "World 5"};
+	
 	Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 	Border title = BorderFactory.createTitledBorder(loweredetched, "Worlds");
 
@@ -32,9 +34,7 @@ public class StartPageWorldList extends JPanel {
 		
 		c.insets = new Insets(25,25,25,25);
 		panelLst.setLayout(new GridBagLayout());
-		
-		String[] displayList = {"World 1", "World 2", "World 3", "World 4", "World 5"};
-				
+						
 		jlist = new JList(displayList);
 		jlist.setModel(dlmModel);
 				

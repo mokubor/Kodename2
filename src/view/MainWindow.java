@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.Box;
@@ -12,31 +13,47 @@ import control.*;
 public class MainWindow extends JFrame{
 	
 	JPanel action;
-	JPanel pseudo;
 	JPanel world;
 	static Controller cntrl;
+	
+	PseudocodeList pL = new PseudocodeList();
+	PseudocodeButtons pB = new PseudocodeButtons();	
 	
 	MainWindow(int x, int y){
 		super("Main Window");
 		
 		action = new ActionPanel(cntrl);
-		pseudo = new PseudocodePanel();
 		world = new WorldPanel(x, y);
 		
-		setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
-		add(action);
-		add(Box.createRigidArea(new Dimension(0,10)));
-		add(pseudo);
-		add(Box.createRigidArea(new Dimension(0,10)));
-		add(world);
-		add(Box.createRigidArea(new Dimension(0,10)));
+		//setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
+		add(action, BorderLayout.WEST);
+		//add(Box.createRigidArea(new Dimension(0,10)));
+		//add(Box.createRigidArea(new Dimension(0,10)));
+		add(pL, BorderLayout.CENTER);
+		add(pB, BorderLayout.SOUTH);
+		add(world, BorderLayout.EAST);
+		//add(Box.createRigidArea(new Dimension(0,10)));
 		
+		addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+            	System.exit(0);
+            }
+        });
 	}
 	
-	public static void createMainWindow(int x, int y/*, Controller cntrl*/) {
-		//initialize controller
-		//cntrl = new Controller(x, y);
+	/*public static void main(String[] args) {
+		MainWindow frame = new MainWindow(10,10);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Main Window");
+		frame.setSize(1000,600);
+		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
+	}*/
 	
+	public static void createMainWindow(int x, int y) {
+		
+		cntrl = new Controller(x, y);
+		
 		JFrame frame = new MainWindow(x,y);
 		frame.setSize(300, 300);
 		frame.pack();
