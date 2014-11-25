@@ -141,6 +141,9 @@ public class Karel implements Serializable {
 	 */
 	public void move() throws KRuntimeException {
 		
+		if (!isFrontClear()) {
+			throw new KRuntimeException("Karel cannot run into a wall or out of bounds.");
+		}
 		if(this.facing==Facing.SOUTH){
 			yPosition--;
 		}else if(this.facing==Facing.EAST){
@@ -150,7 +153,7 @@ public class Karel implements Serializable {
 		}else if(this.facing==Facing.NORTH){
 			yPosition++;
 		}
-		assert(invariantsMaintained());        
+		assert(invariantsMaintained());
 	}
 
 	/**
@@ -179,6 +182,60 @@ public class Karel implements Serializable {
         assert(invariantsMaintained());
 	}
 
+	public boolean isFrontClear(){
+
+		Contents contents;
+		switch(facing){
+			case NORTH: contents = world.getContents(xPosition, yPosition + 1);
+						break;
+			case SOUTH: contents = world.getContents(xPosition, yPosition - 1);
+						break;
+			case EAST: 	contents = world.getContents(xPosition + 1, yPosition);
+						break;
+			case WEST:	contents = world.getContents(xPosition - 1, yPosition);
+						break;
+			default: throw new RuntimeException("Could not determine Karel's facing.");
+		}
+		return !(contents == WALL || contents == OUT_OF_BOUNDS);
+		
+	}
+	
+	public boolean isLeftClear(){
+		
+		Contents contents;
+		switch(facing){
+			case NORTH: contents = world.getContents(xPosition - 1, yPosition);
+						break;
+			case SOUTH: contents = world.getContents(xPosition + 1, yPosition);
+						break;
+			case EAST: 	contents = world.getContents(xPosition, yPosition + 1);
+						break;
+			case WEST:	contents = world.getContents(xPosition, yPosition - 1);
+						break;
+			default: throw new RuntimeException("Could not determine Karel's facing.");
+		}
+		return !(contents == WALL || contents == OUT_OF_BOUNDS);
+		
+	}
+	
+	public boolean isRightClear(){
+		
+		Contents contents;
+		switch(facing){
+			case NORTH: contents = world.getContents(xPosition + 1, yPosition);
+						break;
+			case SOUTH: contents = world.getContents(xPosition - 1, yPosition);
+						break;
+			case EAST: 	contents = world.getContents(xPosition + 1, yPosition - 1);
+						break;
+			case WEST:	contents = world.getContents(xPosition - 1, yPosition + 1);
+						break;
+			default: throw new RuntimeException("Could not determine Karel's facing.");
+		}
+		return !(contents == WALL || contents == OUT_OF_BOUNDS);
+		
+	}
+	
 	/**
 	 * Check all representation invariants for an instance of this class.
 	 * 1) world must be non-null

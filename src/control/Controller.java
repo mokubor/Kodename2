@@ -1,5 +1,12 @@
 package control;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -35,16 +42,16 @@ import model.World.Contents;
 public class Controller implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String executionMessage;
 
 	final Karel karel;
 	final World world;
 	Map<String, CustomCode> macros;
 	List<Code> codeList;
-	boolean canExecute;
+	String executionMessage;
 	
-	// not available to other classes
+	// never make these fields available to other classes
 	Deque<Executable> deque;
+	boolean canExecute;
 	
 	/**
 	 * Instantiate a controller, representing a new game / new session.
@@ -60,6 +67,67 @@ public class Controller implements Serializable {
 		codeList = new ArrayList<Code>();
 		deque = null;
 		canExecute = false;
+	}
+	
+	/**
+	 * Save this controller to disk.
+	 * 
+	 * @param file the file to write to
+	 * @return true if save succeeded
+	 */
+	public boolean save(File file) {
+		FileOutputStream fos = null;
+		ObjectOutputStream oos = null;
+		
+		try {
+			fos = new FileOutputStream(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		try {
+			oos = new ObjectOutputStream(fos);
+			oos.writeObject(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try { oos.close(); } catch (IOException e) { }
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * Load a controller from disk.
+	 * 
+	 * @param file the file to load from
+	 * @return the controller, or null if an error occurred
+	 */
+	public static Controller load(File file) {
+		FileInputStream fis;
+		ObjectInputStream ois = null;
+		Controller controller = null;
+		
+		try {
+			fis = new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		try {
+			ois = new ObjectInputStream(fis);
+			controller = (Controller) ois.readObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try { ois.close(); } catch (IOException e) { }
+		}
+		
+		return controller;
 	}
 	
 	/**
@@ -261,121 +329,24 @@ public class Controller implements Serializable {
 		}
 	}
 	
-	private boolean isFrontClear(){
-		
-		Facing facing = karel.getFacing();
-		
-		switch(facing){
-		
-			case NORTH: if(world.getContents(karel.getX(), karel.getY()+1) == Contents.WALL){
-							return false;
-						}
-						break;
-			case SOUTH: if(world.getContents(karel.getX(), karel.getY()-1) == Contents.WALL){
-							return false;
-						}
-						break;
-			case EAST: 	if(world.getContents(karel.getX()+1, karel.getY()) == Contents.WALL){
-							return false;
-						}
-						break;
-			case WEST:	if(world.getContents(karel.getX(), karel.getY()+1) == Contents.WALL){
-							return false;
-						}
-						break;
-		
-		}
-		
-		return false;
-		
-	}
-	
-	private boolean isLeftClear(){
-		
-		Facing facing = karel.getFacing();
-		
-		switch(facing){
-		
-			case NORTH: if(world.getContents(karel.getX()-1, karel.getY()) == Contents.WALL){
-							return false;
-						}
-						break;
-			case SOUTH: if(world.getContents(karel.getX()+1, karel.getY()) == Contents.WALL){
-							return false;
-						}
-						break;
-			case EAST: 	if(world.getContents(karel.getX(), karel.getY()+1) == Contents.WALL){
-							return false;
-						}
-						break;
-			case WEST:	if(world.getContents(karel.getX(), karel.getY()-1) == Contents.WALL){
-							return false;
-						}
-						break;
-		
-		}
-		
-		return false;
-		
-	}
-	
-	private boolean isRightClear(){
-		
-		Facing facing = karel.getFacing();
-		
-		switch(facing){
-		
-			case NORTH: if(world.getContents(karel.getX()+1, karel.getY()) == Contents.WALL){
-							return false;
-						}
-						break;
-			case SOUTH: if(world.getContents(karel.getX()-11, karel.getY()) == Contents.WALL){
-							return false;
-						}
-						break;
-			case EAST: 	if(world.getContents(karel.getX(), karel.getY()-11) == Contents.WALL){
-							return false;
-						}
-						break;
-			case WEST:	if(world.getContents(karel.getX(), karel.getY()+1) == Contents.WALL){
-							return false;
-						}
-						break;
-		
-		}
-		
-		return false;
-		
-	}
-	
 	private boolean isFacing(Proposition prop){
 		
 		switch(prop){
-		case IS_FACING_NORTH:	if(karel.getFacing() == Facing.NORTH){
-									return true;
-								}
-		case IS_FACING_SOUTH:	if(karel.getFacing() == Facing.SOUTH){
-									return true;
-								}
-		case IS_FACING_EAST:	if(karel.getFacing() == Facing.EAST){
-									return true;
-								}
-		case IS_FACING_WEST:	if(karel.getFacing() == Facing.WEST){
-									return true;
-								}
+			case IS_FACING_NORTH:	return karel.getFacing() == Facing.NORTH;
+			case IS_FACING_SOUTH:	return karel.getFacing() == Facing.SOUTH;
+			case IS_FACING_EAST:	return karel.getFacing() == Facing.EAST;
+			case IS_FACING_WEST:	return karel.getFacing() == Facing.WEST;
+			default: throw new RuntimeException("For this proposition, should not have called isFacing().");
 		}
-		
-		return false;
-		
 	}
 	
 	private boolean evaluateProposition(Proposition prop){
 		
 		switch(prop){
 			
-			case IS_FRONT_CLEAR:	return isFrontClear();
-			case IS_LEFT_CLEAR:		return isLeftClear();
-			case IS_RIGHT_CLEAR:	return isRightClear();
+			case IS_FRONT_CLEAR:	return karel.isFrontClear();
+			case IS_LEFT_CLEAR:		return karel.isLeftClear();
+			case IS_RIGHT_CLEAR:	return karel.isRightClear();
 			case IS_FACING_NORTH:
 			case IS_FACING_SOUTH:
 			case IS_FACING_EAST:

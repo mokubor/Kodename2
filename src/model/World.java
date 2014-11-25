@@ -29,6 +29,8 @@ public class World implements Serializable {
 		if (x < 0 || y < 0)
             throw new IllegalArgumentException("Negative coordinate entered");
 
+		xSize = x;
+		ySize = y;
 		
 		beeperCount = 0;
 		grid = new Contents[x][y];
@@ -60,19 +62,27 @@ public class World implements Serializable {
 	 * Adds a content, either wall or beeper, to the grid coordinates specified
 	 * @param x The x coordinate of the new content to be added
 	 * @param y The y coordinate of the new content to be added
-	 * @param c The type of content to be added, either wall or beeper
+	 * @param newContent The type of content to be added, either wall or beeper
 	 */
-	public void setContents(int x, int y, Contents c) {
+	public void setContents(int x, int y, Contents newContent) {
 		
 		if (x < 0 || y < 0)
             throw new IllegalArgumentException("Negative coordinate entered");
+		if (x >= xSize || y >= ySize) {
+			throw new IllegalArgumentException("Out of bounds.");
+		}
 		
-		// don't forget to update beepercount
-		// TODO everything here
-		throw new UnsupportedOperationException("Unimplemented.");
+		if (grid[x][y] == Contents.BEEPER) {
+			// overwriting a beeper
+			beeperCount--;
+		}
+		if (newContent == Contents.BEEPER) {
+			// adding a beeper
+			beeperCount++;
+		}
+		
+		grid[x][y] = newContent;
+		
 	}
 	
-	public static World createWorld(int x) {
-		return null;
-	}
 }
