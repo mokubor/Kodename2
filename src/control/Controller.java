@@ -105,6 +105,10 @@ public class Controller implements Serializable {
 		return world;
 	}
 	
+	public Karel getKarel() {
+		return karel;
+	}
+	
 	/**
 	 * Load a controller from disk.
 	 * 

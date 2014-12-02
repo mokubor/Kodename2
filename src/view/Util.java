@@ -29,6 +29,7 @@ public class Util {
 	}
 	
 	public static void drawWorld() {
+		Karel karel = cntrl.getKarel();
 		World world = cntrl.getWorld();
 		for(int i = 0; i < world.getYSize(); i++) {
 			for(int j = 0; j < world.getXSize(); j++) {
@@ -52,6 +53,9 @@ public class Util {
 					break;
 				default:
 					break;
+				}
+				if(karel.getX() == j && karel.getY() == world.getYSize() - 1 - i) {
+					sb.append("Karel!");
 				}
 				label.setText(sb.toString());
 				// worldLabels[i][j].setText(String.valueOf(j) + String.valueOf(world.getYSize() - 1 - i));

@@ -20,7 +20,6 @@ public class WorldButtons extends JPanel{
 			JButton source = (JButton)e.getSource();
 			if(source == play){
 				/**begin program execution*/	
-				Util.drawWorld();
 				Util.cntrl.compile();
 				step.setEnabled(true);
 				step_through.setEnabled(true);
@@ -41,6 +40,7 @@ public class WorldButtons extends JPanel{
 			}else{
 				
 			}
+			Util.drawWorld();
 
 		}
 	}
