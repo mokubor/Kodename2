@@ -101,6 +101,10 @@ public class Controller implements Serializable {
 		return true;
 	}
 	
+	public World getWorld() {
+		return world;
+	}
+	
 	/**
 	 * Load a controller from disk.
 	 * 

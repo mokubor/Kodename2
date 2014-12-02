@@ -15,12 +15,10 @@ public class WorldGrid extends JPanel {
 	int rows;
 	int cols;
 	
-	public WorldGrid(int x, int y){
+	public WorldGrid(int rows, int cols){
 		super();
 		final int borderWidth = 1;
-		rows = x;
-		cols = y;
-	
+
 		GridLayout layout = new GridLayout(rows, cols);
 		
 		JPanel panel = new JPanel(layout);
@@ -36,11 +34,15 @@ public class WorldGrid extends JPanel {
 		Karel.setVisible(true);
 		Karel.setSize(10, 10);*/
 	
+		JLabel[][] labels = new JLabel[rows][cols];
+		Util.setLabels(labels);
+		
 		panel.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 		int i = 0;
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
-				JLabel label = new JLabel("   "+i+"   ");
+				JLabel label = new JLabel("   "+i+"  h ");
+				labels[row][col] = label;
 				label.setVisible(true);
 				label.setSize(10, 10);
 				if (row == 0) {

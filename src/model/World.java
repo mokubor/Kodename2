@@ -56,6 +56,14 @@ public class World implements Serializable {
 		return clone;
 	}
 	
+	public int getXSize() {
+		return xSize;
+	}
+	
+	public int getYSize() {
+		return ySize;
+	}
+	
 	/**
 	 * Returns whatever content type is present at grid coordinate x and y
 	 * @param x The x coordinate

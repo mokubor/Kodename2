@@ -1,20 +1,62 @@
 package view;
 
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 
 import java.util.ArrayList;
 
 import model.*;
+import model.World.Contents;
 import model.Code.*;
 import control.Controller;
 
 public class Util {
 	
 	static Controller cntrl;
+	static JLabel[][] worldLabels;
 	
 	public static void updateCodeList(Code c){
 		cntrl.getCodeList().add(c);
+	}
+	
+	public static void setLabels(JLabel[][] labels) {
+		worldLabels = labels;
+	}
+	
+	public static JLabel getLabel(int x, int y) {
+		return worldLabels[x][y];
+	}
+	
+	public static void drawWorld() {
+		World world = cntrl.getWorld();
+		for(int i = 0; i < world.getYSize(); i++) {
+			for(int j = 0; j < world.getXSize(); j++) {
+				Contents contents = world.getContents(j, world.getYSize() - 1 - i);
+				JLabel label = worldLabels[i][j];
+				StringBuffer sb = new StringBuffer();
+				sb.append(String.valueOf(j));
+				sb.append(String.valueOf(world.getYSize() - 1 - i));
+				switch(contents) {
+				case BEEPER:
+					sb.append("B");
+					break;
+				case NONE:
+					sb.append("N");
+					break;
+				case OUT_OF_BOUNDS:
+					sb.append("O");
+					break;
+				case WALL:
+					sb.append("W");
+					break;
+				default:
+					break;
+				}
+				label.setText(sb.toString());
+				// worldLabels[i][j].setText(String.valueOf(j) + String.valueOf(world.getYSize() - 1 - i));
+			}
+		}
 	}
 	
 	public static Code matchStringToCode(String s){

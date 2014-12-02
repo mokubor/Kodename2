@@ -70,10 +70,11 @@ public class StartPage extends Window {
 					//cntrl = new Controller( w);
 					Util.cntrl = new Controller(w);
 					Main.currentWindow.dispose();
-					mW = new MainWindow(6, 6/*, cntrl*/);
+					mW = new MainWindow(w.getXSize(), w.getYSize()/*, cntrl*/);
 					mW.setVisible(true);
 					mW.setSize(1000,600);
 					mW.setLocationRelativeTo(null);
+					Util.drawWorld();
 					//MainWindow.createMainWindow(10,10, cntrl);
 					
 				}
