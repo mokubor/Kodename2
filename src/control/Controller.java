@@ -215,6 +215,7 @@ public class Controller implements Serializable {
 			deque.addAll(eval(codeList.get(i), i));
 		}
 		canExecute = true;
+		System.out.println("There are " + deque.size() + " Executables.");
 	}
 	
 	/**
