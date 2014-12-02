@@ -252,7 +252,7 @@ public class Controller implements Serializable {
 			}
 			
 			// branch instruction comes first
-			list.add(new BranchOnFalse(line, iec.getCondition(), branch1.size()));
+			list.add(new BranchOnFalse(line, iec.getCondition(), branch1.size()+1));
 			list.addAll(branch1);
 			// if branch1 taken, jump past all of branch2
 			list.add(new Jump(line, branch2.size()));
