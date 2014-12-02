@@ -6,7 +6,9 @@ import javax.swing.JPanel;
 import java.awt.FlowLayout;
 
 public class Main {
-
+	
+	static Window currentWindow;
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		/*JPanel a = new BasicActions();
@@ -35,6 +37,8 @@ public class Main {
 		int x = 10;
 		int y = 10;
 		//MainWindow.createMainWindow(x, y);
+		
+		StartPage.createStartPage();
 	}
 
 }

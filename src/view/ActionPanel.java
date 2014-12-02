@@ -17,10 +17,10 @@ public class ActionPanel extends JPanel{
 	JPanel basic_actions;
 	JPanel conditioned_actions;
 	
-	public ActionPanel(Controller cntrl){
+	public ActionPanel(/*Controller cntrl*/){
 		super();
 		
-		custom_actions = new Customs(cntrl );
+		custom_actions = new Customs(/*cntrl */);
 		basic_actions = new BasicActions();
 		conditioned_actions = new Conditions();
 		

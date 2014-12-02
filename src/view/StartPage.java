@@ -13,7 +13,7 @@ import control.Controller;
 import model.*;
 
 // Class that has list of worlds to select from, welcome/title message, proceed/ok button, and world grid if include preview feature
-public class StartPage extends JFrame {
+public class StartPage extends Window {
 
 	StartPageWorldList wl = new StartPageWorldList();
 	StartPageTitle wt = new StartPageTitle();
@@ -24,12 +24,15 @@ public class StartPage extends JFrame {
 	JPanel rightPanel = new JPanel();
 	JPanel northPanel = new JPanel();
 	JPanel southPanel = new JPanel();
-	static Controller cntrl;
+	//static Controller cntrl;
 	
 	JFrame mW;
 	static JFrame frame;
 	
 	public StartPage() {
+		super("Start Page World Selection");
+		
+		Main.currentWindow = this;
 		
 		leftPanel.add(wl);
 		northPanel.add(wt);
@@ -64,9 +67,10 @@ public class StartPage extends JFrame {
 							System.out.println("("+x+","+y+")" + w.getContents(x,  y));
 						}
 					}
-					cntrl = new Controller( w);
-					frame.dispose();
-					mW = new MainWindow(6, 6, cntrl);
+					//cntrl = new Controller( w);
+					Util.cntrl = new Controller(w);
+					Main.currentWindow.dispose();
+					mW = new MainWindow(6, 6/*, cntrl*/);
 					mW.setVisible(true);
 					mW.setSize(1000,600);
 					mW.setLocationRelativeTo(null);
@@ -77,12 +81,30 @@ public class StartPage extends JFrame {
 		});
 	}
 	
-	public static void main(String[] args) {
+	public static void createStartPage() {
+		
+		JFrame frame = new StartPage();
+		//frame = new StartPage();
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setTitle("Start Page World Selection");
+		frame.setSize(1100,600);
+		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
+	}
+	
+	/*public static void main(String[] args) {
+		
+		
 		frame = new StartPage();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Start Page World Selection");
 		frame.setSize(1100,600);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
+	}*/
+	
+	
+	public void close(){
+		this.dispose();
 	}
 }

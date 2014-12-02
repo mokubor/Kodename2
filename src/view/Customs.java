@@ -27,14 +27,14 @@ public class Customs extends JPanel{
 	static JList list;
 	static DefaultListModel model;
 	static JPanel buttons;
-	static Controller cntrl;
+	//static Controller cntrl;
 	
-	public Customs(Controller _cntrl){
+	public Customs(/*Controller _cntrl*/){
 		super();
 		
 		//retrieve any cusom code elements that may have already been created
 		
-		cntrl = _cntrl;
+		//cntrl = _cntrl;
 		
 		/*initalize buttons*/
 		buttons = new CustomButtons();
@@ -42,7 +42,7 @@ public class Customs extends JPanel{
 		
 		/**check if list of custom codes is empty, if it is, 
 		 * initialize array to one*/
-		if(cntrl.getMacroMap() == null || cntrl.getMacroMap().size() <= 0){
+		if(Util.cntrl.getMacroMap() == null || Util.cntrl.getMacroMap().size() <= 0){
 			custom_code = new String[2];
 			custom_code[0] = "No Custom Actions created";
 			CustomButtons.delete.setEnabled(false);
@@ -50,7 +50,7 @@ public class Customs extends JPanel{
 		else{
 			//custom_code = new String[cntrl.getMacroMap().size()];
 			//retrieving key string values from hashmap and converting to array
-			custom_code = (String[]) cntrl.getMacroMap().keySet().toArray();
+			custom_code = (String[]) Util.cntrl.getMacroMap().keySet().toArray();
 			CustomButtons.delete.setEnabled(true);
 		}
 		

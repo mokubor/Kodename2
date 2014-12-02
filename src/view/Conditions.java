@@ -11,7 +11,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.BorderFactory;
 
 public class Conditions extends JPanel{
-	static String[] cond = {"If", "End-If", "Else", "End-Else", "For", "End-For"};
+	static String[] cond = {"If-Else", "For-End For"};
 	static JList list;
 	static DefaultListModel model;
 	
@@ -29,6 +29,7 @@ public class Conditions extends JPanel{
 		list.setFixedCellWidth(120);
 		list.setEnabled(true);
 		list.setVisible(true);
+		list.setDragEnabled(true);
 		//list.setSelectedIndex(0);
 		
 		Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);

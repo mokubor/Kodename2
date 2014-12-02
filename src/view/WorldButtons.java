@@ -13,23 +13,23 @@ public class WorldButtons extends JPanel{
 	JButton play;
 	static JButton step;
 	static JButton step_through;
-	static Controller cntrl;
+	//static Controller cntrl;
 	
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JButton source = (JButton)e.getSource();
 			if(source == play){
 				/**begin program execution*/	
-				cntrl.compile();
+				Util.cntrl.compile();
 				step.setEnabled(true);
 				step_through.setEnabled(true);
 				
 			}else if(source == step){
-				if(!cntrl.execute()){
+				if(!Util.cntrl.execute()){
 					disable_buttons();
-					WorldConsole.edit(cntrl.getExecutionMessage());
+					WorldConsole.edit(Util.cntrl.getExecutionMessage());
 				}else{
-					WorldConsole.edit(cntrl.getExecutionMessage());
+					WorldConsole.edit(Util.cntrl.getExecutionMessage());
 					//highlight pseudocode list
 					//and update Karel
 				}
@@ -44,10 +44,10 @@ public class WorldButtons extends JPanel{
 		}
 	}
 	
-	public WorldButtons(Controller _cntrl){
+	public WorldButtons(/*Controller _cntrl*/){
 		super();
 		
-		cntrl = _cntrl;
+		//cntrl = _cntrl;
 		
 		step = new JButton("Step");
 		play = new JButton("Play"); //this should have a play icon

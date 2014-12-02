@@ -1,3 +1,4 @@
+
 package view;
 
 import java.awt.datatransfer.DataFlavor;
@@ -24,17 +25,32 @@ import model.*;
 // For now it includes basic moves, but it means nothing, just meant to display strings.
 public class PseudocodeList extends JPanel {
 
-	public static String[] mActions = {"Move", "Turn Left", "Turn Right", "Pick up beeper", "Put down beeper"};
+	public static String[] mActions;/// = {"Move", "Turn Left", "Turn Right", "Pick up beeper", "Put down beeper"};
 	public static JList list;
 	public static DefaultListModel model = new DefaultListModel();
+	static boolean wasNull = false;
 	public static JScrollPane scroller;
 	
 	JPanel panel = new JPanel();
 	
 	public PseudocodeList() {
 		
+		//model = new DefaultListModel();
+		
 		list = new JList(mActions);
 		list.setModel(model);
+		
+		/*for(int i = 0; i < mActions.length; i++){
+			model.addElement(mActions[i]);
+		}
+		*/
+		//if(Util.cntrl.getCodeList() == null){
+			mActions = new String[1];
+			//mActions[0] = "You have no Actions.";
+			mActions[0] = "Begin by Draging an Action";
+			//mActions[2] = "into the list";
+			wasNull = true;
+		//}
 		
 		for(int i = 0; i < mActions.length; i++){
 			model.addElement(mActions[i]);
@@ -44,7 +60,7 @@ public class PseudocodeList extends JPanel {
 		//list = new JList (model);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setLayoutOrientation(JList.VERTICAL_WRAP);
-		list.setFixedCellWidth(120);
+		list.setFixedCellWidth(200);
 		list.setEnabled(true);
 		list.setVisible(true);
 		
@@ -63,7 +79,8 @@ public class PseudocodeList extends JPanel {
                 return true;
             }
  
-            public boolean importData(TransferHandler.TransferSupport info) {
+           
+			public boolean importData(TransferHandler.TransferSupport info) {
                 if (!info.isDrop()) {
                     return false;
                 }
@@ -95,10 +112,17 @@ public class PseudocodeList extends JPanel {
                     if (dl.getIndex() >= 0|| dl.getIndex()>= list.getModel().getSize()) {
                     	System.out.println(dl.getIndex() + " -> " +data);
                     	
-                    	Code temp = Util.matchStringToCode(data.trim());
-                    	MainWindow.updateCodeList(temp);
                     	
-                    	((DefaultListModel)list.getModel()).addElement(data);
+                    	data = data.trim();
+                    	
+                    	if(data.equalsIgnoreCase("if-else")){
+                    		ConditionDialog.getIfDialog();
+                    	}
+                    	
+                    	Code temp = Util.matchStringToCode(data);
+                    	Util.updateCodeList(temp);
+                    	
+                    	add(data);
                     	
                     	System.out.println("size after insert "+ list.getModel().getSize());
                     	
@@ -156,5 +180,25 @@ public class PseudocodeList extends JPanel {
 		add(panel);
 		
 	}
+	
+	 @SuppressWarnings("unchecked")
+	 
+	public static void add(String code){
+		
+		
+		if(wasNull == true){
+			model.remove(0);
+			wasNull = false;
+		}
+		System.out.println(code);
+		
+		model.addElement(code);	
+		list.setSelectedIndex(-1);
+		
+		
+			
+	}
+	 
+
 }
 

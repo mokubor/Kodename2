@@ -20,11 +20,11 @@ public class WorldPanel extends JPanel{
 	JPanel console;
 	//static Controller cntrl;
 	
-	public WorldPanel(int x, int y, Controller _cntrl){
+	public WorldPanel(int x, int y/*, Controller _cntrl*/){
 		super();
 		
 		//cntrl = _cntrl;
-		buttons = new WorldButtons(_cntrl);
+		buttons = new WorldButtons(/*_cntrl*/);
 		grid = new WorldGrid(x, y);
 		console = new WorldConsole();
 		

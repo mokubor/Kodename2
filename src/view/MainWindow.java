@@ -11,21 +11,25 @@ import javax.swing.JPanel;
 import control.*;
 import model.*;
 
-public class MainWindow extends JFrame{
+public class MainWindow extends Window{
 	
 	JPanel action;
 	JPanel world;
-	static Controller cntrl;
+	//static Controller cntrl;
 	
-	PseudocodeList pL = new PseudocodeList();
-	PseudocodeButtons pB = new PseudocodeButtons();	
+	PseudocodeList pL;
+	PseudocodeButtons pB;	
 	
-	MainWindow(int x, int y, Controller _cntrl){
+	MainWindow(int x, int y/*, Controller _cntrl*/){
 		super("Main Window");
 		
-		cntrl = _cntrl;
-		action = new ActionPanel(cntrl);
-		world = new WorldPanel(x, y, cntrl);
+		//cntrl = _cntrl;
+		Main.currentWindow = this;
+		
+		action = new ActionPanel(/*cntrl*/);
+		pL = new PseudocodeList();
+		pB = new PseudocodeButtons();
+		world = new WorldPanel(x, y/*, cntrl*/);
 		
 		
 		//setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
@@ -37,11 +41,11 @@ public class MainWindow extends JFrame{
 		add(world, BorderLayout.EAST);
 		//add(Box.createRigidArea(new Dimension(0,10)));
 		
-		addWindowListener(new java.awt.event.WindowAdapter() {
+		/*addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {
             	System.exit(0);
             }
-        });
+        });*/
 	}
 	
 	/*public static void main(String[] args) {
@@ -53,21 +57,23 @@ public class MainWindow extends JFrame{
 		frame.setLocationRelativeTo(null);
 	}*/
 	
-	public static void createMainWindow(int x, int y, Controller _cntrl) {
+	public static void createMainWindow(int x, int y/*, Controller _cntrl*/) {
 		
 		//cntrl = new Controller(x, y);
 		
-		JFrame frame = new MainWindow(x,y, _cntrl);
+		JFrame frame = new MainWindow(x,y/*, _cntrl*/);
 		frame.setSize(300, 300);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 	
-	public static void updateCodeList(Code c){
-		cntrl.getCodeList().add(c);
-	}
+	
 
+	public void close(){
+		this.dispose();
+	}
+	
 }
