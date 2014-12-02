@@ -118,11 +118,13 @@ public class PseudocodeList extends JPanel {
                     	if(data.equalsIgnoreCase("if-else")){
                     		ConditionDialog.getIfDialog();
                     	}
+                    	else{
+                    		Code temp = Util.matchStringToCode(data);
+                    		Util.updateCodeList(temp);
                     	
-                    	Code temp = Util.matchStringToCode(data);
-                    	Util.updateCodeList(temp);
-                    	
+                    	}
                     	add(data);
+                    	
                     	
                     	System.out.println("size after insert "+ list.getModel().getSize());
                     	
