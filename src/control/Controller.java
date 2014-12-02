@@ -44,7 +44,8 @@ public class Controller implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	final Karel karel;
-	final World world;
+	final World originalWorld;
+	World world;
 	Map<String, CustomCode> macros;
 	List<Code> codeList;
 	String executionMessage;
@@ -60,9 +61,9 @@ public class Controller implements Serializable {
 	 * @param y number of rows in the world
 	 * @return a new controller
 	 */
-	public Controller(/*int x, int y,*/ World w) {
-		//world = new World(x, y);
-		world = w;
+	public Controller(World input) {
+		originalWorld = input;
+		world = originalWorld.cloneWorld();
 		karel = new Karel(world, 0, 0);
 		macros = new HashMap<String, CustomCode>();
 		codeList = new ArrayList<Code>();
@@ -199,6 +200,8 @@ public class Controller implements Serializable {
 	 * is equivalent to the user's Karel program
 	 */
 	public void compile() {
+		world = originalWorld.cloneWorld();
+		karel.setWorld(world);
 		deque = new LinkedList<Executable>();
 		for(int i = 0; i < codeList.size(); i++) {
 			deque.addAll(eval(codeList.get(i), i));
@@ -214,6 +217,10 @@ public class Controller implements Serializable {
 	 * @return a LinkedList (implementing deque) of Executables
 	 */
 	private LinkedList<Executable> eval(Code code, int line) {
+		
+		if (code == null) {
+			throw new NullPointerException("Called eval with a null pointer.");
+		}
 		
 		// this is the deque that will be returned
 		LinkedList<Executable> list = new LinkedList<Executable>();

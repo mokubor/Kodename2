@@ -52,6 +52,19 @@ public class Karel implements Serializable {
 	}
 
 	/**
+	 * Place Karel in a different world at position (0, 0) facing north.
+	 * Reset beeper counts.
+	 */
+	public void setWorld(World world) {
+		this.world = world;
+		facing = Facing.NORTH;
+		xPosition = 0;
+		yPosition = 0;
+		beepersPlaced = 0;
+		beepersPicked = 0;
+	}
+	
+	/**
 	 * Returns the current x position of Karel.
 	 * 
 	 * @return Karel's x position

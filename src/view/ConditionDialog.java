@@ -43,7 +43,7 @@ public class ConditionDialog extends JDialog{
 	JScrollPane scrollbar1;
 	JScrollPane scrollbar2;
 	String condition;
-	Code if_code_piece;
+	IfElseCode if_code_piece;
 	
 	JButton to_if;
 	JButton to_else;

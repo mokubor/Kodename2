@@ -42,6 +42,21 @@ public class World implements Serializable {
 	};
 	
 	/**
+	 * Create a copy of this world.
+	 * @return a deep copy of this world
+	 */
+	public World cloneWorld() {
+		World clone = new World(xSize, ySize);
+		clone.beeperCount = this.beeperCount;
+		for(int i = 0; i < grid.length; i++) {
+			for(int j = 0; j < grid[0].length; j++) {
+				clone.grid[i][j] = this.grid[i][j];
+			}
+		}
+		return clone;
+	}
+	
+	/**
 	 * Returns whatever content type is present at grid coordinate x and y
 	 * @param x The x coordinate
 	 * @param y The y coordinate
