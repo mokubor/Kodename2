@@ -118,6 +118,9 @@ public class PseudocodeList extends JPanel {
                     	if(data.equalsIgnoreCase("if-else")){
                     		IfElseDialog.getIfDialog();
                     	}
+                    	else if(data.equalsIgnoreCase("For-End For")){
+                    		LoopDialog.getForDialog();
+                    	}
                     	else{
                     		Code temp = Util.matchStringToCode(data);
                     		Util.updateCodeList(temp);

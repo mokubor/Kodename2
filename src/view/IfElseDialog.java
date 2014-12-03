@@ -95,7 +95,8 @@ public class IfElseDialog extends JDialog{
 
 	public IfElseDialog(JFrame owner){
 		super(owner, "Create If-Else statement", true);
-if_code_piece = new IfElseCode(null, null, null);
+		
+		if_code_piece = new IfElseCode(null, null, null);
 		
 		basic = new BasicActions();
 		
@@ -129,7 +130,7 @@ if_code_piece = new IfElseCode(null, null, null);
 		
 		if_list = new JList(if_model);
 		if_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		if_list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		if_list.setLayoutOrientation(JList.VERTICAL_WRAP);
 		if_list.setFixedCellWidth(200);
 		if_list.setEnabled(true);
 		if_list.setVisible(true);
@@ -138,7 +139,7 @@ if_code_piece = new IfElseCode(null, null, null);
 		
 		else_list = new JList(else_model);
 		else_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		else_list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		else_list.setLayoutOrientation(JList.VERTICAL_WRAP);
 		else_list.setFixedCellWidth(200);
 		else_list.setEnabled(true);
 		else_list.setVisible(true);
@@ -176,10 +177,12 @@ if_code_piece = new IfElseCode(null, null, null);
 		
 		x.anchor = GridBagConstraints.EAST;
 		x.gridx = 0;
-		x.gridy = 4;
+		x.gridy = 1;
+		x.gridheight = 4;
 		add(basic, x);
 		
 		x.anchor = GridBagConstraints.CENTER;
+		x.gridheight = 1;
 		x.gridx = 1;
 		x.gridy = 2;
 		add(to_if, x);
