@@ -42,7 +42,7 @@ public class Booleans  {
 		// If s is null, then user either X'd out dialog or pressed Cancel
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Booleans frame = new Booleans();
-	}
+	}*/
 }

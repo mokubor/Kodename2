@@ -27,6 +27,8 @@ import model.Code.Proposition;
 import model.IfElseCode;
 
 public class IfElseDialog extends JDialog{
+	
+	static int value = 0;
 	JPanel basic;
 	String[] listofBooleans = {"NONE", "Facing East", "Facing West", "Facing North", "Facing South", "Next to a Beeper", "Front is Clear",
 			"Right is Clear", "Left is Clear"};
@@ -72,6 +74,7 @@ public class IfElseDialog extends JDialog{
 					
 					Util.updateCodeList(if_code_piece);
 					
+					value = 1;
 					
 					dispose();
 				}
@@ -86,6 +89,7 @@ public class IfElseDialog extends JDialog{
 				add(else_list, BasicActions.getElement());
 			}
 			else{
+				value = -1;
 				dispose();
 			}
 			
@@ -232,6 +236,10 @@ public class IfElseDialog extends JDialog{
 		}
 		
 		list.setSelectedIndex(-1);
+	}
+	
+	public static int getValue(){
+		return value;
 	}
 
 }

@@ -78,12 +78,12 @@ public class WorldSelection extends JFrame {
 		add(panelLst, BorderLayout.WEST);
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		JFrame frame = new WorldSelection();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("World Selection");
 		frame.setSize(1000,600);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
-	}
+	}*/
 }

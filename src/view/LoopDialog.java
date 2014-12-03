@@ -27,6 +27,7 @@ import model.LoopCode;
 
 public class LoopDialog extends JDialog{
 	
+	static int value;
 	JPanel basic;
 	String[] no_of_iterations = {"0", "1", "2", "3", "4"};
 	JComboBox iterations;
@@ -62,6 +63,7 @@ public class LoopDialog extends JDialog{
 					
 					Util.updateCodeList(loop_code_piece);
 					
+					value = 1;
 					dispose();
 				}
 			
@@ -70,6 +72,7 @@ public class LoopDialog extends JDialog{
 				add(BasicActions.getElement());
 			}
 			else{
+				value = -1;
 				dispose();
 			}
 		}
@@ -191,5 +194,7 @@ public class LoopDialog extends JDialog{
 		for_list.setSelectedIndex(-1);
 	}
 	
-	
+	public static int getValue(){
+		return value;
+	}
 }
