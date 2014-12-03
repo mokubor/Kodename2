@@ -222,6 +222,21 @@ public class PseudocodeList extends JPanel {
 	 public static JList getTheJList() {
 		 return list;
 	 }
+	 
+	 public static void resetList(){
+			mActions = new String[1];
+			//mActions[0] = "You have no Actions.";
+			mActions[0] = "Begin by Draging an Action";
+			//mActions[2] = "into the list";
+			wasNull = true;
+		//}
+		
+		for(int i = 0; i < mActions.length; i++){
+			model.addElement(mActions[i]);
+		}
+		
+		list.setModel(model);
+	 }
 
 }
 

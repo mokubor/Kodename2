@@ -37,7 +37,9 @@ public class PseudocodeButtons extends JPanel {
 				else {
 					JOptionPane.showMessageDialog(null, "There is no code to clear.", "No code to clear",
 							JOptionPane.ERROR_MESSAGE);
-				}				
+				}
+				
+				PseudocodeList.resetList();
 				
 			}else if(source == deleteBut){
 			
