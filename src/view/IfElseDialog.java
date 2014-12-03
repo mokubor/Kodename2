@@ -26,8 +26,7 @@ import model.Code;
 import model.Code.Proposition;
 import model.IfElseCode;
 
-
-public class ConditionDialog extends JDialog{
+public class IfElseDialog extends JDialog{
 	JPanel basic;
 	String[] listofBooleans = {"NONE", "Facing East", "Facing West", "Facing North", "Facing South", "Next to a Beeper", "Front is Clear",
 			"Right is Clear", "Left is Clear"};
@@ -93,11 +92,10 @@ public class ConditionDialog extends JDialog{
 			
 		}
 	}
-	
-	public ConditionDialog(JFrame owner){
-		super(owner, "Create condition statement(s)", true);
-		
-		if_code_piece = new IfElseCode(null, null, null);
+
+	public IfElseDialog(JFrame owner){
+		super(owner, "Create If-Else statement", true);
+if_code_piece = new IfElseCode(null, null, null);
 		
 		basic = new BasicActions();
 		
@@ -203,14 +201,10 @@ public class ConditionDialog extends JDialog{
 		x.anchor = GridBagConstraints.WEST;
 		add(bpanel, x);
 		
-		
-		
-		
-		
 	}
 	
 	public static void getIfDialog(){
-		JDialog c = new ConditionDialog(Main.currentWindow);
+		JDialog c = new IfElseDialog(Main.currentWindow);
 		c.pack();
 		c.setLocationRelativeTo(null);
 		c.setVisible(true);

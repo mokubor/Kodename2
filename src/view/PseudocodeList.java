@@ -116,7 +116,7 @@ public class PseudocodeList extends JPanel {
                     	data = data.trim();
                     	
                     	if(data.equalsIgnoreCase("if-else")){
-                    		ConditionDialog.getIfDialog();
+                    		IfElseDialog.getIfDialog();
                     	}
                     	else{
                     		Code temp = Util.matchStringToCode(data);
