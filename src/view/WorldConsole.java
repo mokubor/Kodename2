@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 public class WorldConsole extends JPanel{
 	static JTextArea console;
+	static String console_text = "";
 	
 	public WorldConsole(){
 		super();
@@ -17,12 +18,19 @@ public class WorldConsole extends JPanel{
 		console.setEditable(false);
 		
 		setLayout(new FlowLayout(FlowLayout.CENTER, 5,15));
+		
+		console.setText(console_text);
 		add(console);
 	}
 	
 	static void edit(String t){
-		console.setText(t);
+		console_text = console_text.concat("\n");
+		console_text = console_text.concat(t);
+		
+		//String s = append(t);
+		console.setText(console_text);
 	}
+
 	
 	/*public static void main(String[] args) {
 		JFrame temp = new JFrame();

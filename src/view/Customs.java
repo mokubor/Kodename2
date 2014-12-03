@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
@@ -25,6 +26,7 @@ import control.*;
 public class Customs extends JPanel{
 	static String[] custom_code;
 	static JList list;
+	JScrollPane scrollbar;
 	static DefaultListModel model;
 	static JPanel buttons;
 	//static Controller cntrl;
@@ -44,7 +46,7 @@ public class Customs extends JPanel{
 		 * initialize array to one*/
 		if(Util.cntrl.getMacroMap() == null || Util.cntrl.getMacroMap().size() <= 0){
 			custom_code = new String[2];
-			custom_code[0] = "No Custom Actions created";
+			custom_code[0] = "No Custom Actions";
 			CustomButtons.delete.setEnabled(false);
 		}
 		else{
@@ -71,11 +73,12 @@ public class Customs extends JPanel{
 		list.setDragEnabled(true);
 		//list.setSelectedIndex(0);
 		
+		scrollbar = new JScrollPane(list);
 
 		
 		/*layout*/
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-		add(list);
+		add(scrollbar);
 		add(Box.createRigidArea(new Dimension(0,10)));
 		add(buttons);
 		add(Box.createRigidArea(new Dimension(0,10)));

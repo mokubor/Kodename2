@@ -99,12 +99,12 @@ public class MacroCreation extends JFrame {
 		
 		}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		JFrame frame = new MacroCreation();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Macro Creation");
 		frame.setSize(1000,600);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
-	}
+	}*/
 }
