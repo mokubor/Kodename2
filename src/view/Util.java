@@ -36,26 +36,43 @@ public class Util {
 				Contents contents = world.getContents(j, world.getYSize() - 1 - i);
 				JLabel label = worldLabels[i][j];
 				StringBuffer sb = new StringBuffer();
-				sb.append(String.valueOf(j));
-				sb.append(String.valueOf(world.getYSize() - 1 - i));
+				//sb.append(String.valueOf(j));
+				//sb.append(String.valueOf(world.getYSize() - 1 - i));
 				switch(contents) {
 				case BEEPER:
-					sb.append("B");
+					sb.append("Beeper ");
 					break;
 				case NONE:
-					sb.append("N");
+					//sb.append("N");
 					break;
 				case OUT_OF_BOUNDS:
-					sb.append("O");
+					sb.append("O ");
 					break;
 				case WALL:
-					sb.append("W");
+					sb.append("Wall ");
 					break;
 				default:
 					break;
 				}
 				if(karel.getX() == j && karel.getY() == world.getYSize() - 1 - i) {
-					sb.append("Karel!");
+					sb.append("Karel ");
+					switch(karel.getFacing()) {
+					case EAST:
+						sb.append("/East");
+						break;
+					case NORTH:
+						sb.append("/North");
+						break;
+					case SOUTH:
+						sb.append("/South");
+						break;
+					case WEST:
+						sb.append("/West");
+						break;
+					default:
+						break;
+					
+					}
 				}
 				label.setText(sb.toString());
 				// worldLabels[i][j].setText(String.valueOf(j) + String.valueOf(world.getYSize() - 1 - i));
