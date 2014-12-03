@@ -1,4 +1,5 @@
 
+
 package view;
 
 import java.awt.datatransfer.DataFlavor;
@@ -214,6 +215,13 @@ public class PseudocodeList extends JPanel {
 			
 	}
 	 
+	 public static DefaultListModel getTheModel() {
+		 return model;
+	 }
+	 
+	 public static JList getTheJList() {
+		 return list;
+	 }
 
 }
 
