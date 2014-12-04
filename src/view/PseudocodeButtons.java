@@ -38,8 +38,10 @@ public class PseudocodeButtons extends JPanel {
 					JOptionPane.showMessageDialog(null, "There is no code to clear.", "No code to clear",
 							JOptionPane.ERROR_MESSAGE);
 				}
-				
+				Util.cntrl.getCodeList().clear();
 				PseudocodeList.resetList();
+				WorldConsole.reset();
+				WorldButtons.disable_buttons();
 				
 			}else if(source == deleteBut){
 			
@@ -60,7 +62,9 @@ public class PseudocodeButtons extends JPanel {
 				try {
 						
 					if (selection == 0) {
+						int index = PseudocodeList.getTheJList().getSelectedIndex();
 						PseudocodeList.getTheModel().remove(PseudocodeList.getTheJList().getSelectedIndex());
+						Util.cntrl.getCodeList().remove(index);
 					}
 				}
 				catch(Exception exc) {}

@@ -11,7 +11,7 @@ public class StartPageGrid extends JPanel {
 	
 	public StartPageGrid() {
 		
-		wg = new WorldGrid(10, 10);
+		wg = new WorldGrid(4, 4);
 		
 		add(wg, BorderLayout.EAST);
 	}
