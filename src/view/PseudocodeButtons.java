@@ -63,7 +63,16 @@ public class PseudocodeButtons extends JPanel {
 						
 					if (selection == 0) {
 						int index = PseudocodeList.getTheJList().getSelectedIndex();
-						PseudocodeList.getTheModel().remove(PseudocodeList.getTheJList().getSelectedIndex());
+						if(PseudocodeList.getTheModel().size() == 1){
+							PseudocodeList.getTheModel().remove(PseudocodeList.getTheJList().getSelectedIndex());
+							PseudocodeList.resetList();
+							WorldConsole.reset();
+							WorldButtons.disable_buttons();
+							
+						}
+						else{
+							PseudocodeList.getTheModel().remove(PseudocodeList.getTheJList().getSelectedIndex());
+						}
 						Util.cntrl.getCodeList().remove(index);
 					}
 				}

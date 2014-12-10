@@ -27,19 +27,36 @@ import model.*;
 public class PseudocodeList extends JPanel {
 
 	public static String[] mActions;/// = {"Move", "Turn Left", "Turn Right", "Pick up beeper", "Put down beeper"};
+	// List and model for regular pseudocode
 	public static JList list;
 	public static DefaultListModel model = new DefaultListModel();
+	// List and model for macro creation pseudocode
+	public static JList listMacro;
+	public static DefaultListModel modelMacro = new DefaultListModel();
+	
 	static boolean wasNull = false;
 	public static JScrollPane scroller;
+	// Boolean to determine whether or not this class is currently used on regular pseudocode or macro creation
+	public static boolean isMacro;
 	
 	JPanel panel = new JPanel();
 	
-	public PseudocodeList() {
+	// No argument constructor represents regular pseudocode
+	public PseudocodeList(boolean setVal) {
 		
-		//model = new DefaultListModel();
+		// set boolean to passed value: true if macro or false if regular list
+		isMacro = setVal;
 		
-		list = new JList(mActions);
-		list.setModel(model);
+		// couldn't do getTheJList() = new JList(mActions) because left side must be variable 
+		if (isMacro) {
+			listMacro = new JList(modelMacro);
+		}
+		else {
+			list = new JList(model);
+		}
+		
+		getTheJList().setModel(getTheModel());
+		getTheModel().clear();
 		
 		/*for(int i = 0; i < mActions.length; i++){
 			model.addElement(mActions[i]);
@@ -54,18 +71,18 @@ public class PseudocodeList extends JPanel {
 		//}
 		
 		for(int i = 0; i < mActions.length; i++){
-			model.addElement(mActions[i]);
+			getTheModel().addElement(mActions[i]);
 		}
 		
-		scroller = new JScrollPane(list);
-		//list = new JList (model);
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setLayoutOrientation(JList.VERTICAL_WRAP);
-		list.setFixedCellWidth(200);
-		list.setEnabled(true);
-		list.setVisible(true);
+		scroller = new JScrollPane(getTheJList());
 		
-		list.setTransferHandler(new TransferHandler() {
+		getTheJList().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		getTheJList().setLayoutOrientation(JList.VERTICAL_WRAP);
+		getTheJList().setFixedCellWidth(200);
+		getTheJList().setEnabled(true);
+		getTheJList().setVisible(true);
+		
+		getTheJList().setTransferHandler(new TransferHandler() {
 			 
             public boolean canImport(TransferHandler.TransferSupport info) {
                 // we only import Strings
@@ -112,30 +129,28 @@ public class PseudocodeList extends JPanel {
                 if (dl.isInsert()) {
                     if (dl.getIndex() >= 0|| dl.getIndex()>= list.getModel().getSize()) {
                     	System.out.println(dl.getIndex() + " -> " +data);
-                    	
+                    	int line = dl.getIndex();
                     	
                     	data = data.trim();
                     	
                     	if(data.equalsIgnoreCase("if-else")){
-                    		IfElseDialog.getIfDialog();
+                    		IfElseDialog.getIfDialog(null);
                     		
                     		if(IfElseDialog.getValue() > 0){
-                    			add(data);
+                    			add(data, line);
                     		}
                     	}
                     	else if(data.equalsIgnoreCase("For-End For")){
-                    		LoopDialog.getForDialog();
+                    		LoopDialog.getForDialog(null);
                     		
                     		if(LoopDialog.getValue() >0){
-                    			add(data);
+                    			add(data, line);
                     		}
                     	}
                     	else{
                     		Code temp = Util.matchStringToCode(data);
-                    		Util.updateCodeList(temp);
-                    		
-                    		add(data);
-                    		
+                    		Util.updateCodeList(line,temp);
+                    		add(data, line);
                     	}
                     	
                     	
@@ -192,36 +207,32 @@ public class PseudocodeList extends JPanel {
 		setBorder(title);
 		setVisible(true);
 		panel.add(scroller);
-		//panel.add(list);
+		
 		add(panel);
 		
 	}
 	
 	 @SuppressWarnings("unchecked")
 	 
-	public static void add(String code){
-		
+	public static void add(String code, int index){
+		code = "\t" + code;
 		
 		if(wasNull == true){
-			model.remove(0);
 			wasNull = false;
+			getTheModel().remove(0);
 		}
 		System.out.println(code);
+				
+		if(index == -1){
+			getTheModel().addElement(code);
+		}
+		else{
+			getTheModel().add(index,  code);
+		}
+		MainWindow.expand.setEnabled(true);
+		getTheJList().setSelectedIndex(-1);
 		
-		model.addElement(code);	
-		list.setSelectedIndex(-1);
-		
-		
-			
 	}
-	 
-	 public static DefaultListModel getTheModel() {
-		 return model;
-	 }
-	 
-	 public static JList getTheJList() {
-		 return list;
-	 }
 	 
 	 public static void resetList(){
 			mActions = new String[1];
@@ -232,11 +243,33 @@ public class PseudocodeList extends JPanel {
 		//}
 		
 		for(int i = 0; i < mActions.length; i++){
-			model.addElement(mActions[i]);
+			getTheModel().addElement(mActions[i]);
 		}
 		
-		list.setModel(model);
+		getTheJList().setModel(getTheModel());
+	 }
+
+	 
+	 // Return the appropriate model
+	 public static DefaultListModel getTheModel() {
+		 
+		 if(isMacro) {
+		 return modelMacro;
+		 }
+		 
+		 return model;
+		 
+	 }
+	 
+	 // Return the appropriate jlist
+	 public static JList getTheJList() {
+		 
+		 if(isMacro) {
+			 return listMacro;
+		 }
+
+		 return list;
+		 
 	 }
 
 }
-

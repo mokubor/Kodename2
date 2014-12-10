@@ -21,6 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import model.Code;
 import model.Code.Proposition;
@@ -30,24 +32,28 @@ public class IfElseDialog extends JDialog{
 	
 	static int value = 0;
 	JPanel basic;
-	String[] listofBooleans = {"NONE", "Facing East", "Facing West", "Facing North", "Facing South", "Next to a Beeper", "Front is Clear",
+	static String[] listofBooleans = {"NONE", "Facing East", "Facing West", "Facing North", "Facing South", "Next to a Beeper", "Front is Clear",
 			"Right is Clear", "Left is Clear"};
-	JComboBox booleans;
+	static JComboBox booleans;
 	JButton done;
 	JButton cancel;
-	JList if_list;
-	JList else_list;
+	static JList if_list;
+	static JList else_list;
 	JLabel if_label;
 	JLabel else_label;
 	DefaultListModel if_model;
 	DefaultListModel else_model;
 	JScrollPane scrollbar1;
 	JScrollPane scrollbar2;
-	String condition;
-	IfElseCode if_code_piece;
+	static String condition;
+	static IfElseCode if_code_piece;
+	boolean isempty = true;
+	int list; //1 for else list, 0 for if list
 	
 	JButton to_if;
 	JButton to_else;
+	
+	JButton remove;
 	
 	
 	private class ButtonListener implements ActionListener {
@@ -72,7 +78,9 @@ public class IfElseDialog extends JDialog{
 					((IfElseCode) if_code_piece).setBody1(body1);
 					((IfElseCode) if_code_piece).setBody2(body2);
 					
-					Util.updateCodeList(if_code_piece);
+					Util.cntrl.getCodeList().remove(Util.EditIndex);
+					
+					Util.updateCodeList(Util.EditIndex, if_code_piece);
 					
 					value = 1;
 					
@@ -88,6 +96,20 @@ public class IfElseDialog extends JDialog{
 			else if(source == to_else){
 				add(else_list, BasicActions.getElement());
 			}
+			else if(source == remove){
+				if(list == 0){
+					//if_model.remove(if_list.getSelectedIndex());
+					remove(if_list,if_list.getSelectedIndex() );
+				}
+				else if (list == 1){
+					//else_model.remove(else_list.getSelectedIndex());
+					remove(else_list,else_list.getSelectedIndex() );
+				}
+				else{
+					
+				}
+				
+			}
 			else{
 				value = -1;
 				dispose();
@@ -97,10 +119,16 @@ public class IfElseDialog extends JDialog{
 		}
 	}
 
-	public IfElseDialog(JFrame owner){
+	public IfElseDialog(JFrame owner, Code c){
 		super(owner, "Create If-Else statement", true);
 		
-		if_code_piece = new IfElseCode(null, null, null);
+		if(c == null){
+			if_code_piece = new IfElseCode(null, null, null);
+		}
+		else{
+			if_code_piece = (IfElseCode)c;
+			isempty = false;
+		}
 		
 		basic = new BasicActions();
 		
@@ -116,6 +144,8 @@ public class IfElseDialog extends JDialog{
 		to_if.addActionListener(new ButtonListener());
 		to_else = new JButton("Add to else");
 		to_else.addActionListener(new ButtonListener());
+		remove = new JButton("Remove");
+		remove.addActionListener(new ButtonListener());
 		
 		JLabel message = new JLabel("Pick a condition for your if statement:");
 		if_label = new JLabel("If:");
@@ -124,14 +154,40 @@ public class IfElseDialog extends JDialog{
 		if_model = new DefaultListModel();
 		else_model = new DefaultListModel();
 		
-		String[] empty = new String[1];
-		empty[0] = "Empty";
+		if(isempty){
+			String[] empty = new String[1];
+			empty[0] = "Empty";
 		
-		for(int i = 0; i < empty.length; i++){
-			if_model.addElement(empty[i]);
-			else_model.addElement(empty[i]);
+			for(int i = 0; i < empty.length; i++){
+				if_model.addElement(empty[i]);
+				else_model.addElement(empty[i]);
+			}
 		}
-		
+		else{
+			condition = Util.propositiontoString(if_code_piece.getCondition());
+			System.out.println(condition);
+			for(int i  = 0; i < listofBooleans.length; i ++){
+				if(listofBooleans[i].trim().equalsIgnoreCase(condition)){
+					booleans.setSelectedIndex(i);
+					break;
+				}
+			}
+			//booleans.setSelectedItem(condition);
+			
+			ArrayList<Code> Body = if_code_piece.getBody1();
+			for(int i = 0; i < Body.size(); i++){
+				String t = Util.codetoString(Body.get(i));
+				System.out.println(t + " if");
+				if_model.addElement(t);
+			}
+			
+			Body = if_code_piece.getBody2();
+			for(int i = 0; i < Body.size(); i++){
+				String t = Util.codetoString(Body.get(i));
+				System.out.println(t + " else");
+				else_model.addElement(t);
+			}
+		}
 		if_list = new JList(if_model);
 		if_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		if_list.setLayoutOrientation(JList.VERTICAL_WRAP);
@@ -139,6 +195,12 @@ public class IfElseDialog extends JDialog{
 		if_list.setEnabled(true);
 		if_list.setVisible(true);
 		if_list.setSelectedIndex(-1);
+		if_list.addListSelectionListener(new ListSelectionListener() {
+		      public void valueChanged(ListSelectionEvent evt) {
+		    	  JList source = (JList)evt.getSource();
+		    	  list = 0;
+		      }
+		});
 		
 		
 		else_list = new JList(else_model);
@@ -148,6 +210,12 @@ public class IfElseDialog extends JDialog{
 		else_list.setEnabled(true);
 		else_list.setVisible(true);
 		else_list.setSelectedIndex(-1);
+		else_list.addListSelectionListener(new ListSelectionListener() {
+		      public void valueChanged(ListSelectionEvent evt) {
+		    	  JList source = (JList)evt.getSource();
+		    	  list = 1;
+		      }
+		});
 	
 		
 		
@@ -191,6 +259,9 @@ public class IfElseDialog extends JDialog{
 		x.gridy = 2;
 		add(to_if, x);
 		
+		x.gridy = 3;
+		add(remove, x);
+		
 		x.gridy = 4;
 		add(to_else, x);
 		
@@ -210,8 +281,8 @@ public class IfElseDialog extends JDialog{
 		
 	}
 	
-	public static void getIfDialog(){
-		JDialog c = new IfElseDialog(Main.currentWindow);
+	public static void getIfDialog(Code code){
+		JDialog c = new IfElseDialog(Main.currentWindow, code);
 		c.pack();
 		c.setLocationRelativeTo(null);
 		c.setVisible(true);
@@ -236,10 +307,59 @@ public class IfElseDialog extends JDialog{
 		}
 		
 		list.setSelectedIndex(-1);
+		return;
+	}
+	
+	public static void remove(JList list, int index){
+		DefaultListModel model = (DefaultListModel)list.getModel();
+		if(model.size() == 1){
+			model.remove(0);
+			model.addElement("Empty");
+			
+		}
+		else{
+			model.remove(index);
+		}
+		list.setSelectedIndex(-1);
+		return;
 	}
 	
 	public static int getValue(){
 		return value;
+	}
+	
+	
+	public static void ExpandIfDialog(IfElseCode code){
+		JDialog c = new IfElseDialog(Main.currentWindow, code);
+		c.pack();
+		c.setLocationRelativeTo(null);
+		c.setVisible(true);
+		c.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		
+		if_code_piece = code;
+		condition = Util.propositiontoString(if_code_piece.getCondition());
+		System.out.println(condition);
+		for(int i  = 0; i < listofBooleans.length; i ++){
+			if(listofBooleans[i].trim().equalsIgnoreCase(condition)){
+				booleans.setSelectedIndex(i);
+				break;
+			}
+		}
+		//booleans.setSelectedItem(condition);
+		
+		ArrayList<Code> Body = if_code_piece.getBody1();
+		for(int i = 0; i < Body.size(); i++){
+			String t = Util.codetoString(Body.get(i));
+			System.out.println(t + " if");
+			add(if_list, t);
+		}
+		
+		Body = if_code_piece.getBody2();
+		for(int i = 0; i < Body.size(); i++){
+			String t = Util.codetoString(Body.get(i));
+			System.out.println(t + " else");
+			add(else_list, t);
+		}
 	}
 
 }

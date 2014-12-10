@@ -1,31 +1,49 @@
 package view;
 
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
 public class CustomButtons extends JPanel {
-	JButton create;
+	static JButton create;
 	static JButton delete;
 	
-	JFrame mC;
+	//JFrame mC;
 	
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JButton source = (JButton)e.getSource();
 			
 			if(source == create){
-			mC = new MacroCreation();
-			mC.setVisible(true);
-			mC.setSize(1000,600);
-			mC.setLocationRelativeTo(null);
+				create.setEnabled(false);
+				JDialog dialog = new MacroCreation();
+				
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setTitle("Macro Creation");
+				dialog.setSize(1000,600);
+				dialog.setVisible(true);
+				dialog.setLocationRelativeTo(null);
+				
+				// Enable create macro button when window is explicitly X'd out/closed
+				dialog.addWindowListener(new WindowAdapter() {
+				    @Override
+				    public void windowClosed(WindowEvent e) {
+				        CustomButtons.create.setEnabled(true);
+				        // Switching pseudocodes
+				        PseudocodeList.isMacro = false;
+				    }
+				});
 			
 				
 			}
