@@ -48,7 +48,9 @@ public class Controller implements Serializable {
 	World world;
 	Map<String, CustomCode> macros;
 	List<Code> codeList;
+	
 	String executionMessage;
+	int executionLine;
 	
 	// never make these fields available to other classes
 	Deque<Executable> deque;
@@ -215,7 +217,9 @@ public class Controller implements Serializable {
 			deque.addAll(eval(codeList.get(i), i));
 		}
 		canExecute = true;
-		System.out.println("There are " + deque.size() + " Executables.");
+		//System.out.println("There are " + deque.size() + " Executables.");
+		executionMessage = "";
+		executionLine = -1;
 	}
 	
 	/**
@@ -283,7 +287,7 @@ public class Controller implements Serializable {
 	}
 	
 	/**
-	 * Execute the entire Karel program.
+	 * Execute one atomic instruction in the Karel program.
 	 * 
 	 * @assumes the Karel program has not been modified since the last call to
 	 * parseCode
@@ -302,6 +306,7 @@ public class Controller implements Serializable {
 
 		if(deque.isEmpty()){
 			this.executionMessage = "Code has finished running";
+			canExecute = false;
 			return false;
 		}
 		
@@ -313,12 +318,15 @@ public class Controller implements Serializable {
 				callKarel(instr.action);
 			}catch(KRuntimeException kre){
 				this.executionMessage = kre.getMessage();
+				canExecute = false;
 				return false;
 			}catch(RuntimeException re){
 				this.executionMessage = re.getMessage();
+				canExecute = false;
 				return false;
 			}
 			this.executionMessage = _getExecutionMessage(instr.action);
+			this.executionLine = instr.lineNumber;
 			return true;
 		}else if(exe instanceof BranchOnFalse){
 			
@@ -424,8 +432,11 @@ public class Controller implements Serializable {
 	}
 	
 	public String getExecutionMessage(){
-		return this.executionMessage;
+		return executionMessage;
 	}
 	
+	public int getExecutionLine() {
+		return executionLine;
+	}
 }
 
