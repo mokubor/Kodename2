@@ -16,7 +16,7 @@ public class MacroName extends JPanel {
 	JLabel label = new JLabel("Macro Name:");
 	
 	public JTextField tx = new JTextField(25);
-	public JButton but = new JButton("Save");
+	public static JButton ok = new JButton("Save");
 	
 	JPanel topPanel = new JPanel();
 	
@@ -24,7 +24,7 @@ public class MacroName extends JPanel {
 	
 		topPanel.add(label);
 		topPanel.add(tx);
-		topPanel.add(but);
+		topPanel.add(ok);
 		
 		add(topPanel);
 }

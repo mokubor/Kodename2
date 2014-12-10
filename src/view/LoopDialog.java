@@ -42,6 +42,9 @@ public class LoopDialog extends JDialog{
 	int count;
 	LoopCode loop_code_piece;
 	
+	boolean isempty = true;
+	JButton remove;
+	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			JButton source = (JButton)e.getSource();
@@ -61,7 +64,9 @@ public class LoopDialog extends JDialog{
 					((LoopCode) loop_code_piece).setCounter(count);
 					((LoopCode) loop_code_piece).setBody(body);
 					
-					Util.updateCodeList(loop_code_piece);
+					Util.cntrl.getCodeList().remove(Util.EditIndex);
+					
+					Util.updateCodeList(Util.EditIndex, loop_code_piece);
 					
 					value = 1;
 					dispose();
@@ -71,6 +76,9 @@ public class LoopDialog extends JDialog{
 			else if(source == add){
 				add(BasicActions.getElement());
 			}
+			else if(source == remove){
+				remove(for_list.getSelectedIndex());
+			}
 			else{
 				value = -1;
 				dispose();
@@ -78,10 +86,16 @@ public class LoopDialog extends JDialog{
 		}
 	}
 	
-	public LoopDialog(JFrame owner){
+	public LoopDialog(JFrame owner, Code c){
 		super(owner, "Create Loop statement", true);
 		
-		loop_code_piece = new LoopCode(0, null);
+		if(c == null){
+			loop_code_piece = new LoopCode(0, null);
+		}
+		else{
+			loop_code_piece = (LoopCode)c;
+			isempty = false;
+		}
 		
 		basic = new BasicActions();
 		
@@ -94,6 +108,8 @@ public class LoopDialog extends JDialog{
 		cancel.addActionListener(new ButtonListener());
 		add = new JButton("Add");
 		add.addActionListener(new ButtonListener());
+		remove = new JButton("Remove");
+		remove.addActionListener(new ButtonListener());
 		
 		JLabel message = new JLabel("How many times do you want to repeat the loop:");
 		for_label = new JLabel("For:");
@@ -101,11 +117,24 @@ public class LoopDialog extends JDialog{
 		
 		for_model = new DefaultListModel();
 		
-		String[] empty = new String[1];
-		empty[0] = "Empty";
+		if(isempty){
+			String[] empty = new String[1];
+			empty[0] = "Empty";
 		
-		for(int i = 0; i < empty.length; i++){
-			for_model.addElement(empty[i]);
+			for(int i = 0; i < empty.length; i++){
+				for_model.addElement(empty[i]);
+			}
+		}
+		else{
+			count = loop_code_piece.getCounter();
+			iterations.setSelectedIndex(count);
+			
+			ArrayList<Code> Body = loop_code_piece.getBody();
+			for(int i = 0; i < Body.size(); i++){
+				String t = Util.codetoString(Body.get(i));
+				System.out.println(t + " if");
+				for_model.addElement(t);
+			}
 		}
 		
 		for_list = new JList(for_model);
@@ -138,6 +167,9 @@ public class LoopDialog extends JDialog{
 		x.gridheight = 1;
 		add(add, x);
 		
+		x.gridy = 4;
+		add(remove, x);
+		
 		x.anchor = GridBagConstraints.WEST;
 		x.gridx = 2;
 		x.gridy = 0;
@@ -166,14 +198,15 @@ public class LoopDialog extends JDialog{
 		
 	}
 	
-	public static void getForDialog(){
-		JDialog c = new LoopDialog(Main.currentWindow);
+	public static void getForDialog(Code code){
+		JDialog c = new LoopDialog(Main.currentWindow, code);
 		c.pack();
 		c.setLocationRelativeTo(null);
 		c.setVisible(true);
 		c.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
 	}
+	
 	public static void add(String data){
 		System.out.println(data + " to some list");
 		//DefaultListModel model = (DefaultListModel)for_list.getModel();
@@ -192,6 +225,21 @@ public class LoopDialog extends JDialog{
 		}
 		
 		for_list.setSelectedIndex(-1);
+	}
+	
+	public void remove(int index){
+		//DefaultListModel model = (DefaultListModel)list.getModel();
+		if(for_model.size() == 1){
+			for_model.remove(0);
+			for_model.addElement("Empty");
+			
+		}
+		else{
+			for_model.remove(index);
+		}
+		for_list.setSelectedIndex(-1);
+		
+		return;
 	}
 	
 	public static int getValue(){

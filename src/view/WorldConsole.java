@@ -20,6 +20,7 @@ public class WorldConsole extends JPanel{
 		setLayout(new FlowLayout(FlowLayout.CENTER, 5,15));
 		
 		console.setText(console_text);
+		
 		add(console);
 	}
 	
@@ -28,6 +29,11 @@ public class WorldConsole extends JPanel{
 		console_text = console_text.concat(t);
 		
 		//String s = append(t);
+		console.setText(console_text);
+	}
+	
+	static void reset(){
+		console_text = "";
 		console.setText(console_text);
 	}
 

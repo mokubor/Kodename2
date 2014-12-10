@@ -16,8 +16,15 @@ public class Util {
 	static Controller cntrl;
 	static JLabel[][] worldLabels;
 	
-	public static void updateCodeList(Code c){
-		cntrl.getCodeList().add(c);
+	static int EditIndex;
+	
+	public static void updateCodeList(int index, Code c){
+		if(index == -1){
+			cntrl.getCodeList().add(c);
+		}
+		else{
+			cntrl.getCodeList().add(index, c);
+		}
 	}
 	
 	public static void setLabels(JLabel[][] labels) {
@@ -118,6 +125,37 @@ public class Util {
 		return null;
 	}
 	
+	public static String codetoString(Code c){
+		Action t = ((BasicCode)c).getInstruction();
+		switch(t){
+		
+			case MOVE: return "Move";
+			case TURN_LEFT: return "Turn Left";
+			case TURN_RIGHT: return "Turn Right";
+			case PICK_UP: return "Pick up Beeper";
+			case PUT_DOWN: return "Put down Beeper";
+		
+		}
+		
+		return null;
+	}
+	
+	public static String propositiontoString(Proposition p){
+		
+		switch(p){
+		
+			case IS_FRONT_CLEAR: return "Front is Clear";
+			case IS_LEFT_CLEAR: return "Left is Clear";
+			case IS_RIGHT_CLEAR: return "Right is Clear";
+			case IS_FACING_NORTH: return "Facing North";
+			case IS_FACING_SOUTH: return "Facing South";
+			case IS_FACING_EAST: return "Facing East";
+			case IS_FACING_WEST: return "Facing West";
+			case NEXT_TO_BEEPER: return "Next to a Beeper";
+		
+		}
+		return null;
+	}
 	public static ArrayList<Code> getBody(JList list){
 		ArrayList<Code> body = new ArrayList<Code>(1);
 		
