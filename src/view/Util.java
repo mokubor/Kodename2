@@ -255,6 +255,27 @@ public class Util {
 		}
 		return null;
 	}
+	
+	public static ArrayList<Code> getBodyMacro(){
+		ArrayList<Code> body = new ArrayList<Code>(1);
+		
+		System.out.println("isMacro " + PseudocodeList.isMacro);
+		if(PseudocodeList.getTheModel().getSize() == 1){
+			if(((String)PseudocodeList.getTheModel().getElementAt(0)).equalsIgnoreCase("Begin by Draging an Action")){// add check for empty for if/for
+				System.out.println("NULL");
+				return null;
+			}
+		}
+		
+		for(int i = 0; i < PseudocodeList.getTheModel().getSize(); i++){
+			String s = (String)PseudocodeList.getTheModel().getElementAt(i);
+			Code c = matchStringToCode(s);
+			body.add(c);
+		}
+		
+		return body;
+	}
+	
 	public static ArrayList<Code> getBody(JList list){
 		ArrayList<Code> body = new ArrayList<Code>(1);
 		

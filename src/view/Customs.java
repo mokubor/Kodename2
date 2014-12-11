@@ -26,17 +26,16 @@ import control.*;
 public class Customs extends JPanel{
 	static String[] custom_code;
 	static JList list;
-	JScrollPane scrollbar;
 	static DefaultListModel model;
 	static JPanel buttons;
 	//static Controller cntrl;
 	
-	public Customs(/*Controller _cntrl*/){
+	public Customs(){
 		super();
 		
 		//retrieve any cusom code elements that may have already been created
 		
-		//cntrl = _cntrl;
+		//cntrl = Util.cntrl;
 		
 		/*initalize buttons*/
 		buttons = new CustomButtons();
@@ -45,8 +44,8 @@ public class Customs extends JPanel{
 		/**check if list of custom codes is empty, if it is, 
 		 * initialize array to one*/
 		if(Util.cntrl.getMacroMap() == null || Util.cntrl.getMacroMap().size() <= 0){
-			custom_code = new String[2];
-			custom_code[0] = "No Custom Actions";
+			custom_code = new String[1];
+			custom_code[0] = "No Custom Actions created";
 			CustomButtons.delete.setEnabled(false);
 		}
 		else{
@@ -73,12 +72,11 @@ public class Customs extends JPanel{
 		list.setDragEnabled(true);
 		//list.setSelectedIndex(0);
 		
-		scrollbar = new JScrollPane(list);
 
 		
 		/*layout*/
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-		add(scrollbar);
+		add(list);
 		add(Box.createRigidArea(new Dimension(0,10)));
 		add(buttons);
 		add(Box.createRigidArea(new Dimension(0,10)));
@@ -92,6 +90,18 @@ public class Customs extends JPanel{
 		setVisible(true);
 		//setPreferredSize(new Dimension(100,100));
 		
+	}
+	
+	public static void resetCustomsList(){
+		custom_code = new String[1];
+		custom_code[0] = "No Custom Actions created";
+	
+		for(int i = 0; i < custom_code.length; i++){
+			model.addElement(custom_code[i]);
+		}
+	
+		list.setModel(model);
+		CustomButtons.delete.setEnabled(false);
 	}
 	
 	static int getIndex(){
