@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import model.World;
 
@@ -36,17 +37,20 @@ public class CustomWorldSetSize extends JDialog{
 					cW.setVisible(true);
 					cW.setSize(1000,600);
 					cW.setLocationRelativeTo(null);
+					dispose();
 				}
 
 		});
 		
 		cancelBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					
+				if (JOptionPane.showConfirmDialog(null, 
+			            "Are you sure you want to close out this window?", 
+			            "Cancel Confirmation", JOptionPane.YES_NO_OPTION,
+			            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+					dispose();
 				}
-
-		});
-		
-	}
-	
+			}
+		});		
+	}	
 }

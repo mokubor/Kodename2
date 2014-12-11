@@ -59,8 +59,14 @@ public class CustomWorld extends JDialog{
 		add(addBut);
 		add(gp);
 		
+		Util.cntrl = new Controller(w);
+		
 		addBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(xCoorTF.getText().equals("") || xCoorTF.getText().equals("")){
+					JOptionPane.showMessageDialog(null, "Missing one or both coordinates.");
+				}
+				
 				if (inRange(xCoorTF.getText().toString()) &&
 						inRange(yCoorTF.getText().toString())) {
 					int x = Integer.parseInt(xCoorTF.getText());
@@ -94,15 +100,19 @@ public class CustomWorld extends JDialog{
 				mW.setSize(1000,600);
 				mW.setLocationRelativeTo(null);
 				Util.drawWorld(null, null);
+				dispose();
 			}
-
 		});
 
 		cancelBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				if (JOptionPane.showConfirmDialog(null, 
+			            "Are you sure you want to close out this window?", 
+			            "Cancel Confirmation", JOptionPane.YES_NO_OPTION,
+			            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+					dispose();
+				}
 			}
-
 		});
 	}
 
