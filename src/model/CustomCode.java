@@ -20,6 +20,15 @@ public class CustomCode extends Code implements Serializable {
 	String name;
 	ArrayList<Code> body;
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Custom: " + name + "\n");
+		for(Code code: body) {
+			sb.append(code.toString() + "\n");
+		}
+		return sb.toString();
+	}
 	/**
 	 * This is a constructor to initialize all fields of a Custom code object.
 	 * @param name a string to represent the name of the custom code
@@ -27,6 +36,14 @@ public class CustomCode extends Code implements Serializable {
 	 */
 	public CustomCode(String name, ArrayList<Code> body){
 		super();
+		if (body == null) {
+			throw new IllegalArgumentException("Code body cannot be null.");
+		}
+		for(Code code: body) {
+			if(code == null) {
+				throw new IllegalArgumentException("Code object cannot be null.");
+			}
+		}
 		this.name = name;
 		this.body = body;		
 	}

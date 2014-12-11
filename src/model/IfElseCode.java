@@ -19,6 +19,49 @@ public class IfElseCode extends Code implements Serializable {
 	ArrayList<Code> body1;
 	ArrayList<Code> body2;
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("If ");
+		switch(prop) {
+		case IS_FACING_EAST:
+			sb.append("Facing East");
+			break;
+		case IS_FACING_NORTH:
+			sb.append("Facing North");
+			break;
+		case IS_FACING_SOUTH:
+			sb.append("Facing South");
+			break;
+		case IS_FACING_WEST:
+			sb.append("Facing West");
+			break;
+		case IS_FRONT_CLEAR:
+			sb.append("Front Clear");
+			break;
+		case IS_LEFT_CLEAR:
+			sb.append("Left Clear");
+			break;
+		case IS_RIGHT_CLEAR:
+			sb.append("Right Clear");
+			break;
+		case NEXT_TO_BEEPER:
+			sb.append("Next to Beeper");
+			break;
+		default:
+			break;
+		}
+		sb.append("\nThen\n");
+		for(Code code: body1) {
+			sb.append("    " + code.toString() + "\n");
+		}
+		sb.append("Else\n");
+		for(Code code: body2) {
+			sb.append("    " + code.toString());
+		}
+		return sb.toString();
+	}
+	
 	/**
 	 * Constructor for an object representing an if else in Karel.
 	 * @param prop the if condition

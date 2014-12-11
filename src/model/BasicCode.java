@@ -33,4 +33,31 @@ public class BasicCode extends Code implements Serializable {
 	public Action getInstruction(){
 		return this.instruction;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("BasicCode: " );
+		switch (instruction) {
+		case MOVE:
+			sb.append("Move");
+			break;
+		case PICK_UP:
+			sb.append("Pick Up");
+			break;
+		case PUT_DOWN:
+			sb.append("Put Down");
+			break;
+		case TURN_LEFT:
+			sb.append("Turn Left");
+			break;
+		case TURN_RIGHT:
+			sb.append("Turn Right");
+			break;
+		default:
+			break;
+		
+		}
+		return sb.toString();
+	}
 }

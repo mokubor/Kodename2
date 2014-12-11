@@ -16,6 +16,15 @@ public class LoopCode extends Code implements Serializable {
 	ArrayList<Code> body;
 	int counter;
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Loop: " + String.valueOf(counter) + "times.\n");
+		for(Code code: body) {
+			sb.append(code.toString() + "\n");
+		}
+		return sb.toString();
+	}
 
 	/**
 	 * Constructs an object representing a loop that runs n times.
