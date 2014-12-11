@@ -78,9 +78,15 @@ public class IfElseDialog extends JDialog{
 					((IfElseCode) if_code_piece).setBody1(body1);
 					((IfElseCode) if_code_piece).setBody2(body2);
 					
-					Util.cntrl.getCodeList().remove(Util.EditIndex);
+					System.out.println(isempty);
 					
-					Util.updateCodeList(Util.EditIndex, if_code_piece);
+					if(isempty == true){
+						Util.updateCodeList(Util.EditIndex, if_code_piece);
+					}
+					else{
+						Util.cntrl.getCodeList().remove(Util.EditIndex);
+						Util.updateCodeList(Util.EditIndex, if_code_piece);
+					}
 					
 					value = 1;
 					

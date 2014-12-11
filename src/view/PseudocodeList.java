@@ -137,6 +137,7 @@ public class PseudocodeList extends JPanel {
                     		IfElseDialog.getIfDialog(null);
                     		
                     		if(IfElseDialog.getValue() > 0){
+                    			Util.EditIndex = line;
                     			add(data, line);
                     		}
                     	}
@@ -144,6 +145,7 @@ public class PseudocodeList extends JPanel {
                     		LoopDialog.getForDialog(null);
                     		
                     		if(LoopDialog.getValue() >0){
+                    			Util.EditIndex = line;
                     			add(data, line);
                     		}
                     	}

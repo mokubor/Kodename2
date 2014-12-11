@@ -64,9 +64,12 @@ public class LoopDialog extends JDialog{
 					((LoopCode) loop_code_piece).setCounter(count);
 					((LoopCode) loop_code_piece).setBody(body);
 					
-					Util.cntrl.getCodeList().remove(Util.EditIndex);
-					
-					Util.updateCodeList(Util.EditIndex, loop_code_piece);
+					if(isempty == true){
+						Util.cntrl.getCodeList().remove(Util.EditIndex);
+					}else{
+						Util.updateCodeList(Util.EditIndex, loop_code_piece);
+						Util.cntrl.getCodeList().remove(Util.EditIndex);
+					}
 					
 					value = 1;
 					dispose();
