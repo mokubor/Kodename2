@@ -147,7 +147,7 @@ public class LoopDialog extends JDialog{
 		
 		for_list = new JList(for_model);
 		for_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		for_list.setLayoutOrientation(JList.VERTICAL_WRAP);
+		for_list.setLayoutOrientation(JList.VERTICAL);
 		for_list.setFixedCellWidth(200);
 		for_list.setEnabled(true);
 		for_list.setVisible(true);

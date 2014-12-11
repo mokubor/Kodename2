@@ -64,8 +64,10 @@ public class MainWindow extends Window{
 				 }
 				 else if(selected.equalsIgnoreCase("class model.CustomCode")){
 					 String key = (String) PseudocodeList.getTheModel().getElementAt(PseudocodeList.getTheJList().getSelectedIndex());
-					 Util.cntrl.getMacroMap().get(key);
+					 CustomCode c = Util.cntrl.getMacroMap().get(key);
 					 System.out.println(key);
+					 
+					 MacroExpand.ExpandMacro(c.getName(), c.getCodeBody());
 					 PseudocodeList.getTheJList().setSelectedIndex(-1);
 					 return;
 				 }
