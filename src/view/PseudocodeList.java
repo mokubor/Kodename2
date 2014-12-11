@@ -292,7 +292,7 @@ public class PseudocodeList extends JPanel {
 		 if(isMacro) {
 			 return listMacro;
 		 }
-
+		 System.out.println("Main window");
 		 return list;
 		 
 	 }

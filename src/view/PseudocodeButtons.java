@@ -84,7 +84,9 @@ public class PseudocodeButtons extends JPanel {
 						// Remove from model
 						PseudocodeList.getTheModel().remove(index);
 						// Remove macro from data structure
-						Util.cntrl.getCodeList().remove(index);
+						if (!PseudocodeList.isMacro) {
+						      Util.cntrl.getCodeList().remove(index);
+						 }
 					
 						// If this is only item, reset/resize
 						if(PseudocodeList.getTheModel().size() == 1){							
