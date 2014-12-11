@@ -77,7 +77,7 @@ public class PseudocodeList extends JPanel {
 		scroller = new JScrollPane(getTheJList());
 		
 		getTheJList().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		getTheJList().setLayoutOrientation(JList.VERTICAL_WRAP);
+		getTheJList().setLayoutOrientation(JList.VERTICAL);
 		getTheJList().setFixedCellWidth(200);
 		getTheJList().setEnabled(true);
 		getTheJList().setVisible(true);
@@ -132,11 +132,13 @@ public class PseudocodeList extends JPanel {
                     	int line = dl.getIndex();
                     	
                     	data = data.trim();
+                    	Util.EditIndex = line;
                     	
                     	if(data.equalsIgnoreCase("if-else")){
                     		IfElseDialog.getIfDialog(null);
                     		
                     		if(IfElseDialog.getValue() > 0){
+                    			//Util.EditIndex = line;
                     			add(data, line);
                     		}
                     	}
@@ -144,6 +146,7 @@ public class PseudocodeList extends JPanel {
                     		LoopDialog.getForDialog(null);
                     		
                     		if(LoopDialog.getValue() >0){
+                    			//
                     			add(data, line);
                     		}
                     	}
@@ -220,15 +223,22 @@ public class PseudocodeList extends JPanel {
 		if(wasNull == true){
 			wasNull = false;
 			getTheModel().remove(0);
+			
+			//getTheModel().addElement("Start of Program");
+			//getTheModel().addElement(code);
+			getTheModel().addElement("...");
+			
 		}
 		System.out.println(code);
 				
-		if(index == -1){
-			getTheModel().addElement(code);
-		}
-		else{
-			getTheModel().add(index,  code);
-		}
+			if(index == -1){
+				getTheModel().addElement(code);
+			}
+			else{
+				getTheModel().add(index,  code);
+			}
+	
+		
 		MainWindow.expand.setEnabled(true);
 		getTheJList().setSelectedIndex(-1);
 		

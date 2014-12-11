@@ -40,6 +40,7 @@ public class PseudocodeButtons extends JPanel {
 				}
 				Util.cntrl.getCodeList().clear();
 				PseudocodeList.resetList();
+				MainWindow.expand.setEnabled(false);
 				WorldConsole.reset();
 				WorldButtons.disable_buttons();
 				
@@ -67,6 +68,7 @@ public class PseudocodeButtons extends JPanel {
 							PseudocodeList.getTheModel().remove(PseudocodeList.getTheJList().getSelectedIndex());
 							PseudocodeList.resetList();
 							WorldConsole.reset();
+							MainWindow.expand.setEnabled(false);
 							WorldButtons.disable_buttons();
 							
 						}
