@@ -41,7 +41,7 @@ public class WorldButtons extends JPanel{
 			}else{
 				
 			}
-			Util.drawWorld();
+			Util.drawWorld(null, null);
 
 		}
 	}

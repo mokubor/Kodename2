@@ -74,7 +74,7 @@ public class StartPage extends Window {
 					mW.setVisible(true);
 					mW.setSize(1000,600);
 					mW.setLocationRelativeTo(null);
-					Util.drawWorld();
+					Util.drawWorld(null, null);
 					//MainWindow.createMainWindow(10,10, cntrl);
 					
 				}

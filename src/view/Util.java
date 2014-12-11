@@ -35,9 +35,13 @@ public class Util {
 		return worldLabels[x][y];
 	}
 	
-	public static void drawWorld() {
-		Karel karel = cntrl.getKarel();
-		World world = cntrl.getWorld();
+	public static void drawWorld(Karel karel, World world) {
+		if (karel == null) {
+			karel = cntrl.getKarel();
+		}
+		if (world == null) {
+			world = cntrl.getWorld();
+		}
 		for(int i = 0; i < world.getYSize(); i++) {
 			for(int j = 0; j < world.getXSize(); j++) {
 				Contents contents = world.getContents(j, world.getYSize() - 1 - i);
