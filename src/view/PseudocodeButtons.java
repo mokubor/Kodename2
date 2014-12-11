@@ -59,7 +59,18 @@ public class PseudocodeButtons extends JPanel {
 				else {
 					
 					String codeFrag = (String) PseudocodeList.getTheJList().getSelectedValue();
-							
+					
+					// prevent delete of '...'
+					if (codeFrag.equalsIgnoreCase("...")) {
+						JOptionPane.showMessageDialog(null, "... Cannot be deleted. It is a placeholder", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					// prevent delete of 'Begin...'
+					else if (codeFrag.equalsIgnoreCase("Begin by Draging an Action")) {
+						JOptionPane.showMessageDialog(null, "'Begin by Draging an Action' Cannot be deleted. It is a placeholder", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
 					Object[] options = {"Yes", "No"};
 					selection = JOptionPane.showOptionDialog(null, "Are you sure you want to delete the code fragement?\n" + 
 							codeFrag + "\n", "Delete Code Fragement from Macro",
@@ -69,19 +80,25 @@ public class PseudocodeButtons extends JPanel {
 						
 					if (selection == 0) {
 						int index = PseudocodeList.getTheJList().getSelectedIndex();
-						if(Util.cntrl.getCodeList().size() == 1){
-							PseudocodeList.getTheModel().remove(index);
-							Util.cntrl.getCodeList().remove(index);
+						
+						// Remove from model
+						PseudocodeList.getTheModel().remove(index);
+						// Remove macro from data structure
+						Util.cntrl.getCodeList().remove(index);
+					
+						// If this is only item, reset/resize
+						if(PseudocodeList.getTheModel().size() == 1){							
+							PseudocodeList.getTheModel().remove(0);
 							PseudocodeList.resetList();
 							WorldConsole.reset();
 							MainWindow.expand.setEnabled(false);
 							WorldButtons.disable_buttons();
 							
 						}
-						else{
+						/*else{
 							PseudocodeList.getTheModel().remove(PseudocodeList.getTheJList().getSelectedIndex());
 						}
-						Util.cntrl.getCodeList().remove(index);
+						Util.cntrl.getCodeList().remove(index);*/
 					}
 				}
 				catch(Exception exc) {}

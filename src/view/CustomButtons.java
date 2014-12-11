@@ -50,20 +50,20 @@ public class CustomButtons extends JPanel {
 			else if (source == delete) {
 				
 				if (Customs.list.getSelectedIndex() != -1) {
-				int choice = JOptionPane.showOptionDialog(null, "Are you sure that you want to delete the selected macro?",
-						"Delete Macro?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+					int choice = JOptionPane.showOptionDialog(null, "Are you sure that you want to delete the selected macro?",
+							"Delete Macro?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				
-				if(choice == 0) {				
+					if(choice == 0) {				
 									
-				System.out.println(Util.cntrl.getMacroMap().size());
+						System.out.println(Util.cntrl.getMacroMap().size());
 				
-				Util.cntrl.getMacroMap().remove(Customs.getKey());
-				System.out.println(Util.cntrl.getMacroMap().size());
-				Customs.delete();
-				if (Customs.model.isEmpty()) {
-					Customs.resetCustomsList();
-				}
-				}
+						Util.cntrl.getMacroMap().remove(Customs.getKey());
+						System.out.println(Util.cntrl.getMacroMap().size());
+						Customs.delete();
+						if (Customs.model.isEmpty()) {
+							Customs.resetCustomsList();
+						}
+					}
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "There was no macro selected.",

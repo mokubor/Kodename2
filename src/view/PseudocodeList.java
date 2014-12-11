@@ -98,6 +98,7 @@ public class PseudocodeList extends JPanel {
             }
  
            
+			@SuppressWarnings("deprecation")
 			public boolean importData(TransferHandler.TransferSupport info) {
                 if (!info.isDrop()) {
                     return false;
@@ -150,11 +151,21 @@ public class PseudocodeList extends JPanel {
                     			add(data, line);
                     		}
                     	}
-                    	else{
+                    	else if(data.equalsIgnoreCase("move") || 
+                    			data.equalsIgnoreCase("turn left") || 
+                    			data.equalsIgnoreCase("turn right")||
+                    			data.equalsIgnoreCase("put down beeper") || 
+                    			data.equalsIgnoreCase("pick up beeper")){
+                    		
                     		Code temp = Util.matchStringToCode(data);
                     		if(!isMacro) {
                     			Util.updateCodeList(line,temp);
                     		}
+                    		add(data, line);
+                    	}
+                    	else{
+                    		Code temp = Util.cntrl.getMacroMap().get(data);
+                    		Util.updateCodeList(line,  temp);
                     		add(data, line);
                     	}
                     	
@@ -204,7 +215,7 @@ public class PseudocodeList extends JPanel {
                 return new StringSelection(buff.toString());
             }
         });		
-		list.setDropMode(DropMode.INSERT);
+		getTheJList().setDropMode(DropMode.INSERT);
 		
 		Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		Border title = BorderFactory.createTitledBorder(loweredetched, "Pseudocode");
