@@ -117,12 +117,16 @@ public class Util {
 	}
 	
 	public static void updateCodeList(int index, Code c){
+		System.out.println("back end codeList size: " + cntrl.getCodeList().size());
+		System.out.println("inserting in index: " + index);
 		if(index == -1){
 			cntrl.getCodeList().add(c);
 		}
 		else{
 			cntrl.getCodeList().add(index, c);
 		}
+		
+		System.out.println("Size after insert: " + cntrl.getCodeList().size());
 	}
 	
 	public static void setLabels(JLabel[][] labels) {
@@ -133,9 +137,13 @@ public class Util {
 		return worldLabels[x][y];
 	}
 	
-	public static void drawWorld() {
-		Karel karel = cntrl.getKarel();
-		World world = cntrl.getWorld();
+	public static void drawWorld(Karel karel, World world) {
+		if (karel == null) {
+			karel = cntrl.getKarel();
+		}
+		if (world == null) {
+			world = cntrl.getWorld();
+		}
 		for(int i = 0; i < world.getYSize(); i++) {
 			for(int j = 0; j < world.getXSize(); j++) {
 				Contents contents = world.getContents(j, world.getYSize() - 1 - i);
@@ -271,5 +279,11 @@ public class Util {
 		}
 		
 		return body;
+	}
+	
+	public static void printcodeList(){
+		for(int i = 0; i < cntrl.getCodeList().size(); i ++){
+			 System.out.println(i + " " + cntrl.getCodeList().get(i).getClass().toString());
+		 }
 	}
 }

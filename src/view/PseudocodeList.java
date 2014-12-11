@@ -132,11 +132,13 @@ public class PseudocodeList extends JPanel {
                     	int line = dl.getIndex();
                     	
                     	data = data.trim();
+                    	Util.EditIndex = line;
                     	
                     	if(data.equalsIgnoreCase("if-else")){
                     		IfElseDialog.getIfDialog(null);
                     		
                     		if(IfElseDialog.getValue() > 0){
+                    			//Util.EditIndex = line;
                     			add(data, line);
                     		}
                     	}
@@ -144,6 +146,7 @@ public class PseudocodeList extends JPanel {
                     		LoopDialog.getForDialog(null);
                     		
                     		if(LoopDialog.getValue() >0){
+                    			//
                     			add(data, line);
                     		}
                     	}

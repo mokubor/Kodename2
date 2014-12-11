@@ -43,7 +43,9 @@ public class BasicActions extends JPanel{
 	}
 	
 	public static String getElement(){
-		
+		if(list.getSelectedIndex() == -1){
+			return null;
+		}
 		return (String)model.getElementAt(list.getSelectedIndex());
 	}
 }

@@ -59,14 +59,22 @@ public class LoopDialog extends JDialog{
 					int count = iterations.getSelectedIndex();
 					System.out.println("count: " + count);
 					
+					if(isListEmpty()){
+						JOptionPane.showMessageDialog(null, "Add an action to the list or select the Cancel button", "Empty List", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
 					ArrayList<Code> body = Util.getBody(for_list);
 					
 					((LoopCode) loop_code_piece).setCounter(count);
 					((LoopCode) loop_code_piece).setBody(body);
 					
-					Util.cntrl.getCodeList().remove(Util.EditIndex);
-					
-					Util.updateCodeList(Util.EditIndex, loop_code_piece);
+					if(isempty == true){
+						Util.updateCodeList(Util.EditIndex, loop_code_piece);
+						
+					}else{
+						Util.cntrl.getCodeList().remove(Util.EditIndex);
+						Util.updateCodeList(Util.EditIndex, loop_code_piece);
+					}
 					
 					value = 1;
 					dispose();
@@ -208,6 +216,11 @@ public class LoopDialog extends JDialog{
 	}
 	
 	public static void add(String data){
+		if(data == null){
+			JOptionPane.showMessageDialog(null, "You must select a basic action", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
 		System.out.println(data + " to some list");
 		//DefaultListModel model = (DefaultListModel)for_list.getModel();
 		
@@ -228,6 +241,11 @@ public class LoopDialog extends JDialog{
 	}
 	
 	public void remove(int index){
+		
+		if(index == -1){
+			JOptionPane.showMessageDialog(null, "You must select from For to remove", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
 		//DefaultListModel model = (DefaultListModel)list.getModel();
 		if(for_model.size() == 1){
 			for_model.remove(0);
@@ -244,5 +262,17 @@ public class LoopDialog extends JDialog{
 	
 	public static int getValue(){
 		return value;
+	}
+	
+	public static boolean isListEmpty(){
+		if(for_model.getSize() == 1){
+			if(((String)for_model.getElementAt(0)).equalsIgnoreCase("empty")){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		return false;
 	}
 }
