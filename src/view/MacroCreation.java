@@ -52,7 +52,7 @@ public MacroCreation() {
 				if (!mN.tx.getText().trim().equalsIgnoreCase("")) {
 
 					// Make sure there is not already a macro with this name
-					if (Util.cntrl.hasMacro(mN.tx.getText().trim()) == false) {
+					if (Util.cntrl.getMacroMap().containsKey(mN.tx.getText().trim()) == false) {
 						
 						if (Util.getBodyMacro() != null) {
 							
