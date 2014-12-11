@@ -125,7 +125,7 @@ public class Controller implements Serializable {
 		try {
 			fis = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return null;
 		}
 		

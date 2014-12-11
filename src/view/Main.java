@@ -16,6 +16,6 @@ public class Main {
 		int y = 10;
 		//MainWindow.createMainWindow(x, y);
 		
-		StartPage.createStartPage();
+		LoadSession.createLoadSessionPage();
 	}
 }

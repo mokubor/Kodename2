@@ -1,6 +1,9 @@
 package view;
 
-import java.awt.event.WindowListener;
+import java.io.File;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -27,7 +30,11 @@ public abstract class Window extends JFrame{
 			            JOptionPane.YES_NO_OPTION,
 			            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
 					if(Util.cntrl != null){
-						//safely logout
+						
+						Date d = new Date();
+						File f = new File(d.toString());
+						Util.cntrl.save(f);
+						
 						System.out.println("trying to exit");
 					}
 					System.exit(0);
