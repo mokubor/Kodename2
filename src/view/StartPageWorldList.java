@@ -23,7 +23,7 @@ public class StartPageWorldList extends JPanel {
 	JList jlist;
 	JScrollPane scroller;
 	
-	public String[] displayList = {"World 1", "World 2", "World 3", "World 4", "World 5"};
+	public String[] displayList = {"Temple Of Doom", "40.31.21, 74.27.46", "Batman's Bat Cave", "Sinatra's Lake House", "Ben's Kitchen"};
 	
 	Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 	Border title = BorderFactory.createTitledBorder(loweredetched, "Worlds");
@@ -37,6 +37,7 @@ public class StartPageWorldList extends JPanel {
 						
 		jlist = new JList(displayList);
 		jlist.setModel(dlmModel);
+		jlist.setSelectedIndex(1);
 				
 		for (int i = 0; i < displayList.length; i++) {
 			dlmModel.addElement("     " + displayList[i] + "     ");
