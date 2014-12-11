@@ -15,88 +15,98 @@ public class Util {
 	
 	static Controller cntrl;
 	static JLabel[][] worldLabels;
-	static World[] worlds;	
+	static ArrayList<World> worlds;	
 	
 	static int EditIndex;
 	
 	public static void initializeWorlds(int worldCount){
-		worlds = new World[worldCount];
+		worlds = new ArrayList<World>();
 		
-		worlds[0] = new World(4,4);		
-		worlds[0].setContents(1, 1, model.World.Contents.BEEPER);
-		worlds[0].setContents(1,  0, model.World.Contents.BEEPER);
-		worlds[0].setContents(2, 2, model.World.Contents.BEEPER);
-		worlds[0].setContents(0,  1, model.World.Contents.WALL);
-		worlds[0].setContents(1, 2, model.World.Contents.WALL);
-		worlds[0].setContents(2, 1, model.World.Contents.WALL);
+		World w = new World(4,4);		
+		w.setContents(1, 1, model.World.Contents.BEEPER);
+		w.setContents(1,  0, model.World.Contents.BEEPER);
+		w.setContents(2, 2, model.World.Contents.BEEPER);
+		w.setContents(0,  1, model.World.Contents.WALL);
+		w.setContents(1, 2, model.World.Contents.WALL);
+		w.setContents(2, 1, model.World.Contents.WALL);
 		
-		worlds[1] = new World(6,6);
-		worlds[1].setContents(1, 1, model.World.Contents.WALL);
-		worlds[1].setContents(2, 1, model.World.Contents.WALL);
-		worlds[1].setContents(3, 1, model.World.Contents.WALL);
-		worlds[1].setContents(4, 1, model.World.Contents.WALL);
-		worlds[1].setContents(2, 2, model.World.Contents.BEEPER);
-		worlds[1].setContents(0, 3, model.World.Contents.WALL);
-		worlds[1].setContents(2, 3, model.World.Contents.WALL);
-		worlds[1].setContents(3, 3, model.World.Contents.BEEPER);
-		worlds[1].setContents(4, 3, model.World.Contents.BEEPER);
-		worlds[1].setContents(5, 3, model.World.Contents.WALL);
-		worlds[1].setContents(0, 4, model.World.Contents.WALL);
-		worlds[1].setContents(2, 4, model.World.Contents.WALL);
-		worlds[1].setContents(4, 4, model.World.Contents.WALL);
-		worlds[1].setContents(1, 5, model.World.Contents.BEEPER);
-		worlds[1].setContents(2, 5, model.World.Contents.BEEPER);
-		worlds[1].setContents(4, 5, model.World.Contents.BEEPER);
+		worlds.add(w);
 		
-		worlds[2] = new World(6,6);
-		worlds[2].setContents(1, 1, model.World.Contents.BEEPER);
-		worlds[2].setContents(2, 1, model.World.Contents.WALL);
-		worlds[2].setContents(3, 1, model.World.Contents.BEEPER);
-		worlds[2].setContents(4, 1, model.World.Contents.WALL);
-		worlds[2].setContents(1, 2, model.World.Contents.WALL);
-		worlds[2].setContents(3, 2, model.World.Contents.WALL);
-		worlds[2].setContents(1, 3, model.World.Contents.BEEPER);
-		worlds[2].setContents(3, 3, model.World.Contents.WALL);
-		worlds[2].setContents(5, 3, model.World.Contents.WALL);
-		worlds[2].setContents(1, 4, model.World.Contents.WALL);
-		worlds[2].setContents(3, 4, model.World.Contents.BEEPER);
-		worlds[2].setContents(5, 4, model.World.Contents.WALL);
-		worlds[2].setContents(2, 5, model.World.Contents.BEEPER);
-		worlds[2].setContents(3, 5, model.World.Contents.WALL);
-		worlds[2].setContents(5, 5, model.World.Contents.BEEPER);
+		w = new World(6,6);
+		w.setContents(1, 1, model.World.Contents.WALL);
+		w.setContents(2, 1, model.World.Contents.WALL);
+		w.setContents(3, 1, model.World.Contents.WALL);
+		w.setContents(4, 1, model.World.Contents.WALL);
+		w.setContents(2, 2, model.World.Contents.BEEPER);
+		w.setContents(0, 3, model.World.Contents.WALL);
+		w.setContents(2, 3, model.World.Contents.WALL);
+		w.setContents(3, 3, model.World.Contents.BEEPER);
+		w.setContents(4, 3, model.World.Contents.BEEPER);
+		w.setContents(5, 3, model.World.Contents.WALL);
+		w.setContents(0, 4, model.World.Contents.WALL);
+		w.setContents(2, 4, model.World.Contents.WALL);
+		w.setContents(4, 4, model.World.Contents.WALL);
+		w.setContents(1, 5, model.World.Contents.BEEPER);
+		w.setContents(2, 5, model.World.Contents.BEEPER);
+		w.setContents(4, 5, model.World.Contents.BEEPER);
+		
+		worlds.add(w);
+		
+		w = new World(6,6);
+		w.setContents(1, 1, model.World.Contents.BEEPER);
+		w.setContents(2, 1, model.World.Contents.WALL);
+		w.setContents(3, 1, model.World.Contents.BEEPER);
+		w.setContents(4, 1, model.World.Contents.WALL);
+		w.setContents(1, 2, model.World.Contents.WALL);
+		w.setContents(3, 2, model.World.Contents.WALL);
+		w.setContents(1, 3, model.World.Contents.BEEPER);
+		w.setContents(3, 3, model.World.Contents.WALL);
+		w.setContents(5, 3, model.World.Contents.WALL);
+		w.setContents(1, 4, model.World.Contents.WALL);
+		w.setContents(3, 4, model.World.Contents.BEEPER);
+		w.setContents(5, 4, model.World.Contents.WALL);
+		w.setContents(2, 5, model.World.Contents.BEEPER);
+		w.setContents(3, 5, model.World.Contents.WALL);
+		w.setContents(5, 5, model.World.Contents.BEEPER);
+		
+		worlds.add(w);
 
-		worlds[3] = new World(6,6);
-		worlds[3].setContents(1, 0, model.World.Contents.BEEPER);
-		worlds[3].setContents(2, 0, model.World.Contents.BEEPER);
-		worlds[3].setContents(3, 0, model.World.Contents.BEEPER);
-		worlds[3].setContents(5, 0, model.World.Contents.BEEPER);
-		worlds[3].setContents(4, 0, model.World.Contents.WALL);
-		worlds[3].setContents(1, 1, model.World.Contents.WALL);
-		worlds[3].setContents(2, 1, model.World.Contents.WALL);
-		worlds[3].setContents(3, 1, model.World.Contents.BEEPER);
-		worlds[3].setContents(0, 2, model.World.Contents.BEEPER);
-		worlds[3].setContents(1, 2, model.World.Contents.WALL);
-		worlds[3].setContents(3, 2, model.World.Contents.WALL);
-		worlds[3].setContents(5, 2, model.World.Contents.WALL);
-		worlds[3].setContents(0, 3, model.World.Contents.WALL);
-		worlds[3].setContents(2, 3, model.World.Contents.WALL);
-		worlds[3].setContents(4, 3, model.World.Contents.BEEPER);
-		worlds[3].setContents(5, 3, model.World.Contents.WALL);
-		worlds[3].setContents(1, 4, model.World.Contents.BEEPER);
-		worlds[3].setContents(2, 4, model.World.Contents.WALL);
-		worlds[3].setContents(4, 4, model.World.Contents.WALL);
-		worlds[3].setContents(5, 5, model.World.Contents.BEEPER);
-		worlds[3].setContents(3, 5, model.World.Contents.BEEPER);
+		w = new World(6,6);
+		w.setContents(1, 0, model.World.Contents.BEEPER);
+		w.setContents(2, 0, model.World.Contents.BEEPER);
+		w.setContents(3, 0, model.World.Contents.BEEPER);
+		w.setContents(5, 0, model.World.Contents.BEEPER);
+		w.setContents(4, 0, model.World.Contents.WALL);
+		w.setContents(1, 1, model.World.Contents.WALL);
+		w.setContents(2, 1, model.World.Contents.WALL);
+		w.setContents(3, 1, model.World.Contents.BEEPER);
+		w.setContents(0, 2, model.World.Contents.BEEPER);
+		w.setContents(1, 2, model.World.Contents.WALL);
+		w.setContents(3, 2, model.World.Contents.WALL);
+		w.setContents(5, 2, model.World.Contents.WALL);
+		w.setContents(0, 3, model.World.Contents.WALL);
+		w.setContents(2, 3, model.World.Contents.WALL);
+		w.setContents(4, 3, model.World.Contents.BEEPER);
+		w.setContents(5, 3, model.World.Contents.WALL);
+		w.setContents(1, 4, model.World.Contents.BEEPER);
+		w.setContents(2, 4, model.World.Contents.WALL);
+		w.setContents(4, 4, model.World.Contents.WALL);
+		w.setContents(5, 5, model.World.Contents.BEEPER);
+		w.setContents(3, 5, model.World.Contents.BEEPER);
 		
-		worlds[4] = new World(8,8);				   
-		worlds[4].setContents(3, 4, model.World.Contents.WALL);
-		worlds[4].setContents(3, 5, model.World.Contents.WALL);
-		worlds[4].setContents(4, 3, model.World.Contents.WALL);
-		worlds[4].setContents(4, 7, model.World.Contents.WALL);
-		worlds[4].setContents(5, 2, model.World.Contents.WALL);
-		worlds[4].setContents(6, 2, model.World.Contents.WALL);
-		worlds[4].setContents(7, 2, model.World.Contents.WALL);
-		worlds[4].setContents(6, 6, model.World.Contents.BEEPER);
+		worlds.add(w);
+		
+		w = new World(8,8);				   
+		w.setContents(3, 4, model.World.Contents.WALL);
+		w.setContents(3, 5, model.World.Contents.WALL);
+		w.setContents(4, 3, model.World.Contents.WALL);
+		w.setContents(4, 7, model.World.Contents.WALL);
+		w.setContents(5, 2, model.World.Contents.WALL);
+		w.setContents(6, 2, model.World.Contents.WALL);
+		w.setContents(7, 2, model.World.Contents.WALL);
+		w.setContents(6, 6, model.World.Contents.BEEPER);
+		
+		worlds.add(w);
 	}
 	
 	public static void updateCodeList(int index, Code c){

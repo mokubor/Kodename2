@@ -49,21 +49,8 @@ public class StartPage extends Window {
 
 		wl.jlist.addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e) {
-				switch(wl.jlist.getSelectedIndex()){
-				
-					case 0:	w = Util.worlds[0];
-							break;
-					case 1:	w = Util.worlds[1];							
-							break;
-					case 2:	w = Util.worlds[2];
-							break;
-					case 3:	w = Util.worlds[3];
-							break;
-					case 4:	w = Util.worlds[4];
-							break;
-				}
-				Util.cntrl = new Controller(w);
-				gd.renderWorld(w);
+				Util.cntrl = new Controller(Util.worlds.get(wl.jlist.getSelectedIndex()));
+				gd.renderWorld(Util.worlds.get(wl.jlist.getSelectedIndex()));
 		    }
 		});
 		
@@ -71,8 +58,8 @@ public class StartPage extends Window {
 			public void actionPerformed(ActionEvent e) {
 					
 					if(w == null){
-						w = Util.worlds[0];
-						Util.cntrl = new Controller(Util.worlds[0]);
+						w = Util.worlds.get(0);
+						Util.cntrl = new Controller(Util.worlds.get(0));
 					}
 					
 					Main.currentWindow.dispose();

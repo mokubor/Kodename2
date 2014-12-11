@@ -16,9 +16,9 @@ public class StartPageGrid extends JPanel {
 	
 	public StartPageGrid() {
 		Util.initializeWorlds(5);
-		wg = new WorldGrid(Util.worlds[0].getXSize(), Util.worlds[0].getYSize());
-		Karel k = new Karel(Util.worlds[0], 0, 0);
-		Util.drawWorld(k, Util.worlds[0]);
+		wg = new WorldGrid(Util.worlds.get(0).getXSize(), Util.worlds.get(0).getYSize());
+		Karel k = new Karel(Util.worlds.get(0), 0, 0);
+		Util.drawWorld(k, Util.worlds.get(0));
 		add(wg, BorderLayout.EAST);
 	}
 	
