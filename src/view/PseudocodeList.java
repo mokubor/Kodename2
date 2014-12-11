@@ -245,6 +245,8 @@ public class PseudocodeList extends JPanel {
 	}
 	 
 	 public static void resetList(){
+		 
+		 getTheModel().clear();
 			mActions = new String[1];
 			//mActions[0] = "You have no Actions.";
 			mActions[0] = "Begin by Draging an Action";
