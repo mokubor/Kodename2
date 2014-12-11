@@ -307,11 +307,13 @@ public class IfElseDialog extends JDialog{
 	}
 	
 	public static void getIfDialog(Code code){
-		JDialog c = new IfElseDialog(Main.currentWindow, code);
+		//JDialog c = new IfElseDialog(Main.currentWindow, code);
+		JDialog c = new IfElseDialog(null, code);
 		c.pack();
 		c.setLocationRelativeTo(null);
 		c.setVisible(true);
 		c.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		c.setModal(true);
 	}
 	
 	public static void add(JList list, String data){

@@ -34,13 +34,13 @@ public class MainWindow extends Window{
 				 Util.printcodeList();
 				 WorldButtons.disable_buttons();
 				 //String selected = ((String)pL.getTheModel().getElementAt(pL.getTheJList().getSelectedIndex())).trim();
-				 int i = pL.getTheJList().getSelectedIndex();
+				 int i = PseudocodeList.getTheJList().getSelectedIndex();
 				 if(i == -1){
 					JOptionPane.showMessageDialog(null, "You must select an Action from the Pseudocode List to Expand", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 					return;
 				 }
 				 String selected = Util.cntrl.getCodeList().get(i).getClass().toString();
-				 System.out.println("expand for index "+ pL.getTheJList().getSelectedIndex());
+				 System.out.println("expand for index "+ PseudocodeList.getTheJList().getSelectedIndex());
 				 if( selected.equalsIgnoreCase("class model.IfElseCode")){
 					 //int i = pL.getTheJList().getSelectedIndex();
 					 System.out.println(Util.cntrl.getCodeList().get(i).getClass().toString());
@@ -48,7 +48,7 @@ public class MainWindow extends Window{
 					 IfElseCode code = (IfElseCode)Util.cntrl.getCodeList().get(i);
 					 IfElseDialog.getIfDialog(code);
 					 
-					 pL.getTheJList().setSelectedIndex(-1);
+					 PseudocodeList.getTheJList().setSelectedIndex(-1);
 					 return;
 					 
 				 }
@@ -59,18 +59,20 @@ public class MainWindow extends Window{
 					 LoopCode code = (LoopCode)Util.cntrl.getCodeList().get(i);
 					 LoopDialog.getForDialog(code);
 					 
-					 pL.getTheJList().setSelectedIndex(-1);
+					 PseudocodeList.getTheJList().setSelectedIndex(-1);
 					 return;
 				 }
 				 else if(selected.equalsIgnoreCase("class model.CustomCode")){
-					 
-					 pL.getTheJList().setSelectedIndex(-1);
+					 String key = (String) PseudocodeList.getTheModel().getElementAt(PseudocodeList.getTheJList().getSelectedIndex());
+					 Util.cntrl.getMacroMap().get(key);
+					 System.out.println(key);
+					 PseudocodeList.getTheJList().setSelectedIndex(-1);
 					 return;
 				 }
 				 else{
 					 JOptionPane.showMessageDialog(null, "You cannot expand a Basic action", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 					 
-					 pL.getTheJList().setSelectedIndex(-1);
+					 PseudocodeList.getTheJList().setSelectedIndex(-1);
 					 return;
 				 }
 			 }

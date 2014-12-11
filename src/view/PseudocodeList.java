@@ -115,7 +115,7 @@ public class PseudocodeList extends JPanel {
                 int index = dl.getIndex();
                 boolean insert = dl.isInsert();
                 // Get the current string under the drop.
-                String value = (String)model.getElementAt(index);
+                String value = (String)getTheModel().getElementAt(index);
  
                 // Get the string that is being dropped.
                 Transferable t = info.getTransferable();
@@ -128,7 +128,7 @@ public class PseudocodeList extends JPanel {
                 // Display a dialog with the drop information.
                 //String dropValue = "\"" + data + "\" dropped ";
                 if (dl.isInsert()) {
-                    if (dl.getIndex() >= 0|| dl.getIndex()>= list.getModel().getSize()) {
+                    if (dl.getIndex() >= 0|| dl.getIndex()>= getTheJList().getModel().getSize()) {
                     	System.out.println(dl.getIndex() + " -> " +data);
                     	int line = dl.getIndex();
                     	
@@ -171,7 +171,7 @@ public class PseudocodeList extends JPanel {
                     	
                     	
                     	
-                    	System.out.println("size after insert "+ list.getModel().getSize());
+                    	System.out.println("size after insert "+ getTheJList().getModel().getSize());
                     	
                     }
                         //displayDropLocation(dropValue + "at beginning of list");
@@ -233,14 +233,14 @@ public class PseudocodeList extends JPanel {
 	public static void add(String code, int index){
 		code = "\t" + code;
 		
-		if(wasNull == true){
-			wasNull = false;
+		if(getTheModel().get(0).equals("Begin by Draging an Action")){
+			
 			getTheModel().remove(0);
 			
 			//getTheModel().addElement("Start of Program");
 			//getTheModel().addElement(code);
 			getTheModel().addElement("...");
-			
+			wasNull = false;
 		}
 		System.out.println(code);
 				
@@ -279,9 +279,10 @@ public class PseudocodeList extends JPanel {
 	 public static DefaultListModel getTheModel() {
 		 
 		 if(isMacro) {
-		 return modelMacro;
+			 return modelMacro;
 		 }
-		 
+		 System.out.println("Main window model");
+		 System.out.println(wasNull);
 		 return model;
 		 
 	 }
@@ -293,6 +294,7 @@ public class PseudocodeList extends JPanel {
 			 return listMacro;
 		 }
 		 System.out.println("Main window");
+		 System.out.println(wasNull);
 		 return list;
 		 
 	 }

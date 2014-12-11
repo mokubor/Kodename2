@@ -207,11 +207,13 @@ public class LoopDialog extends JDialog{
 	}
 	
 	public static void getForDialog(Code code){
-		JDialog c = new LoopDialog(Main.currentWindow, code);
+		//JDialog c = new LoopDialog(Main.currentWindow, code);
+		JDialog c = new LoopDialog(null, code);
 		c.pack();
 		c.setLocationRelativeTo(null);
 		c.setVisible(true);
 		c.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		c.setModal(true);
 		
 	}
 	
