@@ -29,7 +29,7 @@ public class StartPage extends Window {
 	JPanel southPanel = new JPanel();
 	//static Controller cntrl;
 	
-	World w;
+	//World w;
 	
 	JFrame mW;
 	static JFrame frame;
@@ -47,6 +47,8 @@ public class StartPage extends Window {
 		add(southPanel, BorderLayout.SOUTH);
 		add(leftPanel, BorderLayout.WEST);
 		add(rightPanel, BorderLayout.EAST);
+		
+		Util.cntrl = new Controller(Util.worlds.get(0));
 		
 		// test code
 		
@@ -66,6 +68,7 @@ public class StartPage extends Window {
 
 		wl.jlist.addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e) {
+				//System.out.println("index selected: " + wl.jlist.getSelectedIndex());
 				Util.cntrl = new Controller(Util.worlds.get(wl.jlist.getSelectedIndex()));
 				gd.renderWorld(Util.worlds.get(wl.jlist.getSelectedIndex()));
 		    }
@@ -74,13 +77,14 @@ public class StartPage extends Window {
 		ok.okBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					
-					if(w == null){
+					/*if( == null){
+						System.out.println("NULLLLL");
 						w = Util.worlds.get(0);
 						Util.cntrl = new Controller(Util.worlds.get(0));
-					}
+					}*/
 					
 					Main.currentWindow.dispose();
-					mW = new MainWindow(w.getXSize(), w.getYSize());
+					mW = new MainWindow(Util.cntrl.getWorld().getXSize(), Util.cntrl.getWorld().getYSize());
 					mW.setVisible(true);
 					mW.setSize(1000,600);
 					mW.setLocationRelativeTo(null);
