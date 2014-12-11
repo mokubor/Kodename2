@@ -37,12 +37,11 @@ public class StartPageWorldList extends JPanel {
 						
 		jlist = new JList(displayList);
 		jlist.setModel(dlmModel);
-		jlist.setSelectedIndex(1);
 				
 		for (int i = 0; i < displayList.length; i++) {
 			dlmModel.addElement("     " + displayList[i] + "     ");
 		}
-						
+		jlist.setSelectedIndex(0);			
 		jlist.setVisibleRowCount(10);
 				
 		scroller = new JScrollPane(jlist);
@@ -52,7 +51,7 @@ public class StartPageWorldList extends JPanel {
 		
 		jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jlist.setLayoutOrientation(JList.VERTICAL_WRAP);
-		jlist.setFixedCellWidth(120);
+		//jlist.setFixedCellWidth(120);
 		jlist.setEnabled(true);
 		jlist.setVisible(true);
 		

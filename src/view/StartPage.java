@@ -35,7 +35,6 @@ public class StartPage extends Window {
 	
 	public StartPage() {
 		super("Start Page World Selection");
-		
 		Main.currentWindow = this;
 		
 		leftPanel.add(wl);
@@ -47,16 +46,14 @@ public class StartPage extends Window {
 		add(southPanel, BorderLayout.SOUTH);
 		add(leftPanel, BorderLayout.WEST);
 		add(rightPanel, BorderLayout.EAST);
-		
-		//Util.initializeWorlds(5);
-		
+
 		wl.jlist.addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e) {
 				switch(wl.jlist.getSelectedIndex()){
 				
 					case 0:	w = Util.worlds[0];
 							break;
-					case 1:	w = Util.worlds[1];
+					case 1:	w = Util.worlds[1];							
 							break;
 					case 2:	w = Util.worlds[2];
 							break;
@@ -65,22 +62,19 @@ public class StartPage extends Window {
 					case 4:	w = Util.worlds[4];
 							break;
 				}
-				
-				//gd = new StartPageGrid(w);
 				Util.cntrl = new Controller(w);
-		        
+				gd.renderWorld(w);
 		    }
 		});
 		
 		ok.okBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					for(int x = 0; x < 4; x++){
-						for(int y = 0; y < 4; y++){
-							System.out.println("("+x+","+y+")" + w.getContents(x,  y));
-						}
+					
+					if(w == null){
+						w = Util.worlds[0];
+						Util.cntrl = new Controller(Util.worlds[0]);
 					}
-					//cntrl = new Controller( w);
-					// Util.cntrl = new Controller(w);
+					
 					Main.currentWindow.dispose();
 					mW = new MainWindow(w.getXSize(), w.getYSize()/*, cntrl*/);
 					mW.setVisible(true);

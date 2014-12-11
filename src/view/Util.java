@@ -88,32 +88,15 @@ public class Util {
 		worlds[3].setContents(5, 5, model.World.Contents.BEEPER);
 		worlds[3].setContents(3, 5, model.World.Contents.BEEPER);
 		
-		worlds[4] = new World(15,15);				   
+		worlds[4] = new World(8,8);				   
 		worlds[4].setContents(3, 4, model.World.Contents.WALL);
 		worlds[4].setContents(3, 5, model.World.Contents.WALL);
 		worlds[4].setContents(4, 3, model.World.Contents.WALL);
 		worlds[4].setContents(4, 7, model.World.Contents.WALL);
-		worlds[4].setContents(4, 8, model.World.Contents.WALL);
-		worlds[4].setContents(4, 9, model.World.Contents.BEEPER);
-		worlds[4].setContents(4, 10, model.World.Contents.BEEPER);
-		worlds[4].setContents(4, 11, model.World.Contents.BEEPER);
-		worlds[4].setContents(4, 12, model.World.Contents.WALL);
-		worlds[4].setContents(4, 13, model.World.Contents.WALL);
-		worlds[4].setContents(4, 14, model.World.Contents.WALL);
 		worlds[4].setContents(5, 2, model.World.Contents.WALL);
 		worlds[4].setContents(6, 2, model.World.Contents.WALL);
 		worlds[4].setContents(7, 2, model.World.Contents.WALL);
-		worlds[4].setContents(8, 3, model.World.Contents.WALL);					     
-		worlds[4].setContents(8, 7, model.World.Contents.WALL);
-		worlds[4].setContents(8, 8, model.World.Contents.WALL);
-		worlds[4].setContents(8, 9, model.World.Contents.BEEPER);
-		worlds[4].setContents(8, 10, model.World.Contents.BEEPER);
-		worlds[4].setContents(8, 11, model.World.Contents.BEEPER);
-		worlds[4].setContents(8, 12, model.World.Contents.WALL);
-		worlds[4].setContents(8, 13, model.World.Contents.WALL);
-		worlds[4].setContents(8, 14, model.World.Contents.WALL);
-		worlds[4].setContents(9, 4, model.World.Contents.WALL);
-		worlds[4].setContents(9, 5, model.World.Contents.WALL);		
+		worlds[4].setContents(6, 6, model.World.Contents.BEEPER);
 	}
 	
 	public static void updateCodeList(int index, Code c){
