@@ -21,27 +21,28 @@ public class CustomWorld extends JDialog{
 	
 	JFrame mW;
 	
+	JTextField xCoorTF = new JTextField(3);
+	JTextField yCoorTF = new JTextField(3);
+	
+	String[] elementArr = {"Beeper", "Wall"};
+	JComboBox elementBox = new JComboBox(elementArr);
+	
+	JButton addBut = new JButton("Add element");
+	JButton doneBut = new JButton("Take Me To My World");
+	JButton cancelBut = new JButton("Cancel");		
+	JLabel xCoorL = new JLabel("X Coordinate: ");
+	JLabel yCoorL = new JLabel("Y Coordinate: ");
+	
+	World w = new World(6, 6);
+	
+	StartPageGrid gd = new StartPageGrid();
+	
 	public CustomWorld() {
 		
 		super();
 		
 		setLayout(new FlowLayout());
 		
-		final JTextField xCoorTF = new JTextField(3);
-		final JTextField yCoorTF = new JTextField(3);
-
-		JButton addBut = new JButton("Add element");
-		JButton doneBut = new JButton("Take Me To My World");
-		JButton cancelBut = new JButton("Cancel");
-		
-		String[] elementArr = {"Beeper", "Wall"};
-		final JComboBox elementBox = new JComboBox(elementArr);
-		
-		JLabel xCoorL = new JLabel("X Coordinate: ");
-		JLabel yCoorL = new JLabel("Y Coordinate: ");
-		
-		final StartPageGrid gd = new StartPageGrid();
-
 		add(xCoorL);
 		add(xCoorTF);
 		add(yCoorL);
@@ -51,8 +52,6 @@ public class CustomWorld extends JDialog{
 		add(elementBox);
 		add(addBut);
 		add(gd);
-		
-		final World w = new World(6, 6);
 		
 		addBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -54,10 +54,10 @@ public class StartPage extends Window {
 		add(customWorldBut);
 		customWorldBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					CustomWorld mW = new CustomWorld();
-					mW.setVisible(true);
-					mW.setSize(1000,600);
-					mW.setLocationRelativeTo(null);
+					CustomWorld cW = new CustomWorld();
+					cW.setVisible(true);
+					cW.setSize(1000,600);
+					cW.setLocationRelativeTo(null);
 				}
 
 		});
