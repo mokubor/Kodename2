@@ -27,10 +27,7 @@ public class StartPage extends Window {
 	JPanel rightPanel = new JPanel();
 	JPanel northPanel = new JPanel();
 	JPanel southPanel = new JPanel();
-	//static Controller cntrl;
-	
-	//World w;
-	
+
 	JFrame mW;
 	static JFrame frame;
 	
@@ -49,22 +46,6 @@ public class StartPage extends Window {
 		add(rightPanel, BorderLayout.EAST);
 		
 		Util.cntrl = new Controller(Util.worlds.get(0));
-		
-		// test code
-		
-		JButton customWorldBut = new JButton("CUSTOM WORLD FEATURE");
-		add(customWorldBut);
-		customWorldBut.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-					CustomWorldSetSize cW = new CustomWorldSetSize();
-					cW.setVisible(true);
-					cW.setSize(300,200);
-					cW.setLocationRelativeTo(null);
-				}
-
-		});
-		
-		// end test code
 
 		wl.jlist.addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e) {
@@ -76,22 +57,14 @@ public class StartPage extends Window {
 		
 		ok.okBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					
-					/*if( == null){
-						System.out.println("NULLLLL");
-						w = Util.worlds.get(0);
-						Util.cntrl = new Controller(Util.worlds.get(0));
-					}*/
-					
-					Main.currentWindow.dispose();
-					mW = new MainWindow(Util.cntrl.getWorld().getXSize(), Util.cntrl.getWorld().getYSize());
-					mW.setVisible(true);
-					mW.setSize(1000,600);
-					mW.setLocationRelativeTo(null);
-					Util.drawWorld(null, null);
-					
-				}
-
+				Main.currentWindow.dispose();
+				mW = new MainWindow(Util.cntrl.getWorld().getXSize(), Util.cntrl.getWorld().getYSize());
+				mW.setVisible(true);
+				mW.setSize(1000,600);
+				mW.setLocationRelativeTo(null);
+				Util.drawWorld(null, null);
+				
+			}
 		});
 	}
 	

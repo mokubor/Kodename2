@@ -4,10 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,6 +25,8 @@ public class StartPageWorldList extends JPanel {
 	DefaultListModel dlmModel = new DefaultListModel();
 	JList jlist;
 	JScrollPane scroller;
+	
+	JButton createWorldBut = new JButton("Create Custom World");
 	
 	public String[] displayList = {"Temple Of Doom", "40.31.21, 74.27.46", "Batman's Bat Cave", "Sinatra's Lake House", "Ben's Kitchen"};
 	
@@ -48,6 +53,7 @@ public class StartPageWorldList extends JPanel {
 		c.gridx = 1;
 		panelLst.add(scroller, c);
 		add(panelLst, BorderLayout.CENTER);
+		add(createWorldBut);
 		
 		jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jlist.setLayoutOrientation(JList.VERTICAL_WRAP);
@@ -56,8 +62,17 @@ public class StartPageWorldList extends JPanel {
 		jlist.setVisible(true);
 		
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-		
 		setBorder(title);
+		
+		createWorldBut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					CustomWorldSetSize cW = new CustomWorldSetSize();
+					cW.setVisible(true);
+					cW.setSize(300,200);
+					cW.setLocationRelativeTo(null);
+				}
+
+		});
 		
 	}
 }
