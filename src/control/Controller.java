@@ -125,7 +125,7 @@ public class Controller implements Serializable {
 		try {
 			fis = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			return null;
 		}
 		
@@ -140,6 +140,17 @@ public class Controller implements Serializable {
 		}
 		
 		return controller;
+	}
+	
+	public static Controller deserialize(String userID)	throws FileNotFoundException, IOException, ClassNotFoundException{ 
+		
+		FileInputStream fileIn = new FileInputStream("data/" + userID +".dat");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        Controller user = (Controller)in.readObject();
+        in.close();
+        fileIn.close();
+        return user;
+		
 	}
 	
 	/**

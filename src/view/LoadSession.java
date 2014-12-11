@@ -26,7 +26,7 @@ public class LoadSession extends Window{
 	DefaultListModel dlmModel = new DefaultListModel();
 	JList jlist;
 	JScrollPane scroller;
-	public String[] displayList = {"Temple Of Doom", "40.31.21, 74.27.46", "Batman's Bat Cave", "Sinatra's Lake House", "Ben's Kitchen"};
+	//public String[] displayList = {"Temple Of Doom", "40.31.21, 74.27.46", "Batman's Bat Cave", "Sinatra's Lake House", "Ben's Kitchen"};
 	ArrayList<String> sessionNames = new ArrayList<String>();
 	
 	JPanel leftPanel = new JPanel();
@@ -35,7 +35,7 @@ public class LoadSession extends Window{
 	public LoadSession() {
 		super("Load Session");
 		
-		jlist = new JList(displayList);
+		jlist = new JList();
 		jlist.setModel(dlmModel);
 		
 		initiate();
@@ -47,6 +47,8 @@ public class LoadSession extends Window{
 		jlist.setVisibleRowCount(10);
 		
 		setLayout(new GridLayout());
+		
+		rightPanel.setLayout(new GridLayout(2,1));
 		
 		leftPanel.add(jlist);
 		rightPanel.add(newBut);
@@ -66,15 +68,19 @@ public class LoadSession extends Window{
 			public void actionPerformed(ActionEvent e) {
 				
 				if(jlist.getSelectedIndex() == -1){
+					System.out.println("index is negative");
 					return;
 				}
 				
-				String filename = (String)dlmModel.get(jlist.getSelectedIndex());
-				File f = new File(filename);
+				String filepath = (String)dlmModel.get(jlist.getSelectedIndex());
+				String filename = getName(filepath);
+				System.out.println("filename: " + filename);
+				//File f = new File(filename);
+				File f = new File("data" + File.separator + filename);
 				Util.cntrl = Controller.load(f);
 				
 				if(Util.cntrl != null){
-					Main.currentWindow.dispose();
+					//Main.currentWindow.dispose();
 					mW = new MainWindow(Util.cntrl.getWorld().getXSize(), Util.cntrl.getWorld().getYSize()/*, cntrl*/);
 					mW.setVisible(true);
 					mW.setSize(1000,600);
@@ -83,8 +89,12 @@ public class LoadSession extends Window{
 					dispose();
 				}
 			}
-		});
-		
+		});		
+	}
+	
+	public String getName(String path) {
+	    File file = new File(path);
+	    return file.getName();
 	}
 	
 	public static void createLoadSessionPage() {
@@ -102,8 +112,9 @@ public class LoadSession extends Window{
 	{
 		String dataFolder = null;
 		File[] files;
-		File currentDirectory = new File(new File(".").getAbsolutePath());
+		File currentDirectory = new File(new File("").getAbsolutePath()+"\\");
 		
+		System.out.println("Current Directory: " + currentDirectory);
 		
 		try {
 			dataFolder = currentDirectory.getCanonicalPath() + File.separator + "data";
@@ -112,21 +123,21 @@ public class LoadSession extends Window{
 			e.printStackTrace();
 		}
 		
+		System.out.println("datafolder: " + dataFolder);
 		File folder = new File(dataFolder);
 
 		files = folder.listFiles();
 		
 		if(files == null){
+			System.out.println("files are null");
 			return;
 		}
-		
-		sessionNames = new ArrayList<String>();
-		
 		for(int i = 0; i < files.length; i++)
 		{
 			if(files[i].isFile())
 			{
-				sessionNames.add(stripExtension(files[i]));
+				sessionNames.add(files[i].toString());
+				//sessionNames.add(stripExtension(files[i]));
 			}
 		}
 	}

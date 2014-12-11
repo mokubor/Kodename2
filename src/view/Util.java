@@ -136,6 +136,20 @@ public class Util {
 		return worldLabels[x][y];
 	}
 	
+	public static int facingWhere(Karel karel){
+		switch(karel.getFacing()) {
+		case EAST:
+			return 0;
+		case WEST:
+			return 1;
+		case NORTH:
+			return 2;
+		case SOUTH:
+			return 3;
+		}
+		return 4;
+		
+	}
 	public static void drawWorld(Karel karel, World world) {
 		if (karel == null) {
 			karel = cntrl.getKarel();
@@ -160,7 +174,15 @@ public class Util {
 				case BEEPER:
 				     System.out.println("beeper at xy: " + j + " and " + i);
 				     if(karel.getX() == j && karel.getY() == world.getYSize() - 1 - i){
+				    	 if(facingWhere(karel)==0)
 				    	 worldLabels[i][j].setIcon(new ImageIcon("images/beeperRight.png"));
+				    	 else if(facingWhere(karel)==1)
+					    	 worldLabels[i][j].setIcon(new ImageIcon("images/beeperLeft.png"));
+				    	 else if(facingWhere(karel)==2)
+					    	 worldLabels[i][j].setIcon(new ImageIcon("images/beeperNorth.png"));
+				    	 else
+						    	 worldLabels[i][j].setIcon(new ImageIcon("images/beeperSouth.png"));
+				    	 
 				    	 karelBeeper = true;
 				     }
 				     else{

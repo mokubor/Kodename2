@@ -1,8 +1,7 @@
 package view;
 
 import java.io.File;
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JFrame;
@@ -31,13 +30,15 @@ public abstract class Window extends JFrame{
 			            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
 					if(Util.cntrl != null){
 						
-						Date d = new Date();
-						File f = new File(d.toString());
-						Util.cntrl.save(f);
-						
-						System.out.println("trying to exit");
+						if(Util.cntrl != null){
+						      //safely logout
+					      WindowSaveSession.createWindowSaveSession();
+
+					      System.out.println("trying to exit");
+						}else{
+							System.exit(0);
+						}
 					}
-					System.exit(0);
 				}
 		    }
 		});
