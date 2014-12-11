@@ -153,11 +153,20 @@ public class Util {
 				StringBuffer sb = new StringBuffer();
 				//sb.append(String.valueOf(j));
 				//sb.append(String.valueOf(world.getYSize() - 1 - i));
+				
+				boolean karelBeeper = false;
+				
 				switch(contents) {
 				case BEEPER:
-					worldLabels[i][j].setIcon(new ImageIcon("images/beeper.png"));
-					//sb.append("Beeper ");
-					break;
+				     System.out.println("beeper at xy: " + j + " and " + i);
+				     if(karel.getX() == j && karel.getY() == world.getYSize() - 1 - i){
+				    	 worldLabels[i][j].setIcon(new ImageIcon("images/beeperRight.png"));
+				    	 karelBeeper = true;
+				     }
+				     else{
+				    	 worldLabels[i][j].setIcon(new ImageIcon("images/beeper.png"));
+				     }
+				     break;
 				case NONE:
 					  worldLabels[i][j].setOpaque(true);
 					  worldLabels[i][j].setIcon(null);
@@ -176,7 +185,7 @@ public class Util {
 				default:
 					break;
 				}
-				if(karel.getX() == j && karel.getY() == world.getYSize() - 1 - i) {
+				if(!karelBeeper && karel.getX() == j && karel.getY() == world.getYSize() - 1 - i) {
 					ImageIcon image = new ImageIcon("images/right.png");
 					worldLabels[i][j].setIcon(image);
 					//sb.append("Karel ");
