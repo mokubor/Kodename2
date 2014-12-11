@@ -33,25 +33,40 @@ public class MainWindow extends Window{
 			 if(source == expand){
 				 Util.printcodeList();
 				 
-				 String selected = ((String)pL.getTheModel().getElementAt(pL.getTheJList().getSelectedIndex())).trim();
+				 //String selected = ((String)pL.getTheModel().getElementAt(pL.getTheJList().getSelectedIndex())).trim();
+				 int i = pL.getTheJList().getSelectedIndex();
+				 String selected = Util.cntrl.getCodeList().get(i).getClass().toString();
 				 System.out.println("expand for index "+ pL.getTheJList().getSelectedIndex());
-				 if( selected.equalsIgnoreCase("if-else")){
-					 int i = pL.getTheJList().getSelectedIndex();
+				 if( selected.equalsIgnoreCase("class model.IfElseCode")){
+					 //int i = pL.getTheJList().getSelectedIndex();
 					 System.out.println(Util.cntrl.getCodeList().get(i).getClass().toString());
 					 Util.EditIndex = i;
 					 IfElseCode code = (IfElseCode)Util.cntrl.getCodeList().get(i);
 					 IfElseDialog.getIfDialog(code);
 					 
+					 pL.getTheJList().setSelectedIndex(-1);
+					 return;
+					 
 				 }
-				 else if(selected.equalsIgnoreCase("For-End For")){
-					 int i = pL.getTheJList().getSelectedIndex();
+				 else if(selected.equalsIgnoreCase("class model.LoopCode")){
+					 //int i = pL.getTheJList().getSelectedIndex();
 					 System.out.println(Util.cntrl.getCodeList().get(i).getClass().toString());
 					 Util.EditIndex = i;
 					 LoopCode code = (LoopCode)Util.cntrl.getCodeList().get(i);
 					 LoopDialog.getForDialog(code);
+					 
+					 pL.getTheJList().setSelectedIndex(-1);
+					 return;
+				 }
+				 else if(selected.equalsIgnoreCase("class model.CustomCode")){
+					 
+					 pL.getTheJList().setSelectedIndex(-1);
+					 return;
 				 }
 				 else{
 					 JOptionPane.showMessageDialog(null, "You cannot expand a "+selected+" action", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
+					 
+					 pL.getTheJList().setSelectedIndex(-1);
 					 return;
 				 }
 			 }
