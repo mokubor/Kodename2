@@ -53,7 +53,7 @@ public class WindowSaveSession extends JDialog{
 		
 		cancelBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dipose();
+				dispose();
 			}
 		});
 	
