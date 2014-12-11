@@ -26,7 +26,6 @@ public class LoadSession extends Window{
 	DefaultListModel dlmModel = new DefaultListModel();
 	JList jlist;
 	JScrollPane scroller;
-	//public String[] displayList = {"Temple Of Doom", "40.31.21, 74.27.46", "Batman's Bat Cave", "Sinatra's Lake House", "Ben's Kitchen"};
 	ArrayList<String> sessionNames = new ArrayList<String>();
 	
 	JPanel leftPanel = new JPanel();

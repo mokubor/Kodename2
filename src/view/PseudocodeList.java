@@ -164,7 +164,7 @@ public class PseudocodeList extends JPanel {
                     		add(data, line);
                     	}
                     	else{
-                    		Code temp = Util.cntrl.getMacroMap().get(data);
+                    		Code temp = (Code)Util.cntrl.getMacroMap().get(data);
                     		Util.updateCodeList(line,  temp);
                     		add(data, line);
                     	}

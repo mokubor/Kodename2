@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import control.Controller;
@@ -37,8 +38,23 @@ public class WindowSaveSession extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				
 				String s = nameTF.getText();
-				if(s.contains(":")){
-					System.out.println("s is bad");
+				if(s.contains(":") ||
+						s.contains("~") ||
+						s.contains("#") ||
+						s.contains("%") ||
+						s.contains("&") ||
+						s.contains("*") ||
+						s.contains("{") ||
+						s.contains("}") ||
+						s.contains("\\") ||
+						s.contains("<") ||
+						s.contains(">") ||
+						s.contains("?") ||
+						s.contains("//") ||
+						s.contains("+") ||
+						s.contains("|") ||
+						s.contains("\"")){
+					JOptionPane.showMessageDialog(null, "Invalid characters used for filename");
 					return;
 				}
 				
