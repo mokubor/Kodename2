@@ -83,7 +83,7 @@ public class WorldGrid extends JPanel {
 				}
 				} else if (row == 0) {
 					if (col != 0)
-						label.setText(String.valueOf(col));
+						label.setText(String.valueOf(col - 1));
 				} else {
 					if (row != 0)
 						label.setText(String.valueOf(numRows - row));
