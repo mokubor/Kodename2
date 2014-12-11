@@ -28,6 +28,7 @@ public class Customs extends JPanel{
 	static JList list;
 	static DefaultListModel model;
 	static JPanel buttons;
+	JScrollPane scroller;
 	//static Controller cntrl;
 	
 	public Customs(){
@@ -72,11 +73,11 @@ public class Customs extends JPanel{
 		list.setDragEnabled(true);
 		//list.setSelectedIndex(0);
 		
-
+		scroller = new JScrollPane(list);
 		
 		/*layout*/
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-		add(list);
+		add(scroller);
 		add(Box.createRigidArea(new Dimension(0,10)));
 		add(buttons);
 		add(Box.createRigidArea(new Dimension(0,10)));

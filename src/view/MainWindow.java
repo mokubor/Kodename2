@@ -35,6 +35,10 @@ public class MainWindow extends Window{
 				 WorldButtons.disable_buttons();
 				 //String selected = ((String)pL.getTheModel().getElementAt(pL.getTheJList().getSelectedIndex())).trim();
 				 int i = pL.getTheJList().getSelectedIndex();
+				 if(i == -1){
+					JOptionPane.showMessageDialog(null, "You must select an Action from the Pseudocode List to Expand", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
+					return;
+				 }
 				 String selected = Util.cntrl.getCodeList().get(i).getClass().toString();
 				 System.out.println("expand for index "+ pL.getTheJList().getSelectedIndex());
 				 if( selected.equalsIgnoreCase("class model.IfElseCode")){
