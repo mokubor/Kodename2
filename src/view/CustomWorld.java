@@ -27,7 +27,7 @@ public class CustomWorld extends JDialog{
 	JTextField xCoorTF = new JTextField(3);
 	JTextField yCoorTF = new JTextField(3);
 
-	String[] elementArr = {"Beeper", "Wall"};
+	String[] elementArr = {"Beeper", "Wall", "None"};
 	JComboBox elementBox = new JComboBox(elementArr);
 
 	JButton addBut = new JButton("Add element");
@@ -76,8 +76,10 @@ public class CustomWorld extends JDialog{
 
 					if(el.equals("Beeper")){
 						w.setContents(x, y, Contents.BEEPER);
-					}else{
+					}else if(el.equals("Wall")){
 						w.setContents(x, y, Contents.WALL);
+					}else{
+						w.setContents(x, y, Contents.NONE);
 					}
 
 					Util.cntrl = new Controller(w);
