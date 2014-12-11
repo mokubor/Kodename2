@@ -94,15 +94,19 @@ public class CustomWorld extends JDialog{
 				mW.setSize(1000,600);
 				mW.setLocationRelativeTo(null);
 				Util.drawWorld(null, null);
+				dispose();
 			}
-
 		});
 
 		cancelBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				if (JOptionPane.showConfirmDialog(null, 
+			            "Are you sure you want to close out this window?", 
+			            "Cancel Confirmation", JOptionPane.YES_NO_OPTION,
+			            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+					dispose();
+				}
 			}
-
 		});
 	}
 
