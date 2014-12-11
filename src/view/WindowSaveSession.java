@@ -23,6 +23,7 @@ public class WindowSaveSession extends JDialog{
 	
 	JButton saveBut = new JButton("Save");
 	JButton cancelBut = new JButton("Cancel");
+	JButton doNotSaveBut = new JButton("Dont Save");
 	
 	public WindowSaveSession(){
 		super();
@@ -33,6 +34,7 @@ public class WindowSaveSession extends JDialog{
 		add(nameTF);
 		add(saveBut);
 		add(cancelBut);
+		add(doNotSaveBut);
 		
 		saveBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -70,6 +72,13 @@ public class WindowSaveSession extends JDialog{
 		cancelBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+			}
+		});
+		
+		doNotSaveBut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				Main.currentWindow.dispose();
 			}
 		});
 	

@@ -88,7 +88,7 @@ public class MainWindow extends Window{
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 		    
 				if (JOptionPane.showConfirmDialog(null, 
-			            "Closing a window will quit this application.\nAre you sure you want to close this window?\nProgress will be saved.", "Close Window", 
+			            "Closing a window will quit this application.\nAre you sure you want to close this window?.", "Close Window", 
 			            JOptionPane.YES_NO_OPTION,
 			            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
 					if(Util.cntrl != null){
