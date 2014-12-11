@@ -152,7 +152,9 @@ public class PseudocodeList extends JPanel {
                     	}
                     	else{
                     		Code temp = Util.matchStringToCode(data);
-                    		Util.updateCodeList(line,temp);
+                    		if(!isMacro) {
+                    			Util.updateCodeList(line,temp);
+                    		}
                     		add(data, line);
                     	}
                     	

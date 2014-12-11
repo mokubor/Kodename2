@@ -31,12 +31,6 @@ public class PseudocodeButtons extends JPanel {
 					
 					if(choice == 0) {				
 						PseudocodeList.getTheModel().removeAllElements();
-						Util.cntrl.getCodeList().clear();
-						PseudocodeList.resetList();
-						MainWindow.expand.setEnabled(false);
-						WorldConsole.reset();
-						WorldButtons.disable_buttons();
-						
 					}
 					
 				}
@@ -44,12 +38,13 @@ public class PseudocodeButtons extends JPanel {
 					JOptionPane.showMessageDialog(null, "There is no code to clear.", "No code to clear",
 							JOptionPane.ERROR_MESSAGE);
 				}
+				Util.cntrl.getCodeList().clear();
+				PseudocodeList.resetList();
+				MainWindow.expand.setEnabled(false);
+				WorldConsole.reset();
+				WorldButtons.disable_buttons();
 				
-				
-			}
-			// Make sure that default string "Begin by Draging an Action" cannot be deleted and that when list becomes empty by singley
-			// deleting last item, that the default string "Begin by Draging an Action" is added once again
-			else if(source == deleteBut){
+			}else if(source == deleteBut){
 				
 				int selection = 666;
 				
