@@ -224,9 +224,15 @@ public class Controller implements Serializable {
 		world = originalWorld.cloneWorld();
 		karel.setWorld(world);
 		deque = new LinkedList<Executable>();
+		
+		System.out.println("Begin compile.");
 		for(int i = 0; i < codeList.size(); i++) {
-			deque.addAll(eval(codeList.get(i), i));
+			Code code = codeList.get(i);
+			System.out.println(code);
+			deque.addAll(eval(code, i));
 		}
+		System.out.println("End compile.");
+		
 		canExecute = true;
 		//System.out.println("There are " + deque.size() + " Executables.");
 		executionMessage = "";

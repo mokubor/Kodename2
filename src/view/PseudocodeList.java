@@ -164,7 +164,11 @@ public class PseudocodeList extends JPanel {
                     		add(data, line);
                     	}
                     	else{
+                    		System.out.println("Looking up macro " + data);
                     		Code temp = Util.cntrl.getMacroMap().get(data);
+                    		if (temp == null) {
+                    			System.out.println("Macro not found.");
+                    		}
                     		Util.updateCodeList(line,  temp);
                     		add(data, line);
                     	}
