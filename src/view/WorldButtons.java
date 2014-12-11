@@ -22,26 +22,43 @@ public class WorldButtons extends JPanel{
 				/**begin program execution*/	
 				WorldConsole.reset();
 				Util.cntrl.compile();
+				Util.drawWorld(Util.cntrl.getKarel(), Util.cntrl.getWorld());
+				PseudocodeList.getTheJList().setSelectedIndex(-1);
 				step.setEnabled(true);
 				step_through.setEnabled(true);
 				
 			}else if(source == step){
 				if(!Util.cntrl.execute()){
 					disable_buttons();
+					//MainWindow.enableAll();
 					WorldConsole.edit(Util.cntrl.getExecutionMessage());
+					PseudocodeList.getTheJList().setSelectedIndex(-1);
 				}else{
+					//MainWindow.disableAll();
 					WorldConsole.edit(Util.cntrl.getExecutionMessage());
+					PseudocodeList.getTheJList().setSelectedIndex(Util.cntrl.getExecutionLine());
+					Util.drawWorld(Util.cntrl.getKarel(), Util.cntrl.getWorld());
 					//highlight pseudocode list
 					//and update Karel
 				}
+				//MainWindow.enableAll();
 			}else if(source == step_through){
-				/*while(cntrl.execute()){
-					WorldConsole.edit(cntrl.getExecutionMessage());
-				}*/
+				MainWindow.disableAll();
+				while(Util.cntrl.execute()){
+					WorldConsole.edit(Util.cntrl.getExecutionMessage());
+					Util.drawWorld(Util.cntrl.getKarel(), Util.cntrl.getWorld());
+				}
+				WorldConsole.edit(Util.cntrl.getExecutionMessage());
+				disable_buttons();
+				MainWindow.enableAll();
 			}else{
 				
 			}
-			Util.drawWorld(null, null);
+
+			//Util.drawWorld(null, null);
+
+			//Util.drawWorld();
+
 
 		}
 	}

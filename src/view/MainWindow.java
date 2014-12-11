@@ -21,8 +21,8 @@ public class MainWindow extends Window{
 	JPanel world;
 	//static Controller cntrl;
 	
-	PseudocodeList pL;
-	PseudocodeButtons pB;	
+	static PseudocodeList pL;
+	static PseudocodeButtons pB;	
 	
 	public static JButton expand;
 	
@@ -32,7 +32,7 @@ public class MainWindow extends Window{
 			
 			 if(source == expand){
 				 Util.printcodeList();
-				 
+				 WorldButtons.disable_buttons();
 				 //String selected = ((String)pL.getTheModel().getElementAt(pL.getTheJList().getSelectedIndex())).trim();
 				 int i = pL.getTheJList().getSelectedIndex();
 				 String selected = Util.cntrl.getCodeList().get(i).getClass().toString();
@@ -64,7 +64,7 @@ public class MainWindow extends Window{
 					 return;
 				 }
 				 else{
-					 JOptionPane.showMessageDialog(null, "You cannot expand a "+selected+" action", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
+					 JOptionPane.showMessageDialog(null, "You cannot expand a Basic action", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 					 
 					 pL.getTheJList().setSelectedIndex(-1);
 					 return;
@@ -134,6 +134,17 @@ public class MainWindow extends Window{
 
 	public void close(){
 		this.dispose();
+	}
+	
+	static void disableAll(){
+		expand.setEnabled(false);
+		pB.clearBut.setEnabled(false);
+		pB.deleteBut.setEnabled(false);
+	}
+	static void enableAll(){
+		expand.setEnabled(true);
+		pB.clearBut.setEnabled(true);
+		pB.deleteBut.setEnabled(true);
 	}
 	
 }

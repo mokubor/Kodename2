@@ -45,7 +45,7 @@ public class PseudocodeButtons extends JPanel {
 				WorldButtons.disable_buttons();
 				
 			}else if(source == deleteBut){
-			
+				
 				int selection = 666;
 				
 				if(PseudocodeList.getTheJList().getSelectedIndex() == -1) {
@@ -64,8 +64,9 @@ public class PseudocodeButtons extends JPanel {
 						
 					if (selection == 0) {
 						int index = PseudocodeList.getTheJList().getSelectedIndex();
-						if(PseudocodeList.getTheModel().size() == 1){
-							PseudocodeList.getTheModel().remove(PseudocodeList.getTheJList().getSelectedIndex());
+						if(Util.cntrl.getCodeList().size() == 1){
+							PseudocodeList.getTheModel().remove(index);
+							Util.cntrl.getCodeList().remove(index);
 							PseudocodeList.resetList();
 							WorldConsole.reset();
 							MainWindow.expand.setEnabled(false);
@@ -94,5 +95,7 @@ public class PseudocodeButtons extends JPanel {
 		
 		add(panel, BorderLayout.SOUTH);
 	}
+	
+
 
 }
