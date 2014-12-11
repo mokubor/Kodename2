@@ -1,16 +1,20 @@
 package view;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.DefaultListModel;
-
 import java.awt.Color;
 import java.util.ArrayList;
 
-import model.*;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JList;
+
+import model.BasicCode;
+import model.Code;
+import model.Code.Action;
+import model.Code.Proposition;
+import model.Karel;
+import model.World;
 import model.World.Contents;
-import model.Code.*;
 import control.Controller;
 
 public class Util {
@@ -149,15 +153,25 @@ public class Util {
 				StringBuffer sb = new StringBuffer();
 				//sb.append(String.valueOf(j));
 				//sb.append(String.valueOf(world.getYSize() - 1 - i));
+				
+				boolean karelBeeper = false;
+				
 				switch(contents) {
 				case BEEPER:
-					worldLabels[i][j].setIcon(new ImageIcon("images/beeper.png"));
-					//sb.append("Beeper ");
-					break;
+				     System.out.println("beeper at xy: " + j + " and " + i);
+				     if(karel.getX() == j && karel.getY() == world.getYSize() - 1 - i){
+				    	 worldLabels[i][j].setIcon(new ImageIcon("images/beeperRight.png"));
+				    	 karelBeeper = true;
+				     }
+				     else{
+				    	 worldLabels[i][j].setIcon(new ImageIcon("images/beeper.png"));
+				     }
+				     break;
 				case NONE:
 					  worldLabels[i][j].setOpaque(true);
 					  worldLabels[i][j].setIcon(null);
 						worldLabels[i][j].setBackground(Color.white);
+
 					break;
 				case OUT_OF_BOUNDS:
 					//sb.append("O ");
@@ -171,22 +185,26 @@ public class Util {
 				default:
 					break;
 				}
-				if(karel.getX() == j && karel.getY() == world.getYSize() - 1 - i) {
+				if(!karelBeeper && karel.getX() == j && karel.getY() == world.getYSize() - 1 - i) {
 					ImageIcon image = new ImageIcon("images/right.png");
 					worldLabels[i][j].setIcon(image);
 					//sb.append("Karel ");
 					switch(karel.getFacing()) {
 					case EAST:
 						worldLabels[i][j].setIcon(new ImageIcon("images/right.png"));
+
 						break;
 					case NORTH:
 						worldLabels[i][j].setIcon(new ImageIcon("images/north.png"));
+
 						break;
 					case SOUTH:
 						worldLabels[i][j].setIcon(new ImageIcon("images/south.png"));
+
 						break;
 					case WEST:
 						worldLabels[i][j].setIcon(new ImageIcon("images/left.png"));
+
 						break;
 					default:
 						break;
@@ -198,7 +216,6 @@ public class Util {
 			}
 		}
 	}
-
 	
 	public static Code matchStringToCode(String s){
 
