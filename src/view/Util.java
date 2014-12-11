@@ -318,10 +318,13 @@ public class Util {
 				System.out.println("NULL");
 				return null;
 			}
+			System.out.println("not null but still1");
 		}
 		
-		for(int i = 0; i < PseudocodeList.getTheModel().getSize(); i++){
+		for(int i = 0; i < PseudocodeList.getTheModel().getSize()-1; i++){
 			String s = (String)PseudocodeList.getTheModel().getElementAt(i);
+			s = s.trim();
+			System.out.println("s: "+ s);
 			Code c = matchStringToCode(s);
 			body.add(c);
 		}
