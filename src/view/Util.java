@@ -1,9 +1,11 @@
 package view;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import model.*;
@@ -141,39 +143,50 @@ public class Util {
 			for(int j = 0; j < world.getXSize(); j++) {
 				Contents contents = world.getContents(j, world.getYSize() - 1 - i);
 				JLabel label = worldLabels[i][j];
+				  worldLabels[i][j].setOpaque(true);
+				worldLabels[i][j].setBackground(Color.white);
+				
 				StringBuffer sb = new StringBuffer();
 				//sb.append(String.valueOf(j));
 				//sb.append(String.valueOf(world.getYSize() - 1 - i));
 				switch(contents) {
 				case BEEPER:
-					sb.append("Beeper ");
+					worldLabels[i][j].setIcon(new ImageIcon("images/beeper.png"));
+					//sb.append("Beeper ");
 					break;
 				case NONE:
-					//sb.append("N");
+					  worldLabels[i][j].setOpaque(true);
+					  worldLabels[i][j].setIcon(null);
+						worldLabels[i][j].setBackground(Color.white);
 					break;
 				case OUT_OF_BOUNDS:
-					sb.append("O ");
+					//sb.append("O ");
 					break;
 				case WALL:
-					sb.append("Wall ");
+					//sb.append("Wall ");
+			
+					worldLabels[i][j].setIcon(new ImageIcon("images/wall.png"));
+					            
 					break;
 				default:
 					break;
 				}
 				if(karel.getX() == j && karel.getY() == world.getYSize() - 1 - i) {
-					sb.append("Karel ");
+					ImageIcon image = new ImageIcon("images/right.png");
+					worldLabels[i][j].setIcon(image);
+					//sb.append("Karel ");
 					switch(karel.getFacing()) {
 					case EAST:
-						sb.append("/East");
+						worldLabels[i][j].setIcon(new ImageIcon("images/right.png"));
 						break;
 					case NORTH:
-						sb.append("/North");
+						worldLabels[i][j].setIcon(new ImageIcon("images/north.png"));
 						break;
 					case SOUTH:
-						sb.append("/South");
+						worldLabels[i][j].setIcon(new ImageIcon("images/south.png"));
 						break;
 					case WEST:
-						sb.append("/West");
+						worldLabels[i][j].setIcon(new ImageIcon("images/left.png"));
 						break;
 					default:
 						break;
@@ -185,6 +198,7 @@ public class Util {
 			}
 		}
 	}
+
 	
 	public static Code matchStringToCode(String s){
 
