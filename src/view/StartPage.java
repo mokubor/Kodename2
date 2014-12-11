@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -46,6 +47,22 @@ public class StartPage extends Window {
 		add(southPanel, BorderLayout.SOUTH);
 		add(leftPanel, BorderLayout.WEST);
 		add(rightPanel, BorderLayout.EAST);
+		
+		// test code
+		
+		JButton customWorldBut = new JButton("CUSTOM WORLD FEATURE");
+		add(customWorldBut);
+		customWorldBut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					CustomWorld mW = new CustomWorld();
+					mW.setVisible(true);
+					mW.setSize(1000,600);
+					mW.setLocationRelativeTo(null);
+				}
+
+		});
+		
+		// end test code
 
 		wl.jlist.addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e) {
@@ -63,12 +80,11 @@ public class StartPage extends Window {
 					}
 					
 					Main.currentWindow.dispose();
-					mW = new MainWindow(w.getXSize(), w.getYSize()/*, cntrl*/);
+					mW = new MainWindow(w.getXSize(), w.getYSize());
 					mW.setVisible(true);
 					mW.setSize(1000,600);
 					mW.setLocationRelativeTo(null);
 					Util.drawWorld(null, null);
-					//MainWindow.createMainWindow(10,10, cntrl);
 					
 				}
 
