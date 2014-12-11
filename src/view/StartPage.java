@@ -54,9 +54,9 @@ public class StartPage extends Window {
 		add(customWorldBut);
 		customWorldBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					CustomWorld cW = new CustomWorld();
+					CustomWorldSetSize cW = new CustomWorldSetSize();
 					cW.setVisible(true);
-					cW.setSize(1000,600);
+					cW.setSize(300,200);
 					cW.setLocationRelativeTo(null);
 				}
 

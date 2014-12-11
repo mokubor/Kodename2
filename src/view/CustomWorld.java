@@ -33,13 +33,16 @@ public class CustomWorld extends JDialog{
 	JLabel xCoorL = new JLabel("X Coordinate: ");
 	JLabel yCoorL = new JLabel("Y Coordinate: ");
 	
-	World w = new World(6, 6);
+	World w;
 	
-	StartPageGrid gd = new StartPageGrid();
+	CustomWorldGridPanel gp = new CustomWorldGridPanel();
 	
-	public CustomWorld() {
+	public CustomWorld(final World w) {
 		
 		super();
+		
+		this.w = w;
+		gp.renderWorld(w);
 		
 		setLayout(new FlowLayout());
 		
@@ -51,7 +54,7 @@ public class CustomWorld extends JDialog{
 		add(cancelBut);
 		add(elementBox);
 		add(addBut);
-		add(gd);
+		add(gp);
 		
 		addBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -67,7 +70,7 @@ public class CustomWorld extends JDialog{
 				}
 				
 				Util.cntrl = new Controller(w);
-				gd.renderWorld(w);
+				gp.renderWorld(w);
 				
 			}
 		});
@@ -90,6 +93,5 @@ public class CustomWorld extends JDialog{
 				}
 
 		});
-
 	}
 }
