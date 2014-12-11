@@ -7,6 +7,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.BorderFactory;
@@ -18,8 +19,9 @@ public class WorldGrid extends JPanel {
 	public WorldGrid(int rows, int cols){
 		super();
 		final int borderWidth = 1;
-
-		GridLayout layout = new GridLayout(rows, cols);
+		final int numRows = rows;
+		
+		GridLayout layout = new GridLayout(rows + 1, cols + 1);
 		
 		JPanel panel = new JPanel(layout);
 		
@@ -39,14 +41,16 @@ public class WorldGrid extends JPanel {
 		
 		panel.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 		int i = 0;
-		for (int row = 0; row < rows; row++) {
-			for (int col = 0; col < cols; col++) {
-				JLabel label = new JLabel("   "+i+"  h ");
-				labels[row][col] = label;
+		for (int row = 0; row < rows + 1; row++) {
+			for (int col = 0; col < cols + 1; col++) {
+				JLabel label = new JLabel("", SwingConstants.CENTER);
+				
+				if (row != 0 && col != 0) {
+				labels[row-1][col-1] = label;
 				label.setVisible(true);
 				label.setSize(10, 10);
-				if (row == 0) {
-					if (col == 0) {
+				if (row == 1) {
+					if (col == 1) {
 						// Top left corner, draw all sides
 						label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 					}
@@ -60,7 +64,7 @@ public class WorldGrid extends JPanel {
 					}
 				}
 				else {
-					if (col == 0) {
+					if (col == 1) {
 						// Left-hand edge, draw all sides except top
 						label.setBorder(BorderFactory.createMatteBorder(0, 
 	                                                             		borderWidth, 
@@ -77,7 +81,13 @@ public class WorldGrid extends JPanel {
 	                                                                	Color.BLACK));
 					}
 				}
-				
+				} else if (row == 0) {
+					if (col != 0)
+						label.setText(String.valueOf(col));
+				} else {
+					if (row != 0)
+						label.setText(String.valueOf(numRows - row));
+				}
 				
 					panel.add(label);//take out of else
 				
