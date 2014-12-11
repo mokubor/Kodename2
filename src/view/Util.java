@@ -19,12 +19,16 @@ public class Util {
 	static int EditIndex;
 	
 	public static void updateCodeList(int index, Code c){
+		System.out.println("back end codeList size: " + cntrl.getCodeList().size());
+		System.out.println("inserting in index: " + index);
 		if(index == -1){
 			cntrl.getCodeList().add(c);
 		}
 		else{
 			cntrl.getCodeList().add(index, c);
 		}
+		
+		System.out.println("Size after insert: " + cntrl.getCodeList().size());
 	}
 	
 	public static void setLabels(JLabel[][] labels) {
@@ -173,5 +177,11 @@ public class Util {
 		}
 		
 		return body;
+	}
+	
+	public static void printcodeList(){
+		for(int i = 0; i < cntrl.getCodeList().size(); i ++){
+			 System.out.println(i + " " + cntrl.getCodeList().get(i).getClass().toString());
+		 }
 	}
 }

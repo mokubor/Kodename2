@@ -65,10 +65,11 @@ public class LoopDialog extends JDialog{
 					((LoopCode) loop_code_piece).setBody(body);
 					
 					if(isempty == true){
-						Util.cntrl.getCodeList().remove(Util.EditIndex);
-					}else{
 						Util.updateCodeList(Util.EditIndex, loop_code_piece);
+						
+					}else{
 						Util.cntrl.getCodeList().remove(Util.EditIndex);
+						Util.updateCodeList(Util.EditIndex, loop_code_piece);
 					}
 					
 					value = 1;

@@ -31,7 +31,10 @@ public class MainWindow extends Window{
 			JButton source = (JButton)e.getSource();
 			
 			 if(source == expand){
+				 Util.printcodeList();
+				 
 				 String selected = ((String)pL.getTheModel().getElementAt(pL.getTheJList().getSelectedIndex())).trim();
+				 System.out.println("expand for index "+ pL.getTheJList().getSelectedIndex());
 				 if( selected.equalsIgnoreCase("if-else")){
 					 int i = pL.getTheJList().getSelectedIndex();
 					 System.out.println(Util.cntrl.getCodeList().get(i).getClass().toString());
