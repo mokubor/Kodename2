@@ -67,7 +67,7 @@ public class MainWindow extends Window{
 					 CustomCode c = Util.cntrl.getMacroMap().get(key);
 					 System.out.println(key);
 					 
-					//MacroExpand.ExpandMacro(c.getName(), c.getCodeBody());
+					MacroExpand.ExpandMacro(c.getName(), c.getCodeBody());
 					 PseudocodeList.getTheJList().setSelectedIndex(-1);
 					 return;
 				 }
