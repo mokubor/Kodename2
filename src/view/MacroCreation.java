@@ -36,69 +36,64 @@ public class MacroCreation extends JDialog {
 	MacroBasicLoop mBL = new MacroBasicLoop();
 	PseudocodeList pL = new PseudocodeList(true);
 	PseudocodeButtons pB = new PseudocodeButtons();
-	
-public MacroCreation() {
-		
+
+	public MacroCreation() {
+
 		add(pB, BorderLayout.SOUTH);
 		add(pL, BorderLayout.CENTER);
 		add(mBL, BorderLayout.WEST);
 		add(mN, BorderLayout.NORTH);
-		
+
 		// When user clicks Save Button
 		mN.ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				// Make sure user enters a name for macro
-				if (!mN.tx.getText().trim().equalsIgnoreCase("")) {
 
-					// Make sure there is not already a macro with this name
-					if (Util.cntrl.getMacroMap().containsKey(mN.tx.getText().trim()) == false) {
-						
-						if (Util.getBodyMacro() != null) {
-							
-						
+				// Make sure user enters a name for macro
+				if (mN.tx.getText().trim().equalsIgnoreCase("")) {
+					JOptionPane.showMessageDialog(null, "You left the Macro Name field blank.", "Macro must have a name.",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
+				// Make sure there is not already a macro with this name
+				if (Util.cntrl.getMacroMap().containsKey(mN.tx.getText().trim())) {
+					JOptionPane.showMessageDialog(null, "Macro name is in use.", "Macro name in use.",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
+				if (Util.getBodyMacro() == null) {
+					JOptionPane.showMessageDialog(null, "The Macro does not have any code in it.",
+							"Empty Macro", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
 				// Make this dialog disappear
 				setVisible(false);
 				dispose();
 				// Enable create macro button in Customs/CustomButtons panel
 				CustomButtons.create.setEnabled(true);
-				
+
 				CustomCode cc = new CustomCode(mN.tx.getText().trim(), Util.getBodyMacro());
-				
+
 				Util.cntrl.getMacroMap().put(cc.getName(), cc);
 				//System.out.println("SIZE: " + Util.cntrl.getMacroMap().size());
-				
+
 				// Save to list
 				if (Customs.model.get(0).equals("No Custom Actions created")) {
 					Customs.model.remove(0);
 				}
-				
+
 				Customs.model.addElement(cc.getName());
 				CustomButtons.delete.setEnabled(true);
-				
+
 				// Explicitly tell class that there is a switch between pseudocodes
 				PseudocodeList.isMacro = false;
-				
-						}
-						else {
-							JOptionPane.showMessageDialog(null, "The Macro does not have any code in it.",
-									"Empty Macro", JOptionPane.ERROR_MESSAGE);
-						}
-					}
-					else {
-					JOptionPane.showMessageDialog(null, "A Macro already exists with that name. Please choose a different name.",
-							"A Macro has that name.", JOptionPane.ERROR_MESSAGE);
-					}
-				
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "You left the Macro Name field blank.", "Macro must have a name.",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				
-		}
+
+				return;
+			}
 		});
-	
-		}
-	
+
+	}
+
 }

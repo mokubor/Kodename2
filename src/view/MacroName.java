@@ -16,12 +16,13 @@ public class MacroName extends JPanel {
 	JLabel label = new JLabel("Macro Name:");
 	
 	public JTextField tx = new JTextField(25);
-	public static JButton ok = new JButton("Save");
+	public JButton ok;
 	
 	JPanel topPanel = new JPanel();
 	
 	public MacroName() {
 	
+		ok = new JButton("Save");
 		topPanel.add(label);
 		topPanel.add(tx);
 		topPanel.add(ok);
