@@ -1,3 +1,7 @@
+/**
+ * @mainAuthor Stephen Chung
+ */
+
 package control;
 
 import java.io.Serializable;

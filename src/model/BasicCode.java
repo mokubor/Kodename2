@@ -1,3 +1,7 @@
+/**
+ * @helper Stephen Chung
+ */
+
 package model;
 
 import java.io.Serializable;
@@ -5,13 +9,10 @@ import java.io.Serializable;
 
 /**
  * This is a Basic code object type for a single Karel instruction
- * <p>
+ * 
  * The basic code object is a type for one of Kodename Karel's
  * five basic instructions; move, turn left, turn right, pick up beeper, put down beeper
  * it contains a string which represents one of the basic Karel instructions.
- * </p>
- * @author Kodename team
- *
  */
 public class BasicCode extends Code implements Serializable {
 

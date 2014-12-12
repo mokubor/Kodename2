@@ -1,3 +1,7 @@
+/**
+ * @mainAuthor Stephen Chung, Isaac Tyan
+ */
+
 package control;
 
 import java.io.File;

@@ -1,3 +1,7 @@
+/**
+ * @helper Stephen Chung
+ */
+
 package view;
 
 import javax.swing.JButton;

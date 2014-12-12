@@ -1,3 +1,7 @@
+/**
+ * @helper Stephen Chung
+ */
+
 package view;
 
 import java.awt.FlowLayout;
@@ -119,7 +123,7 @@ public class CustomWorld extends JDialog{
 	}
 
 	public boolean inRange(String in) {
-		if (in == null) {
+		if (in == null || in.length() == 0) {
 			return false;
 		}
 		for(int i = 0; i < in.length(); i++) {

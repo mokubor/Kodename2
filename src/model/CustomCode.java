@@ -1,3 +1,7 @@
+/**
+ * @helper Stephen Chung
+ */
+
 package model;
 
 import java.io.Serializable;
@@ -5,15 +9,12 @@ import java.util.ArrayList;
 
 /**
  * This is a Custom code object type that will contain one or more Karel instructions
- * <p>
+ * 
  * A custom code is small Karel program, it can contain any of Karel's basic instructions 
  * and conditional statements. 
  * This object contains a name which is the title of this "mini" program and an arraylist which 
  * contains all the code/objects that make up the body of the "mini" program.
- * </p>
- * @author Kodename team
- * @see java.util.ArrayList
- *
+
  */
 public class CustomCode extends Code implements Serializable {
 	

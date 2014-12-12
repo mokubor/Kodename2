@@ -1,3 +1,7 @@
+/**
+ * @mainAuthor Stephen Chung, Isaac Tyan
+ */
+
 package model;
 
 import java.io.Serializable;
@@ -10,8 +14,6 @@ import static model.World.Contents.*;
  * It knows its own position, and has the
  * ability to perform actions such as move, turn, and pick up beeper. It
  * inhabits a World, which introduces constraints to its actions.
- * 
- *  @author Kodename Team
  */
 public class Karel implements Serializable {
 

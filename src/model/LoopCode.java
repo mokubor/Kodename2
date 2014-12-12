@@ -1,3 +1,7 @@
+/**
+ * @helper Stephen Chung
+ */
+
 package model;
 
 import java.io.Serializable;
