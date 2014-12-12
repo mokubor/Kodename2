@@ -23,7 +23,8 @@ public class LoopCode extends Code implements Serializable {
 		for(Code code: body) {
 			sb.append(code.toString() + "\n");
 		}
-		return sb.toString();
+		//return sb.toString();
+		return "For-End For";
 	}
 
 	/**

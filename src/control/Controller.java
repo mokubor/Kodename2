@@ -118,6 +118,8 @@ public class Controller implements Serializable {
 	 * @return the controller, or null if an error occurred
 	 */
 	public static Controller load(File file) {
+		
+		
 		FileInputStream fis;
 		ObjectInputStream ois = null;
 		Controller controller = null;

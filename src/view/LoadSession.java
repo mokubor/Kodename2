@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -72,11 +73,13 @@ public class LoadSession extends Window{
 				}
 				
 				String filepath = (String)dlmModel.get(jlist.getSelectedIndex());
-				String filename = getName(filepath);
+				String filename = getName(filepath).trim();
 				System.out.println("filename: " + filename);
 				//File f = new File(filename);
 				File f = new File("data" + File.separator + filename);
+				
 				Util.cntrl = Controller.load(f);
+				
 				
 				if(Util.cntrl != null){
 					//Main.currentWindow.dispose();

@@ -16,6 +16,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
@@ -24,7 +25,7 @@ import control.*;
 //import control.Controller;
 
 public class Customs extends JPanel{
-	static String[] custom_code;
+	static ArrayList<String> custom_code;
 	static JList list;
 	static DefaultListModel model;
 	static JPanel buttons;
@@ -41,27 +42,36 @@ public class Customs extends JPanel{
 		/*initalize buttons*/
 		buttons = new CustomButtons();
 		
+		custom_code = new ArrayList<String>(1);
 		
 		/**check if list of custom codes is empty, if it is, 
 		 * initialize array to one*/
 		if(Util.cntrl.getMacroMap() == null || Util.cntrl.getMacroMap().size() <= 0){
-			custom_code = new String[1];
-			custom_code[0] = "No Custom Actions created";
+			custom_code = new ArrayList<String>(1);
+			custom_code.add("No Custom Actions created");
 			CustomButtons.delete.setEnabled(false);
 		}
 		else{
 			//custom_code = new String[cntrl.getMacroMap().size()];
 			//retrieving key string values from hashmap and converting to array
-			custom_code = (String[]) Util.cntrl.getMacroMap().keySet().toArray();
+			custom_code = new ArrayList<String>(1);
+			int length = Util.cntrl.getMacroMap().size();
+			
+			for(int i = 0; i < length; i++){
+				String key = (String)Util.cntrl.getMacroMap().keySet().toArray()[i].toString();
+				custom_code.add(key);
+			}
 			CustomButtons.delete.setEnabled(true);
 		}
 		
 		/**make default model*/
 		model = new DefaultListModel();
 		
-		//retrieve any cusom code elements that may have already been created
-		for(int i = 0; i < custom_code.length; i++){
-			model.addElement(custom_code[i]);
+		//retrieve any custom code elements that may have already been created
+		System.out.println(custom_code.size());
+		
+		for(int i = 0; i < custom_code.size(); i++){
+			model.addElement(custom_code.get(i));
 		}
 		
 		list = new JList (model);
@@ -94,11 +104,11 @@ public class Customs extends JPanel{
 	}
 	
 	public static void resetCustomsList(){
-		custom_code = new String[1];
-		custom_code[0] = "No Custom Actions created";
+		custom_code = new ArrayList<String>(1);
+		custom_code.add("No Custom Actions created");
 	
-		for(int i = 0; i < custom_code.length; i++){
-			model.addElement(custom_code[i]);
+		for(int i = 0; i < custom_code.size(); i++){
+			model.addElement(custom_code.get(i));
 		}
 	
 		list.setModel(model);
