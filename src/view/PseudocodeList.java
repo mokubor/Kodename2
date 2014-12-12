@@ -71,10 +71,12 @@ public class PseudocodeList extends JPanel {
 		//}
 		
 		if(Util.cntrl.getCodeList().size() != 0){
+			wasNull = false;
 			for(int i = 0; i < Util.cntrl.getCodeList().size(); i++){
 				getTheModel().addElement(Util.cntrl.getCodeList().get(i).toString());
 			}
 			getTheModel().addElement("...");
+			MainWindow.expand.setEnabled(true);
 		}else{
 			for(int i = 0; i < mActions.length; i++){
 				getTheModel().addElement(mActions[i]);
