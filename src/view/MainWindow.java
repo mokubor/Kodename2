@@ -63,11 +63,11 @@ public class MainWindow extends Window{
 					 return;
 				 }
 				 else if(selected.equalsIgnoreCase("class model.CustomCode")){
-					 String key = (String) PseudocodeList.getTheModel().getElementAt(PseudocodeList.getTheJList().getSelectedIndex());
+					 String key = ((String) PseudocodeList.getTheModel().getElementAt(PseudocodeList.getTheJList().getSelectedIndex())).trim();
 					 CustomCode c = Util.cntrl.getMacroMap().get(key);
 					 System.out.println(key);
 					 
-					 MacroExpand.ExpandMacro(c.getName(), c.getCodeBody());
+					//MacroExpand.ExpandMacro(c.getName(), c.getCodeBody());
 					 PseudocodeList.getTheJList().setSelectedIndex(-1);
 					 return;
 				 }
@@ -92,7 +92,7 @@ public class MainWindow extends Window{
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 		    
 				if (JOptionPane.showConfirmDialog(null, 
-			            "Closing a window will quit this application.\nAre you sure you want to close this window?.", "Close Window", 
+			            "Closing a window will quit this application.\nAre you sure you want to close this window?\nProgress will be saved.", "Close Window", 
 			            JOptionPane.YES_NO_OPTION,
 			            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
 					if(Util.cntrl != null){
