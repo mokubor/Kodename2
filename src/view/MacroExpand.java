@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -46,6 +47,8 @@ public class MacroExpand extends JDialog{
 	}
 	public MacroExpand(String key, ArrayList<Code> Body){
 		JLabel label = new JLabel ("Macro Name: ");
+		
+		name = new JLabel("");
 		if(Body == null){
 			//break
 		}
@@ -78,7 +81,7 @@ public class MacroExpand extends JDialog{
 		
 		JPanel panel = new JPanel();
 		panel.setVisible(true);
-		panel.setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
+		panel.setLayout(new FlowLayout(FlowLayout.RIGHT,5, 5));
 		panel.add(label);
 		panel.add(Box.createRigidArea(new Dimension(0,10)));
 		panel.add(name);
