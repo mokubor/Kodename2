@@ -69,7 +69,7 @@ public class PseudocodeList extends JPanel {
 			//mActions[2] = "into the list";
 			wasNull = true;
 		//}
-			
+	
 		if(!isMacro){
 			if(Util.cntrl.getCodeList().size() != 0){
 				for(int i = 0; i < Util.cntrl.getCodeList().size(); i++){

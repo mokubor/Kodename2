@@ -27,7 +27,7 @@ import model.LoopCode;
 public class MacroExpand extends JDialog{
 	static JList list;
 	static DefaultListModel model;
-	static JLabel name;
+	JLabel name;
 	static JButton done;
 	JScrollPane scroll;
 	ArrayList<String> x;
@@ -46,13 +46,17 @@ public class MacroExpand extends JDialog{
 		}
 	}
 	public MacroExpand(String key, ArrayList<Code> Body){
+		if (key == null) {
+			throw new IllegalArgumentException("MacroExpand constructor: name is null");
+		}
 		JLabel label = new JLabel ("Macro Name: ");
 		
 		name = new JLabel("");
 		if(Body == null){
-			//break
+			throw new IllegalArgumentException("MacroExpand constructor: body is null");
 		}
 		model = new DefaultListModel();
+		name = new JLabel();
 		name.setText(key);
 		name.setVisible(true);
 		

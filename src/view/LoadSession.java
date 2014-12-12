@@ -111,7 +111,7 @@ public class LoadSession extends Window{
 	{
 		String dataFolder = null;
 		File[] files;
-		File currentDirectory = new File(new File("").getAbsolutePath()+"\\");
+		File currentDirectory = new File(new File("").getAbsolutePath());
 		
 		System.out.println("Current Directory: " + currentDirectory);
 		
