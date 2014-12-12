@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 
 public class WorldConsole extends JPanel{
@@ -21,7 +22,8 @@ public class WorldConsole extends JPanel{
 		
 		console.setText(console_text);
 		
-		add(console);
+		JScrollPane scroll = new JScrollPane(console);
+		add(scroll);
 	}
 	
 	static void edit(String t){
