@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -26,7 +27,7 @@ import model.LoopCode;
 public class MacroExpand extends JDialog{
 	static JList list;
 	static DefaultListModel model;
-	static JLabel name;
+	JLabel name;
 	static JButton done;
 	JScrollPane scroll;
 	ArrayList<String> x;
@@ -45,11 +46,15 @@ public class MacroExpand extends JDialog{
 		}
 	}
 	public MacroExpand(String key, ArrayList<Code> Body){
+		if (key == null) {
+			throw new IllegalArgumentException("MacroExpand constructor: name is null");
+		}
 		JLabel label = new JLabel ("Macro Name: ");
 		if(Body == null){
-			//break
+			throw new IllegalArgumentException("MacroExpand constructor: body is null");
 		}
 		model = new DefaultListModel();
+		name = new JLabel();
 		name.setText(key);
 		name.setVisible(true);
 		
@@ -78,7 +83,7 @@ public class MacroExpand extends JDialog{
 		
 		JPanel panel = new JPanel();
 		panel.setVisible(true);
-		panel.setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
+		panel.setLayout(new FlowLayout(FlowLayout.RIGHT,5, 5));
 		panel.add(label);
 		panel.add(Box.createRigidArea(new Dimension(0,10)));
 		panel.add(name);
