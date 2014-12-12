@@ -113,13 +113,16 @@ public class MainWindow extends Window{
 		//cntrl = _cntrl;
 		Main.currentWindow = this;
 		
+		expand = new JButton("Expand");
+		expand.setEnabled(false);
+		
 		action = new ActionPanel(/*cntrl*/);
 		pL = new PseudocodeList(false);
 		pB = new PseudocodeButtons();
 		world = new WorldPanel(x, y/*, cntrl*/);
 		
-		expand = new JButton("Expand");
-		expand.setEnabled(false);
+		//expand = new JButton("Expand");
+		//expand.setEnabled(false);
 		expand.addActionListener(new ButtonListener());
 		
 		pB.add(expand);

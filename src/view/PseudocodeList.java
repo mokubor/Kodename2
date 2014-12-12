@@ -69,18 +69,24 @@ public class PseudocodeList extends JPanel {
 			//mActions[2] = "into the list";
 			wasNull = true;
 		//}
-		
-		if(Util.cntrl.getCodeList().size() != 0){
-			for(int i = 0; i < Util.cntrl.getCodeList().size(); i++){
-				getTheModel().addElement(Util.cntrl.getCodeList().get(i).toString());
+			
+		if(!isMacro){
+			if(Util.cntrl.getCodeList().size() != 0){
+				for(int i = 0; i < Util.cntrl.getCodeList().size(); i++){
+					getTheModel().addElement(Util.cntrl.getCodeList().get(i).toString());
+				}
+				getTheModel().addElement("...");
+				MainWindow.expand.setEnabled(true);
+			}else{
+				for(int i = 0; i < mActions.length; i++){
+					getTheModel().addElement(mActions[i]);
+				}
 			}
-			getTheModel().addElement("...");
 		}else{
 			for(int i = 0; i < mActions.length; i++){
 				getTheModel().addElement(mActions[i]);
 			}
 		}
-		
 		scroller = new JScrollPane(getTheJList());
 		
 		getTheJList().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
