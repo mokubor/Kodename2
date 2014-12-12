@@ -70,8 +70,15 @@ public class PseudocodeList extends JPanel {
 			wasNull = true;
 		//}
 		
-		for(int i = 0; i < mActions.length; i++){
-			getTheModel().addElement(mActions[i]);
+		if(Util.cntrl.getCodeList().size() != 0){
+			for(int i = 0; i < Util.cntrl.getCodeList().size(); i++){
+				getTheModel().addElement(Util.cntrl.getCodeList().get(i).toString());
+			}
+			getTheModel().addElement("...");
+		}else{
+			for(int i = 0; i < mActions.length; i++){
+				getTheModel().addElement(mActions[i]);
+			}
 		}
 		
 		scroller = new JScrollPane(getTheJList());

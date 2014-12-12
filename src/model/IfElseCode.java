@@ -59,7 +59,8 @@ public class IfElseCode extends Code implements Serializable {
 		for(Code code: body2) {
 			sb.append("    " + code.toString());
 		}
-		return sb.toString();
+		//return sb.toString();
+		return "If-Else";
 	}
 	
 	/**
