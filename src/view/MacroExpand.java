@@ -50,6 +50,8 @@ public class MacroExpand extends JDialog{
 			throw new IllegalArgumentException("MacroExpand constructor: name is null");
 		}
 		JLabel label = new JLabel ("Macro Name: ");
+		
+		name = new JLabel("");
 		if(Body == null){
 			throw new IllegalArgumentException("MacroExpand constructor: body is null");
 		}

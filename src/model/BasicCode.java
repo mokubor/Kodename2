@@ -37,7 +37,7 @@ public class BasicCode extends Code implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("BasicCode: " );
+		//sb.append("BasicCode: " );
 		switch (instruction) {
 		case MOVE:
 			sb.append("Move");

@@ -23,10 +23,7 @@ public class CustomCode extends Code implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Custom: " + name + "\n");
-		for(Code code: body) {
-			sb.append(code.toString() + "\n");
-		}
+		sb.append(this.name);
 		return sb.toString();
 	}
 	/**
