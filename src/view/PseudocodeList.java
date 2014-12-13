@@ -149,21 +149,41 @@ public class PseudocodeList extends JPanel {
                     	Util.EditIndex = line;
                     	
                     	if(data.equalsIgnoreCase("if-else")){
-                    		IfElseDialog.getIfDialog(null);
+                    		if(!isMacro){
+                    			IfElseDialog.getIfDialog(null);
                     		
-                    		if(IfElseDialog.getValue() > 0){
-                    			//Util.EditIndex = line;
-                    			add(data, line);
+                    			if(IfElseDialog.getValue() > 0){
+                    				//Util.EditIndex = line;
+                    				add(data, line);
+                    			}
+                    		}
+                    		else{
+                    			MacroIfElseDialog.getMacroIfDialog(null);
+                    			
+                    			if(MacroIfElseDialog.getValue()>0){
+                    				add(data, line);
+                    			}
                     		}
                     	}
                     	else if(data.equalsIgnoreCase("For-End For")){
-                    		LoopDialog.getForDialog(null);
+                    		if(!isMacro){
+                    			LoopDialog.getForDialog(null);
                     		
-                    		if(LoopDialog.getValue() >0){
+                    			if(LoopDialog.getValue() >0){
                     			//
-                    			add(data, line);
+                    				add(data, line);
+                    			}
+                    		}
+                    		else{
+                    			MacroLoopDialog.getMacroForDialog(null);
+                    			
+                    			if(MacroLoopDialog.getValue() >0){
+                        			//
+                        				add(data, line);
+                        			}
                     		}
                     	}
+                    	
                     	else if(data.equalsIgnoreCase("move") || 
                     			data.equalsIgnoreCase("turn left") || 
                     			data.equalsIgnoreCase("turn right")||
@@ -173,6 +193,9 @@ public class PseudocodeList extends JPanel {
                     		Code temp = Util.matchStringToCode(data);
                     		if(!isMacro) {
                     			Util.updateCodeList(line,temp);
+                    		}
+                    		else{
+                    			MacroCreation.updateCustomActions(temp, line);
                     		}
                     		add(data, line);
                     	}
@@ -244,7 +267,7 @@ public class PseudocodeList extends JPanel {
 	 @SuppressWarnings("unchecked")
 	 
 	public static void add(String code, int index){
-		code = "\t" + code;
+		//code = "\t" + code;
 		
 		if(getTheModel().get(0).equals("Begin by Draging an Action")){
 			
@@ -295,7 +318,7 @@ public class PseudocodeList extends JPanel {
 			 return modelMacro;
 		 }
 		 System.out.println("Main window model");
-		 System.out.println(wasNull);
+		 
 		 return model;
 		 
 	 }
@@ -306,8 +329,7 @@ public class PseudocodeList extends JPanel {
 		 if(isMacro) {
 			 return listMacro;
 		 }
-		 System.out.println("Main window");
-		 System.out.println(wasNull);
+
 		 return list;
 		 
 	 }

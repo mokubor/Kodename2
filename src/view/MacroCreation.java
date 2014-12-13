@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
@@ -29,6 +30,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import model.Code;
 import model.CustomCode;
 
 // Class that holds the individual parts of Macro Creation screen and puts it together.
@@ -40,9 +42,14 @@ public class MacroCreation extends JDialog {
 	MacroBasicLoop mBL = new MacroBasicLoop();
 	PseudocodeList pL = new PseudocodeList(true);
 	PseudocodeButtons pB = new PseudocodeButtons();
+	
+	static ArrayList<Code> temp_body;
 
 	public MacroCreation() {
-
+		
+		temp_body = new ArrayList<Code>(1);
+		
+		
 		add(pB, BorderLayout.SOUTH);
 		add(pL, BorderLayout.CENTER);
 		add(mBL, BorderLayout.WEST);
@@ -66,23 +73,24 @@ public class MacroCreation extends JDialog {
 					return;
 				}
 
-				if (Util.getBodyMacro() == null) {
+				if (temp_body.isEmpty() ||temp_body == null || temp_body.get(0) == null) {
 					JOptionPane.showMessageDialog(null, "The Macro does not have any code in it.",
 							"Empty Macro", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-
-				// Make this dialog disappear
-				setVisible(false);
-				dispose();
-				// Enable create macro button in Customs/CustomButtons panel
-				CustomButtons.create.setEnabled(true);
-
-				CustomCode cc = new CustomCode(mN.tx.getText().trim(), Util.getBodyMacro());
-
+				
+				//delete
+				System.out.println("On Save: Printing what is in the list:");
+				for(int i = 0; i < temp_body.size(); i++){
+					System.out.println(temp_body.get(i).getClass().toString());
+				}
+				
+				String name = mN.tx.getText().trim();
+				
+				CustomCode cc = new CustomCode(name, temp_body);
+				
 				Util.cntrl.getMacroMap().put(cc.getName(), cc);
-				//System.out.println("SIZE: " + Util.cntrl.getMacroMap().size());
-
+				
 				// Save to list
 				if (Customs.model.get(0).equals("No Custom Actions created")) {
 					Customs.model.remove(0);
@@ -90,14 +98,42 @@ public class MacroCreation extends JDialog {
 
 				Customs.model.addElement(cc.getName());
 				CustomButtons.delete.setEnabled(true);
+				
 
 				// Explicitly tell class that there is a switch between pseudocodes
 				PseudocodeList.isMacro = false;
-
+				
+				// Enable create macro button in Customs/CustomButtons panel
+				CustomButtons.create.setEnabled(true);
+				
+				
+				// Make this dialog disappear
+				setVisible(false);
+				dispose();
+			
+				
 				return;
 			}
 		});
+	
+
 
 	}
 
+	public static void updateCustomActions(Code c, int i){
+		
+			temp_body.add(i, c);
+			
+			System.out.println("added " + c.getClass().toString() + " at index " + i);
+		
+	}
+	
+	public static void removeCA(int i){
+		temp_body.remove(i);
+	}
+	
+	public static void reset(){
+		temp_body.clear();
+	}
 }
+
