@@ -157,8 +157,9 @@ public class MainWindow extends Window{
 		//cntrl = new Controller(x, y);
 		
 		JFrame frame = new MainWindow(x,y/*, _cntrl*/);
-		frame.setSize(300, 300);
 		frame.pack();
+		frame.setSize(300, 300);
+
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -183,7 +183,7 @@ public class PseudocodeList extends JPanel {
                     	}
                     	
                     	
-                    	
+                    	WorldButtons.disable_buttons();
                     	System.out.println("size after insert "+ getTheJList().getModel().getSize());
                     	
                     }

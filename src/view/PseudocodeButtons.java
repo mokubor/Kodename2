@@ -86,7 +86,8 @@ public class PseudocodeButtons extends JPanel {
 						// Remove macro from data structure
 						if (!PseudocodeList.isMacro) {
 						      Util.cntrl.getCodeList().remove(index);
-						 }
+						}
+						WorldButtons.disable_buttons();
 					
 						// If this is only item, reset/resize
 						if(PseudocodeList.getTheModel().size() == 1){							
@@ -94,7 +95,6 @@ public class PseudocodeButtons extends JPanel {
 							PseudocodeList.resetList();
 							WorldConsole.reset();
 							MainWindow.expand.setEnabled(false);
-							WorldButtons.disable_buttons();
 							
 						}
 						/*else{
