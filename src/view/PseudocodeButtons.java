@@ -99,6 +99,9 @@ public class PseudocodeButtons extends JPanel {
 						// Remove from model
 						PseudocodeList.getTheModel().remove(index);
 						
+						// Disable Step / Step Through
+						WorldButtons.disable_buttons();
+						
 						// Remove from back end representation
 						if (!PseudocodeList.isMacro) {
 						      Util.cntrl.getCodeList().remove(index);
@@ -115,7 +118,6 @@ public class PseudocodeButtons extends JPanel {
 								PseudocodeList.resetList();
 								WorldConsole.reset();
 								MainWindow.expand.setEnabled(false);
-								WorldButtons.disable_buttons();
 							}
 							else{ //resetting Macro's List
 								PseudocodeList.getTheModel().remove(0);
