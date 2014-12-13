@@ -234,7 +234,9 @@ public class Controller implements Serializable {
 		System.out.println("Begin compile.");
 		for(int i = 0; i < codeList.size(); i++) {
 			Code code = codeList.get(i);
-			System.out.println(code);
+			if(code != null){
+				System.out.println(code);
+			}
 			deque.addAll(eval(code, i));
 		}
 		System.out.println("End compile.");

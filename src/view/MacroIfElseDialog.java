@@ -72,7 +72,16 @@ public class MacroIfElseDialog extends JDialog{
 					
 					
 					Proposition p = Util.stringtoProposition(condition);
+					if(isListEmpty(if_list)){
+						JOptionPane.showMessageDialog(null, "The if list cannot be empty", "Empty list", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
 					ArrayList<Code> body1 = Util.getBody(if_list);
+					
+					if(isListEmpty(else_list)){
+						JOptionPane.showMessageDialog(null, "The else list cannot be empty", "Empty list", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
 					ArrayList<Code> body2 = Util.getBody(else_list);
 					
 					((IfElseCode) if_code_piece).setCondition(p);
@@ -276,7 +285,7 @@ public class MacroIfElseDialog extends JDialog{
 		//right-most column
 		x.anchor = GridBagConstraints.WEST;
 		x.gridx = 0;
-		x.gridy = 2;
+		x.gridy = 3;
 		x.gridheight = 3;
 		add(basic, x);
 
@@ -390,5 +399,16 @@ public class MacroIfElseDialog extends JDialog{
 		return value;
 	}
 	
-	
+	public static boolean isListEmpty(JList list){
+		DefaultListModel model = (DefaultListModel)list.getModel();
+		if(model.getSize() == 1){
+			if(((String)model.getElementAt(0)).equalsIgnoreCase("empty")){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		return false;
+	}
 }

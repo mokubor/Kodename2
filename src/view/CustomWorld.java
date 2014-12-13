@@ -54,9 +54,9 @@ public class CustomWorld extends JDialog{
 		setLayout(new FlowLayout());
 
 		add(xCoorL);
-		add(xCoorTF);
-		add(yCoorL);
 		add(yCoorTF);
+		add(yCoorL);
+		add(xCoorTF);
 		add(doneBut);
 		add(cancelBut);
 		add(elementBox);

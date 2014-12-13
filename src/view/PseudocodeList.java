@@ -216,18 +216,7 @@ public class PseudocodeList extends JPanel {
                     //displayDropLocation(dropValue + "on top of " + "\"" + value + "\"");
                 }
                  
-        /**  This is commented out for the basicdemo.html tutorial page.
-                 **  If you add this code snippet back and delete the
-                 **  "return false;" line, the list will accept drops
-                 **  of type string.
-                // Perform the actual import.  
-                if (insert) {
-                    listModel.add(index, data);
-                } else {
-                    listModel.set(index, data);
-                }
-                return true;
-        */
+ 
         return false;
             }
              
@@ -333,5 +322,17 @@ public class PseudocodeList extends JPanel {
 		 return list;
 		 
 	 }
+	 
+	public static void onCustomDelete(String key){
+		DefaultListModel model =PseudocodeList.getTheModel();
+		
+		for(int i = 0; i < model.getSize(); i++){
+			if(((String)model.getElementAt(i)).equalsIgnoreCase(key)){
+				model.remove(i);
+				Util.cntrl.getCodeList().remove(i);
+				WorldButtons.disable_buttons();
+			}
+		}
+	}
 
 }

@@ -166,7 +166,6 @@ public class MainWindow extends Window{
 		JFrame frame = new MainWindow(x,y/*, _cntrl*/);
 		frame.pack();
 		frame.setSize(300, 300);
-
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

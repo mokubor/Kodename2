@@ -56,13 +56,15 @@ public class CustomButtons extends JPanel {
 					if(choice == 0) {				
 									
 						System.out.println(Util.cntrl.getMacroMap().size());
-				
-						Util.cntrl.getMacroMap().remove(Customs.getKey());
+						String key = Customs.getKey();
+						Util.cntrl.getMacroMap().remove(key);
 						System.out.println(Util.cntrl.getMacroMap().size());
 						Customs.delete();
 						if (Customs.model.isEmpty()) {
 							Customs.resetCustomsList();
 						}
+						
+						PseudocodeList.onCustomDelete(key);
 					}
 				}
 				else {
@@ -94,4 +96,5 @@ public class CustomButtons extends JPanel {
 		add(Box.createRigidArea(new Dimension(0,10)));
 		
 	}
+	
 }

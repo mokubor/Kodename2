@@ -71,7 +71,16 @@ public class IfElseDialog extends JDialog{
 					
 					
 					Proposition p = Util.stringtoProposition(condition);
+					if(isListEmpty(if_list)){
+						JOptionPane.showMessageDialog(null, "The if list cannot be empty", "Empty list", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
 					ArrayList<Code> body1 = Util.getBody(if_list);
+					
+					if(isListEmpty(else_list)){
+						JOptionPane.showMessageDialog(null, "The else list cannot be empty", "Empty list", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
 					ArrayList<Code> body2 = Util.getBody(else_list);
 					
 					((IfElseCode) if_code_piece).setCondition(p);
@@ -262,7 +271,7 @@ public class IfElseDialog extends JDialog{
 		//right-most column
 		x.anchor = GridBagConstraints.WEST;
 		x.gridx = 0;
-		x.gridy = 2;
+		x.gridy = 3;
 		x.gridheight = 3;
 		add(basic, x);
 		
@@ -377,37 +386,17 @@ public class IfElseDialog extends JDialog{
 	}
 	
 	
-	public static void ExpandIfDialog(IfElseCode code){
-		JDialog c = new IfElseDialog(Main.currentWindow, code);
-		c.pack();
-		c.setLocationRelativeTo(null);
-		c.setVisible(true);
-		c.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		
-		if_code_piece = code;
-		condition = Util.propositiontoString(if_code_piece.getCondition());
-		System.out.println(condition);
-		for(int i  = 0; i < listofBooleans.length; i ++){
-			if(listofBooleans[i].trim().equalsIgnoreCase(condition)){
-				booleans.setSelectedIndex(i);
-				break;
+	public static boolean isListEmpty(JList list){
+		DefaultListModel model = (DefaultListModel)list.getModel();
+		if(model.getSize() == 1){
+			if(((String)model.getElementAt(0)).equalsIgnoreCase("empty")){
+				return true;
+			}
+			else{
+				return false;
 			}
 		}
-		//booleans.setSelectedItem(condition);
-		
-		ArrayList<Code> Body = if_code_piece.getBody1();
-		for(int i = 0; i < Body.size(); i++){
-			String t = Util.codetoString(Body.get(i));
-			System.out.println(t + " if");
-			add(if_list, t);
-		}
-		
-		Body = if_code_piece.getBody2();
-		for(int i = 0; i < Body.size(); i++){
-			String t = Util.codetoString(Body.get(i));
-			System.out.println(t + " else");
-			add(else_list, t);
-		}
+		return false;
 	}
 
 }

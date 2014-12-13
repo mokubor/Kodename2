@@ -57,11 +57,21 @@ public class IfElseCode extends Code implements Serializable {
 		}
 		sb.append("\nThen\n");
 		for(Code code: body1) {
-			sb.append("    " + code.toString() + "\n");
+			if(body1 == null){
+				sb.append("null\n");
+			}
+			else{
+				sb.append("    " + code.toString() + "\n");
+			}
 		}
 		sb.append("Else\n");
 		for(Code code: body2) {
-			sb.append("    " + code.toString());
+			if(body2 == null){
+				sb.append("null\n");
+			}
+			else{
+				sb.append("    " + code.toString());
+			}
 		}
 		//return sb.toString();
 		return "If-Else";
@@ -74,6 +84,12 @@ public class IfElseCode extends Code implements Serializable {
 	 * @param body2 the else body
 	 */
 	public IfElseCode(Proposition prop, ArrayList<Code> body1, ArrayList<Code> body2) {
+		if (body1 == null) {
+			body1 = new ArrayList<Code>();
+		}
+		if (body2 == null) {
+			body2 = new ArrayList<Code>();
+		}
 		this.prop = prop;
 		this.body1 = body1;
 		this.body2 = body2;
