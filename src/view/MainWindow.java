@@ -33,13 +33,16 @@ public class MainWindow extends Window{
 			 if(source == expand){
 				 Util.printcodeList();
 				 WorldButtons.disable_buttons();
-				 //String selected = ((String)pL.getTheModel().getElementAt(pL.getTheJList().getSelectedIndex())).trim();
+				 
 				 int i = PseudocodeList.getTheJList().getSelectedIndex();
+				 
 				 if(i == -1){
 					JOptionPane.showMessageDialog(null, "You must select an Action from the Pseudocode List to Expand", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 					return;
 				 }
+				 
 				 String selected = Util.cntrl.getCodeList().get(i).getClass().toString();
+				 
 				 System.out.println("expand for index "+ PseudocodeList.getTheJList().getSelectedIndex());
 				 if( selected.equalsIgnoreCase("class model.IfElseCode")){
 					 //int i = pL.getTheJList().getSelectedIndex();
@@ -63,12 +66,15 @@ public class MainWindow extends Window{
 					 return;
 				 }
 				 else if(selected.equalsIgnoreCase("class model.CustomCode")){
+
+					 System.out.println(Util.cntrl.getCodeList().get(i).getClass().toString());
 					 String key = ((String) PseudocodeList.getTheModel().getElementAt(PseudocodeList.getTheJList().getSelectedIndex())).trim();
 					 CustomCode c = Util.cntrl.getMacroMap().get(key);
 					 System.out.println(key);
-					 
-					MacroExpand.ExpandMacro(c.getName(), c.getCodeBody());
+					 System.out.println("before expand call: " + c.getCodeBody().size());
+					 MacroExpand.ExpandMacro(c.getName(), c.getCodeBody());
 					 PseudocodeList.getTheJList().setSelectedIndex(-1);
+					 
 					 return;
 				 }
 				 else{
@@ -126,6 +132,7 @@ public class MainWindow extends Window{
 		expand.addActionListener(new ButtonListener());
 		
 		pB.add(expand);
+		
 		
 		//setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
 		add(action, BorderLayout.WEST);

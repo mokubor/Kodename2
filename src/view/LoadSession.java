@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +33,7 @@ public class LoadSession extends Window{
 	JPanel leftPanel = new JPanel();
 	JPanel rightPanel = new JPanel();
 	
+	
 	public LoadSession() {
 		super("Load Session");
 		
@@ -46,16 +48,22 @@ public class LoadSession extends Window{
 		jlist.setSelectedIndex(0);			
 		jlist.setVisibleRowCount(10);
 		
-		setLayout(new GridLayout());
 		
-		rightPanel.setLayout(new GridLayout(2,1));
+		setLayout(new GridLayout(2,1));
+		
+		//rightPanel.setLayout(new GridLayout(1,2));
+		rightPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 		
 		leftPanel.add(jlist);
 		rightPanel.add(newBut);
 		rightPanel.add(loadBut);
 		
+		
+		
 		add(leftPanel);
 		add(rightPanel);
+
+		
 		
 		newBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

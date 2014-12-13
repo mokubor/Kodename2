@@ -36,7 +36,7 @@ public class MacroBasicLoop extends JPanel {
 	public MacroBasicLoop(){
 				
 		basic_actions = new BasicActions();
-		//conditioned_actions = new Conditions();
+		conditioned_actions = new Conditions();
 		
 		Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		Border title = BorderFactory.createTitledBorder(loweredetched, "Actions");
@@ -45,8 +45,8 @@ public class MacroBasicLoop extends JPanel {
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		add(basic_actions);
 		add(Box.createRigidArea(new Dimension(0,10)));
-		//add(conditioned_actions);
-		//add(Box.createRigidArea(new Dimension(0,10)));
+		add(conditioned_actions);
+		add(Box.createRigidArea(new Dimension(0,10)));
 				
 		setBorder(title);
 		setVisible(true);

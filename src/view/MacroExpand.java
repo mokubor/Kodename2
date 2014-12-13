@@ -52,25 +52,32 @@ public class MacroExpand extends JDialog{
 		JLabel label = new JLabel ("Macro Name: ");
 		
 		name = new JLabel("");
+		
 		if(Body == null){
 			throw new IllegalArgumentException("MacroExpand constructor: body is null");
 		}
+		
 		model = new DefaultListModel();
 		name = new JLabel();
+		
 		name.setText(key);
 		name.setVisible(true);
 		
-			x = new ArrayList<String>(1);
-			for(int i = 0; i < Body.size(); i++){
-				String temp = Util.codetoString(Body.get(i));
-				x.add(temp);
-			}
+		x = new ArrayList<String>(1);
+		System.out.println(Body.size());
+		
+		for(int i = 0; i < Body.size(); i++){
+				//String temp = Util.codetoString(Body.get(i));
+			String temp = Body.get(i).toString();
+			System.out.println(temp);
+			x.add(temp);
+		}
 			
 			
+		for(int i = 0; i < x.size(); i ++){
+			model.addElement(x.get(i));
+		}
 			
-			for(int i = 0; i < x.size(); i ++){
-				model.addElement(x.get(i));
-			}
 		list = new JList(model);
 		list.setLayoutOrientation(JList.VERTICAL);
 		list.setFixedCellWidth(200);

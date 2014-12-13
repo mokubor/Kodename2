@@ -6,7 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -24,12 +23,14 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import java.util.ArrayList;
+
 import model.Code;
 import model.Code.Proposition;
 import model.IfElseCode;
 
-public class IfElseDialog extends JDialog{
-	
+public class MacroIfElseDialog extends JDialog{
+
 	static int value = 0;
 	JPanel basic;
 	static String[] listofBooleans = {"NONE", "Facing East", "Facing West", "Facing North", "Facing South", "Next to a Beeper", "Front is Clear",
@@ -81,7 +82,7 @@ public class IfElseDialog extends JDialog{
 					System.out.println(isempty);
 					
 					if(isempty == true){
-						Util.updateCodeList(Util.EditIndex, if_code_piece);
+						MacroCreation.updateCustomActions(if_code_piece, Util.EditIndex);
 					}
 					else{
 						Util.cntrl.getCodeList().remove(Util.EditIndex);
@@ -125,7 +126,7 @@ public class IfElseDialog extends JDialog{
 		}
 	}
 
-	public IfElseDialog(JFrame owner, Code c){
+	public MacroIfElseDialog(JFrame owner, Code c){
 		super(owner, "Create If-Else statement", true);
 		
 		if(c == null){
@@ -248,6 +249,19 @@ public class IfElseDialog extends JDialog{
 		scrollbar2 = new JScrollPane(else_list);
 		
 		
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+		panel.add(booleans);
+		panel.add(Box.createRigidArea(new Dimension(0,10)));
+		panel.add(if_label);
+		panel.add(Box.createRigidArea(new Dimension(0,10)));
+		panel.add(scrollbar1);
+		panel.add(Box.createRigidArea(new Dimension(0,10)));
+		panel.add(else_label);
+		panel.add(Box.createRigidArea(new Dimension(0,10)));
+		panel.add(scrollbar2);
+		panel.add(Box.createRigidArea(new Dimension(0,10)));
+		
 
 		JPanel bpanel = new JPanel();
 		bpanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
@@ -255,70 +269,70 @@ public class IfElseDialog extends JDialog{
 		bpanel.add(done);
 
 		
-		
+
 		setLayout(new GridBagLayout());
 		GridBagConstraints x = new GridBagConstraints();
-		
+
 		//right-most column
 		x.anchor = GridBagConstraints.WEST;
 		x.gridx = 0;
 		x.gridy = 2;
 		x.gridheight = 3;
 		add(basic, x);
-		
+
 		//center column
 		x.anchor = GridBagConstraints.CENTER;
 		x.gridheight = 1;
 		x.gridx = 1;
 		x.gridy = 3;
 		add(to_if, x);
-		
+
 		x.gridy = 4;
 		add(remove, x);
-		
+
 		x.gridy = 5;
 		add(to_else, x);
-		
+
 		//leftmost column
 		x.anchor = GridBagConstraints.WEST;
 		x.gridx = 2;
 		x.gridy = 0;
 		add(message, x);
-		
+
 		x.anchor = GridBagConstraints.WEST;
 		x.gridx = 2;
 		x.gridy = 1;
 		add(booleans, x);
-		
+
 		x.gridy = 2;
 		add(if_label, x);
-		
+
 		x.gridy = 3;
 		//x.gridheight = 2;
 		x.anchor = GridBagConstraints.NORTHWEST;
 		add(scrollbar1, x);
-		
+
 		x.gridheight = 1;
 		x.gridy = 4;
 		x.anchor = GridBagConstraints.WEST;
 		add(else_label, x);
-		
+
 		x.gridy = 5;
 		//x.gridheight = 2;
 		x.anchor = GridBagConstraints.NORTHWEST;
 		add(scrollbar2, x);
-		
+
 		x.gridx = 2;
 		x.gridy = 6;
 		x.gridheight = 1;
 		x.anchor = GridBagConstraints.EAST;
 		add(bpanel, x);
-		
+
 	}
 	
-	public static void getIfDialog(Code code){
+	public static void getMacroIfDialog(Code code){
 		//JDialog c = new IfElseDialog(Main.currentWindow, code);
-		JDialog c = new IfElseDialog(null, code);
+		JDialog c = new MacroIfElseDialog(null, code);
 		c.pack();
 		c.setLocationRelativeTo(null);
 		c.setVisible(true);
@@ -377,37 +391,4 @@ public class IfElseDialog extends JDialog{
 	}
 	
 	
-	public static void ExpandIfDialog(IfElseCode code){
-		JDialog c = new IfElseDialog(Main.currentWindow, code);
-		c.pack();
-		c.setLocationRelativeTo(null);
-		c.setVisible(true);
-		c.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		
-		if_code_piece = code;
-		condition = Util.propositiontoString(if_code_piece.getCondition());
-		System.out.println(condition);
-		for(int i  = 0; i < listofBooleans.length; i ++){
-			if(listofBooleans[i].trim().equalsIgnoreCase(condition)){
-				booleans.setSelectedIndex(i);
-				break;
-			}
-		}
-		//booleans.setSelectedItem(condition);
-		
-		ArrayList<Code> Body = if_code_piece.getBody1();
-		for(int i = 0; i < Body.size(); i++){
-			String t = Util.codetoString(Body.get(i));
-			System.out.println(t + " if");
-			add(if_list, t);
-		}
-		
-		Body = if_code_piece.getBody2();
-		for(int i = 0; i < Body.size(); i++){
-			String t = Util.codetoString(Body.get(i));
-			System.out.println(t + " else");
-			add(else_list, t);
-		}
-	}
-
 }

@@ -25,20 +25,35 @@ public class PseudocodeButtons extends JPanel {
 			if(source == clearBut){
 				
 				if(!PseudocodeList.getTheModel().isEmpty()) {
+					if(!PseudocodeList.isMacro){
+						int choice = JOptionPane.showOptionDialog(null, "Are you sure that you want to clear the entire code produced so far?",
+								"Delete entire list of code?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 					
-					int choice = JOptionPane.showOptionDialog(null, "Are you sure that you want to clear the entire code produced so far?",
-							"Delete entire list of code?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-					
-					if(choice == 0) {				
-						PseudocodeList.getTheModel().removeAllElements();
-						Util.cntrl.getCodeList().clear();
-						PseudocodeList.resetList();
-						MainWindow.expand.setEnabled(false);
-						WorldConsole.reset();
-						WorldButtons.disable_buttons();
+						if(choice == 0) {				
+							PseudocodeList.getTheModel().removeAllElements();
+							Util.cntrl.getCodeList().clear();
+							PseudocodeList.resetList();
+							MainWindow.expand.setEnabled(false);
+							WorldConsole.reset();
+							WorldButtons.disable_buttons();
 						
+						}
 					}
+					else{ //In Macro Creation state
+						int choice = JOptionPane.showOptionDialog(null, "Are you sure that you want to clear the entire code produced so far?",
+								"Delete entire list of code?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 					
+						if(choice == 0) {
+							/*
+							 * remove all objects in the model, 
+							 * reset the temporary body
+							 * reset the JList
+							 */
+							PseudocodeList.getTheModel().removeAllElements();
+							MacroCreation.reset();
+							PseudocodeList.resetList();
+						}
+					}
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "There is no code to clear.", "No code to clear",
@@ -83,31 +98,37 @@ public class PseudocodeButtons extends JPanel {
 						
 						// Remove from model
 						PseudocodeList.getTheModel().remove(index);
-						// Remove macro from data structure
+						
+						// Remove from back end representation
 						if (!PseudocodeList.isMacro) {
 						      Util.cntrl.getCodeList().remove(index);
 						}
-						WorldButtons.disable_buttons();
+						else{
+							MacroCreation.removeCA(index);
+						}
 					
 						// If this is only item, reset/resize
-						if(PseudocodeList.getTheModel().size() == 1){							
-							PseudocodeList.getTheModel().remove(0);
-							PseudocodeList.resetList();
-							WorldConsole.reset();
-							MainWindow.expand.setEnabled(false);
-							
+						if(PseudocodeList.getTheModel().size() == 1){
+							//resetting Main Window List
+							if(!PseudocodeList.isMacro){
+								PseudocodeList.getTheModel().remove(0);
+								PseudocodeList.resetList();
+								WorldConsole.reset();
+								MainWindow.expand.setEnabled(false);
+								WorldButtons.disable_buttons();
+							}
+							else{ //resetting Macro's List
+								PseudocodeList.getTheModel().remove(0);
+								PseudocodeList.resetList();
+							}
 						}
-						/*else{
-							PseudocodeList.getTheModel().remove(PseudocodeList.getTheJList().getSelectedIndex());
-						}
-						Util.cntrl.getCodeList().remove(index);*/
 					}
 				}
 				catch(Exception exc) {}
 			}			
-			}
-
 		}
+
+	}
 
 	public PseudocodeButtons() {
 		
