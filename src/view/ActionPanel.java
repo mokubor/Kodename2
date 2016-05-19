@@ -1,3 +1,6 @@
+/**
+ * @author Miracle Okubor
+ */
 package view;
 
 import java.awt.Dimension;
@@ -12,6 +15,9 @@ import javax.swing.JFrame;
 
 import control.Controller;
 
+/**
+ * A class that contains all components that make up the Action panel.
+ */
 public class ActionPanel extends JPanel{
 	JPanel custom_actions;
 	JPanel basic_actions;

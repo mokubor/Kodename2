@@ -1,3 +1,6 @@
+/**
+ * @author Miracle Okubor
+ */
 package view;
 
 import java.awt.Dimension;
@@ -22,8 +25,12 @@ import java.util.HashMap;
 import java.util.Set;
 
 import control.*;
-//import control.Controller;
 
+/**
+ * A class for components to create and maintain custom actions
+ * A list of created custom actions and buttons to modify the list.
+ *
+ */
 public class Customs extends JPanel{
 	static ArrayList<String> custom_code;
 	static JList list;
@@ -35,25 +42,24 @@ public class Customs extends JPanel{
 	public Customs(){
 		super();
 		
-		//retrieve any cusom code elements that may have already been created
-		
-		//cntrl = Util.cntrl;
-		
-		/*initalize buttons*/
+		/**
+		 * initalize buttons
+		 */
 		buttons = new CustomButtons();
 		
 		custom_code = new ArrayList<String>(1);
 		
-		/**check if list of custom codes is empty, if it is, 
-		 * initialize array to one*/
+		/**
+		 * check if list of custom codes is empty, if it is, 
+		 * initialize array to one
+		 */
 		if(Util.cntrl.getMacroMap() == null || Util.cntrl.getMacroMap().size() <= 0){
 			custom_code = new ArrayList<String>(1);
 			custom_code.add("No Custom Actions created");
 			CustomButtons.delete.setEnabled(false);
 		}
 		else{
-			//custom_code = new String[cntrl.getMacroMap().size()];
-			//retrieving key string values from hashmap and converting to array
+			/**retrieve key string values from hashmap and convert to array*/
 			custom_code = new ArrayList<String>(1);
 			int length = Util.cntrl.getMacroMap().size();
 			
@@ -64,17 +70,16 @@ public class Customs extends JPanel{
 			CustomButtons.delete.setEnabled(true);
 		}
 		
-		/**make default model*/
+		/**make default model for JList*/
 		model = new DefaultListModel();
 		
-		//retrieve any custom code elements that may have already been created
-		System.out.println(custom_code.size());
+		//System.out.println(custom_code.size());
 		
 		for(int i = 0; i < custom_code.size(); i++){
 			model.addElement(custom_code.get(i));
 		}
 		
-		list = new JList (model);
+		list = new JList(model);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setLayoutOrientation(JList.VERTICAL_WRAP);
 		list.setFixedCellWidth(140);
@@ -103,6 +108,9 @@ public class Customs extends JPanel{
 		
 	}
 	
+	/**
+	 * Resets the list of custom actions and displays default message
+	 */
 	public static void resetCustomsList(){
 		custom_code = new ArrayList<String>(1);
 		custom_code.add("No Custom Actions created");
