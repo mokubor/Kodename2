@@ -1,3 +1,6 @@
+/**
+ * @author Joseph Ancona
+ */
 package view;
 
 import javax.swing.JFrame;

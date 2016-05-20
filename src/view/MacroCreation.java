@@ -1,5 +1,6 @@
 /**
- * @helper Stephen Chung
+ * @author Joseph Ancona
+ * @helper Stephen Chung, Miracle Okubor
  */
 
 package view;

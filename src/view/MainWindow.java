@@ -1,3 +1,6 @@
+/**
+ * @author Miracle Okubor
+ */
 package view;
 
 import java.awt.BorderLayout;
@@ -19,7 +22,6 @@ public class MainWindow extends Window{
 	
 	JPanel action;
 	JPanel world;
-	//static Controller cntrl;
 	
 	static PseudocodeList pL;
 	static PseudocodeButtons pB;	
@@ -45,7 +47,6 @@ public class MainWindow extends Window{
 				 
 				 System.out.println("expand for index "+ PseudocodeList.getTheJList().getSelectedIndex());
 				 if( selected.equalsIgnoreCase("class model.IfElseCode")){
-					 //int i = pL.getTheJList().getSelectedIndex();
 					 System.out.println(Util.cntrl.getCodeList().get(i).getClass().toString());
 					 Util.EditIndex = i;
 					 IfElseCode code = (IfElseCode)Util.cntrl.getCodeList().get(i);
@@ -56,7 +57,6 @@ public class MainWindow extends Window{
 					 
 				 }
 				 else if(selected.equalsIgnoreCase("class model.LoopCode")){
-					 //int i = pL.getTheJList().getSelectedIndex();
 					 System.out.println(Util.cntrl.getCodeList().get(i).getClass().toString());
 					 Util.EditIndex = i;
 					 LoopCode code = (LoopCode)Util.cntrl.getCodeList().get(i);
@@ -116,7 +116,6 @@ public class MainWindow extends Window{
 		    }
 		});
 		
-		//cntrl = _cntrl;
 		Main.currentWindow = this;
 		
 		expand = new JButton("Expand");
@@ -127,8 +126,6 @@ public class MainWindow extends Window{
 		pB = new PseudocodeButtons();
 		world = new WorldPanel(x, y/*, cntrl*/);
 		
-		//expand = new JButton("Expand");
-		//expand.setEnabled(false);
 		expand.addActionListener(new ButtonListener());
 		
 		pB.add(expand);

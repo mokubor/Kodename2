@@ -1,3 +1,6 @@
+/**
+ * @author Miracle Okubor
+ */
 package view;
 
 import java.awt.Dimension;
@@ -28,9 +31,17 @@ import model.Code;
 import model.Code.Proposition;
 import model.IfElseCode;
 
+/**
+ * A JDialog class that is used to create if-else condition statements
+ * <p>
+ * This dialog contains panels to which the user adds actions which make the body of if or else statements. 
+ * A combobox where the user chooses a boolean condition which the if portion evaluates
+ * </p>
+ *
+ */
 public class IfElseDialog extends JDialog{
 	
-	static int value = 0;
+	static int value;//-1 if the user exits the dialog using the "cancel" button. No update to code list 
 	JPanel basic;
 	static String[] listofBooleans = {"NONE", "Facing East", "Facing West", "Facing North", "Facing South", "Next to a Beeper", "Front is Clear",
 			"Right is Clear", "Left is Clear"};
@@ -47,8 +58,8 @@ public class IfElseDialog extends JDialog{
 	JScrollPane scrollbar2;
 	static String condition;
 	static IfElseCode if_code_piece;
-	boolean isempty = true;
-	int list; //1 for else list, 0 for if list
+	boolean isempty = true;//defines if the if-else object is a modification or a new object.
+	int list; //toggle between if/else JLists. 1 for else list, 0 for if list
 	
 	JButton to_if;
 	JButton to_else;
@@ -61,13 +72,14 @@ public class IfElseDialog extends JDialog{
 			JButton source = (JButton)e.getSource();
 			
 			if(source == done){
+				/* create if-else code object */
 				if(booleans.getSelectedIndex() == 0){
 					JOptionPane.showMessageDialog(null, "if condition cannot be none", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 					return;
 				}
 				else{
 					condition = (String)booleans.getSelectedItem();
-					System.out.println(condition);
+					//System.out.println(condition);
 					
 					
 					Proposition p = Util.stringtoProposition(condition);
@@ -87,8 +99,11 @@ public class IfElseDialog extends JDialog{
 					((IfElseCode) if_code_piece).setBody1(body1);
 					((IfElseCode) if_code_piece).setBody2(body2);
 					
-					System.out.println(isempty);
+					//System.out.println(isempty);
 					
+					/*
+					 * check if a pre-existing objects is being modified or a new object is being added to code list
+					 */
 					if(isempty == true){
 						Util.updateCodeList(Util.EditIndex, if_code_piece);
 					}
@@ -104,28 +119,26 @@ public class IfElseDialog extends JDialog{
 				
 				
 			}
-			else if(source == to_if){
+			else if(source == to_if){//add to if list
 				add(if_list, BasicActions.getElement());
 				
 			}
-			else if(source == to_else){
+			else if(source == to_else){//add to else list
 				add(else_list, BasicActions.getElement());
 			}
-			else if(source == remove){
+			else if(source == remove){//remove element from if or else list
 				if(list == 0){
-					//if_model.remove(if_list.getSelectedIndex());
 					remove(if_list,if_list.getSelectedIndex() );
 				}
 				else if (list == 1){
-					//else_model.remove(else_list.getSelectedIndex());
 					remove(else_list,else_list.getSelectedIndex() );
 				}
 				else{
-					
+					throw new IllegalArgumentException();
 				}
 				
 			}
-			else{
+			else{//cancel button
 				value = -1;
 				dispose();
 			}
@@ -150,7 +163,7 @@ public class IfElseDialog extends JDialog{
 		booleans = new JComboBox(listofBooleans);
 		booleans.setSelectedIndex(0);
 		
-		
+		/*buttons*/
 		done = new JButton("Done");
 		done.addActionListener(new ButtonListener());
 		cancel = new JButton("Cancel");
@@ -162,6 +175,7 @@ public class IfElseDialog extends JDialog{
 		remove = new JButton("Remove");
 		remove.addActionListener(new ButtonListener());
 		
+		/*labels*/
 		JLabel message = new JLabel("Pick a condition for your if statement:");
 		if_label = new JLabel("If:");
 		else_label = new JLabel("Else:");
@@ -179,6 +193,7 @@ public class IfElseDialog extends JDialog{
 			}
 		}
 		else{
+			/*select boolean proposition in combo box and populate lists with code body*/
 			condition = Util.propositiontoString(if_code_piece.getCondition());
 			System.out.println(condition);
 			for(int i  = 0; i < listofBooleans.length; i ++){
@@ -187,8 +202,8 @@ public class IfElseDialog extends JDialog{
 					break;
 				}
 			}
-			//booleans.setSelectedItem(condition);
 			
+			/* add body elements to list model or default value is none exist */
 			ArrayList<Code> Body = if_code_piece.getBody1();
 			if(Body == null){
 				String[] empty = new String[1];
@@ -201,7 +216,7 @@ public class IfElseDialog extends JDialog{
 			else{
 				for(int i = 0; i < Body.size(); i++){
 					String t = Util.codetoString(Body.get(i));
-					System.out.println(t + " if");
+					//System.out.println(t + " if");
 					if_model.addElement(t);
 				}
 			}
@@ -217,11 +232,12 @@ public class IfElseDialog extends JDialog{
 			else{
 				for(int i = 0; i < Body.size(); i++){
 					String t = Util.codetoString(Body.get(i));
-					System.out.println(t + " else");
+					//System.out.println(t + " else");
 					else_model.addElement(t);
 				}
 			}
 		}
+		
 		if_list = new JList(if_model);
 		if_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		if_list.setLayoutOrientation(JList.VERTICAL_WRAP);
@@ -257,14 +273,13 @@ public class IfElseDialog extends JDialog{
 		scrollbar2 = new JScrollPane(else_list);
 		
 		
-
+		/*exit buttons panel*/
 		JPanel bpanel = new JPanel();
 		bpanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 		bpanel.add(cancel);
 		bpanel.add(done);
 
-		
-		
+		/*layout*/
 		setLayout(new GridBagLayout());
 		GridBagConstraints x = new GridBagConstraints();
 		
@@ -325,8 +340,12 @@ public class IfElseDialog extends JDialog{
 		
 	}
 	
+	/**
+	 * Creates and displays an If-Else Dialog
+	 * @param Code code
+	 */
 	public static void getIfDialog(Code code){
-		//JDialog c = new IfElseDialog(Main.currentWindow, code);
+		
 		JDialog c = new IfElseDialog(null, code);
 		c.pack();
 		c.setLocationRelativeTo(null);
@@ -335,19 +354,24 @@ public class IfElseDialog extends JDialog{
 		c.setModal(true);
 	}
 	
+	/**
+	 * Adds new element to the specified list. 
+	 * @param JList list
+	 * @param String data
+	 */
 	public static void add(JList list, String data){
 		
 		if(data == null){
 			JOptionPane.showMessageDialog(null, "You must select a basic action", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		System.out.println(data + " to some list");
+		//System.out.println(data + " to some list");
 		
 		DefaultListModel model = (DefaultListModel)list.getModel();
 		
 		if(model.getSize() == 0 || model.getSize() == 1){
 			if(((String)model.getElementAt(0)).equalsIgnoreCase("empty")){
-				model.remove(0);
+				model.remove(0);//remove default value when adding first element
 				model.addElement(data);
 			}
 			else{
@@ -362,6 +386,15 @@ public class IfElseDialog extends JDialog{
 		return;
 	}
 	
+	/**
+	 * Removes element at the specified index from the given list.
+	 * <p>
+	 * Displays an error dialog on invalid selections. 
+	 * If there is only one element in the and this is removed, a default "empty" message is displayed in list
+	 * </p>
+	 * @param JList list
+	 * @param int index
+	 */
 	public static void remove(JList list, int index){
 		DefaultListModel model = (DefaultListModel)list.getModel();
 		
@@ -369,7 +402,7 @@ public class IfElseDialog extends JDialog{
 			JOptionPane.showMessageDialog(null, "You must select from If or Else to remove", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		if(model.size() == 1){
+		if(model.size() == 1){//display default value
 			model.remove(0);
 			model.addElement("Empty");
 			
@@ -381,11 +414,23 @@ public class IfElseDialog extends JDialog{
 		return;
 	}
 	
+	/**
+	 * Returns the integer exit code for this dialog.
+	 * <p>
+	 * 1 if a the dialog resulted in an update to the code list
+	 * -1 if the dialog was terminated and all changes discarded.
+	 * </p>
+	 * @return int
+	 */
 	public static int getValue(){
 		return value;
 	}
 	
-	
+	/**
+	 * checks if a given JList object is empty
+	 * @param JList list
+	 * @return boolean. true is empty, false otherwise
+	 */
 	public static boolean isListEmpty(JList list){
 		DefaultListModel model = (DefaultListModel)list.getModel();
 		if(model.getSize() == 1){

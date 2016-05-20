@@ -1,3 +1,6 @@
+/**
+ * @author Miracle Okubor
+ */
 package view;
 
 import java.awt.FlowLayout;
@@ -24,9 +27,17 @@ import java.util.ArrayList;
 import model.Code;
 import model.LoopCode;
 
+/**
+ * A Dialog used to create For-loop statements within a custom action.
+ * <p>
+ * This dialog contains a combobox representing the number of iterations. max = 4
+ * A list that displays the users chosen actions.
+ * </p> 
+ *
+ */
 public class MacroLoopDialog extends JDialog{
 	
-	static int value;
+	static int value;//-1 if the user exits the dialog using the "cancel" button. No update to code list
 	JPanel basic;
 	String[] no_of_iterations = {"0", "1", "2", "3", "4"};
 	JComboBox iterations;
@@ -41,7 +52,7 @@ public class MacroLoopDialog extends JDialog{
 	int count;
 	LoopCode loop_code_piece;
 	
-	boolean isempty = true;
+	boolean isempty = true;//defines if the if-else object is a modification or a new object
 	JButton remove;
 	
 	private class ButtonListener implements ActionListener{
@@ -49,12 +60,12 @@ public class MacroLoopDialog extends JDialog{
 			JButton source = (JButton)e.getSource();
 			
 			if(source == done){
+				/* create for-loop code object */
 				if(iterations.getSelectedIndex() == 0){
 					JOptionPane.showMessageDialog(null, "repeat count cannot be 0", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 					return;
 				}
 				else{
-					//String s = ((String)iterations.getSelectedItem()).trim();
 					int count = iterations.getSelectedIndex();
 					System.out.println("count: " + count);
 					
@@ -67,6 +78,9 @@ public class MacroLoopDialog extends JDialog{
 					((LoopCode) loop_code_piece).setCounter(count);
 					((LoopCode) loop_code_piece).setBody(body);
 					
+					/*
+					 * check if a pre-existing objects is being modified or a new object is being added to code list
+					 */
 					if(isempty == true){
 						MacroCreation.updateCustomActions(loop_code_piece, Util.EditIndex);
 						
@@ -86,7 +100,7 @@ public class MacroLoopDialog extends JDialog{
 			else if(source == remove){
 				remove(for_list.getSelectedIndex());
 			}
-			else{
+			else{//cancel button
 				value = -1;
 				dispose();
 			}
@@ -109,6 +123,7 @@ public class MacroLoopDialog extends JDialog{
 		iterations = new JComboBox(no_of_iterations);
 		iterations.setSelectedIndex(0);
 		
+		/*buttons*/
 		done = new JButton("Done");
 		done.addActionListener(new ButtonListener());
 		cancel = new JButton("Cancel");
@@ -118,6 +133,7 @@ public class MacroLoopDialog extends JDialog{
 		remove = new JButton("Remove");
 		remove.addActionListener(new ButtonListener());
 		
+		/*labels*/
 		JLabel message = new JLabel("How many times do you want to repeat the loop:");
 		for_label = new JLabel("For:");
 		end_label = new JLabel("End For");
@@ -139,7 +155,7 @@ public class MacroLoopDialog extends JDialog{
 			ArrayList<Code> Body = loop_code_piece.getBody();
 			for(int i = 0; i < Body.size(); i++){
 				String t = Util.codetoString(Body.get(i));
-				System.out.println(t + " if");
+				//System.out.println(t + " for");
 				for_model.addElement(t);
 			}
 		}
@@ -154,11 +170,13 @@ public class MacroLoopDialog extends JDialog{
 		
 		scrollbar = new JScrollPane(for_list);
 		
+		/*exit buttons panel*/
 		JPanel bpanel = new JPanel();
 		bpanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 		bpanel.add(cancel);
 		bpanel.add(done);
 		
+		/*layout*/
 		setLayout(new GridBagLayout());
 		GridBagConstraints x = new GridBagConstraints();
 		
@@ -205,8 +223,11 @@ public class MacroLoopDialog extends JDialog{
 		
 	}
 	
+	/**
+	 * Creates and displays a For-Loop Dialog
+	 * @param code
+	 */
 	public static void getMacroForDialog(Code code){
-		//JDialog c = new LoopDialog(Main.currentWindow, code);
 		JDialog c = new MacroLoopDialog(null, code);
 		c.pack();
 		c.setLocationRelativeTo(null);
@@ -216,17 +237,20 @@ public class MacroLoopDialog extends JDialog{
 		
 	}
 	
+	/**
+	 * Adds a new element to the list
+	 * @param String data
+	 */
 	public static void add(String data){
 		if(data == null){
 			JOptionPane.showMessageDialog(null, "You must select a basic action", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		
-		System.out.println(data + " to for list");
-		//DefaultListModel model = (DefaultListModel)for_list.getModel();
+		//System.out.println(data + " to for list");
 		
 		if(for_model.getSize() == 0 || for_model.getSize() == 1){
-			if(((String)for_model.getElementAt(0)).equalsIgnoreCase("empty")){
+			if(((String)for_model.getElementAt(0)).equalsIgnoreCase("empty")){//remove default value
 				for_model.remove(0);
 				for_model.addElement(data);
 			}
@@ -241,14 +265,22 @@ public class MacroLoopDialog extends JDialog{
 		for_list.setSelectedIndex(-1);
 	}
 	
+	/**
+	 * Removes the selected element from the list
+	 * <p>
+	 * Displays an error dialog on invalid selections. 
+	 * If there is only one element in the and this is removed, a default "empty" message is displayed in list
+	 * </p>
+	 * @param int index
+	 */
 	public void remove(int index){
 		
 		if(index == -1){
 			JOptionPane.showMessageDialog(null, "You must select from For to remove", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		//DefaultListModel model = (DefaultListModel)list.getModel();
-		if(for_model.size() == 1){
+		
+		if(for_model.size() == 1){//display default value
 			for_model.remove(0);
 			for_model.addElement("Empty");
 			
@@ -261,6 +293,14 @@ public class MacroLoopDialog extends JDialog{
 		return;
 	}
 	
+	/**
+	 * Returns the integer exit code for this dialog.
+	 * <p>
+	 * 1 if a the dialog resulted in an update to the code list
+	 * -1 if the dialog was terminated and all changes discarded.
+	 * </p>
+	 * @return int
+	 */
 	public static int getValue(){
 		return value;
 	}

@@ -1,3 +1,6 @@
+/**
+ * @author Miracle Okubor
+ */
 package view;
 
 import java.awt.Dimension;
@@ -24,6 +27,12 @@ import model.Code;
 import model.CustomCode;
 import model.LoopCode;
 
+/**
+ * A class which defines the component that allows a user to examine the contents of a previously
+ * created custom action. 
+ * 
+ * This custom action cannot be edited within this dialog.
+ */
 public class MacroExpand extends JDialog{
 	static JList list;
 	static DefaultListModel model;
@@ -40,11 +49,11 @@ public class MacroExpand extends JDialog{
 				dispose();
 			}
 			else{
-				
 				dispose();
 			}
 		}
 	}
+	
 	public MacroExpand(String key, ArrayList<Code> Body){
 		if (key == null) {
 			throw new IllegalArgumentException("MacroExpand constructor: name is null");
@@ -63,13 +72,17 @@ public class MacroExpand extends JDialog{
 		name.setText(key);
 		name.setVisible(true);
 		
+		/*
+		 * add actions defined to display list
+		 * 
+		 * improvements: removing the temp arraylist; x
+		 */
 		x = new ArrayList<String>(1);
-		System.out.println(Body.size());
+		//System.out.println(Body.size());
 		
 		for(int i = 0; i < Body.size(); i++){
-				//String temp = Util.codetoString(Body.get(i));
 			String temp = Body.get(i).toString();
-			System.out.println(temp);
+			//System.out.println(temp);
 			x.add(temp);
 		}
 			
@@ -77,7 +90,8 @@ public class MacroExpand extends JDialog{
 		for(int i = 0; i < x.size(); i ++){
 			model.addElement(x.get(i));
 		}
-			
+		
+		/*add components to panel*/
 		list = new JList(model);
 		list.setLayoutOrientation(JList.VERTICAL);
 		list.setFixedCellWidth(200);
@@ -98,6 +112,7 @@ public class MacroExpand extends JDialog{
 		panel.add(name);
 		panel.add(Box.createRigidArea(new Dimension(0,10)));
 		
+		/*layout*/
 		setLayout(new GridBagLayout());
 		GridBagConstraints x = new GridBagConstraints();
 		
@@ -115,6 +130,7 @@ public class MacroExpand extends JDialog{
 		add(done, x);
 		
 	}
+	
 	public static void ExpandMacro(String key, ArrayList<Code> code){
 		JDialog c = new MacroExpand(key, code);
 		c.pack();
