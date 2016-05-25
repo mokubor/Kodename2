@@ -1,6 +1,6 @@
 /**
- * @author Joseph Ancona
- * @helper Stephen Chung, Miracle Okubor
+ * @author Miracle Okubor
+ * @helper Stephen Chung
  */
 
 package view;
@@ -34,9 +34,10 @@ import javax.swing.JTextField;
 import model.Code;
 import model.CustomCode;
 
-// Class that holds the individual parts of Macro Creation screen and puts it together.
-// It includes panel for buttons to remove code, list of selected code, list of available
-// code to add, and panel for creating name and saving.
+/** Class that holds the individual parts of Macro Creation screen and puts it together.
+ *  It includes panel for buttons to remove code, list of selected code, list of available
+ *  code to add, and panel for creating name and saving.
+ */ 
 public class MacroCreation extends JDialog {
 
 	MacroName mN = new MacroName();
@@ -80,11 +81,6 @@ public class MacroCreation extends JDialog {
 					return;
 				}
 				
-				//delete
-				System.out.println("On Save: Printing what is in the list:");
-				for(int i = 0; i < temp_body.size(); i++){
-					System.out.println(temp_body.get(i).getClass().toString());
-				}
 				
 				String name = mN.tx.getText().trim();
 				
@@ -120,19 +116,30 @@ public class MacroCreation extends JDialog {
 
 
 	}
-
+	
+	/**
+	 * Add a Code element to the Custom Action 
+	 * @param Code c
+	 * @param int i
+	 */
 	public static void updateCustomActions(Code c, int i){
 		
 			temp_body.add(i, c);
 			
-			System.out.println("added " + c.getClass().toString() + " at index " + i);
 		
 	}
 	
+	/**
+	 * Remove the element at the specified index from the Custom action list
+	 * @param i
+	 */
 	public static void removeCA(int i){
 		temp_body.remove(i);
 	}
 	
+	/**
+	 * Removes all elements from the Custom Action list
+	 */
 	public static void reset(){
 		temp_body.clear();
 	}

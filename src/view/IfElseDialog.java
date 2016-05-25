@@ -79,7 +79,6 @@ public class IfElseDialog extends JDialog{
 				}
 				else{
 					condition = (String)booleans.getSelectedItem();
-					//System.out.println(condition);
 					
 					
 					Proposition p = Util.stringtoProposition(condition);
@@ -99,7 +98,6 @@ public class IfElseDialog extends JDialog{
 					((IfElseCode) if_code_piece).setBody1(body1);
 					((IfElseCode) if_code_piece).setBody2(body2);
 					
-					//System.out.println(isempty);
 					
 					/*
 					 * check if a pre-existing objects is being modified or a new object is being added to code list
@@ -216,7 +214,6 @@ public class IfElseDialog extends JDialog{
 			else{
 				for(int i = 0; i < Body.size(); i++){
 					String t = Util.codetoString(Body.get(i));
-					//System.out.println(t + " if");
 					if_model.addElement(t);
 				}
 			}
@@ -232,7 +229,6 @@ public class IfElseDialog extends JDialog{
 			else{
 				for(int i = 0; i < Body.size(); i++){
 					String t = Util.codetoString(Body.get(i));
-					//System.out.println(t + " else");
 					else_model.addElement(t);
 				}
 			}
@@ -365,7 +361,6 @@ public class IfElseDialog extends JDialog{
 			JOptionPane.showMessageDialog(null, "You must select a basic action", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		//System.out.println(data + " to some list");
 		
 		DefaultListModel model = (DefaultListModel)list.getModel();
 		

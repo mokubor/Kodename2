@@ -1,5 +1,5 @@
 /**
- * @author Joseph Ancona
+ * @author Miracle Okubor
  */
 package view;
 

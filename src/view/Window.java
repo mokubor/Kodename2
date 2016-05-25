@@ -18,8 +18,6 @@ import control.Controller;
  */
 public abstract class Window extends JFrame{
 	
-	//public static Controller cntrl;
-	
 	public Window(String title){
 		super(title);
 		

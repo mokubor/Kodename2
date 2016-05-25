@@ -1,7 +1,8 @@
-package view;
 /**
  * @author Isaac Tyan
  */
+package view;
+
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;

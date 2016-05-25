@@ -68,7 +68,6 @@ public class LoopDialog extends JDialog{
 				}
 				else{
 					int count = iterations.getSelectedIndex();
-					//System.out.println("count: " + count);
 					
 					if(isListEmpty()){
 						JOptionPane.showMessageDialog(null, "Add an action to the list or select the Cancel button", "Empty List", JOptionPane.WARNING_MESSAGE);
@@ -157,7 +156,6 @@ public class LoopDialog extends JDialog{
 			ArrayList<Code> Body = loop_code_piece.getBody();
 			for(int i = 0; i < Body.size(); i++){
 				String t = Util.codetoString(Body.get(i));
-				//System.out.println(t + " for");
 				for_model.addElement(t);
 			}
 		}
@@ -249,7 +247,6 @@ public class LoopDialog extends JDialog{
 			return;
 		}
 		
-		//System.out.println(data + " to for list");
 		
 		if(for_model.getSize() == 0 || for_model.getSize() == 1){
 			if(((String)for_model.getElementAt(0)).equalsIgnoreCase("empty")){//remove default value

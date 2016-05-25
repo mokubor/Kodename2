@@ -1,3 +1,7 @@
+/**
+ * @author Joseph Ancona
+ * @helper Miracle Okubor
+ */
 package view;
 
 import javax.swing.JButton;
@@ -36,8 +40,6 @@ public class Booleans  {
 				"Test Condition for If statement or Loop",
 		                    JOptionPane.PLAIN_MESSAGE, null, listofBooleans, listofBooleans[0]);
 
-		// Print statement to show how value would be used
-		System.out.println("You selected: " + chosenBoolean);
 		
 		// If s is null, then user either X'd out dialog or pressed Cancel
 	}

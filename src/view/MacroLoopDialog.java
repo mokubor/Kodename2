@@ -155,7 +155,6 @@ public class MacroLoopDialog extends JDialog{
 			ArrayList<Code> Body = loop_code_piece.getBody();
 			for(int i = 0; i < Body.size(); i++){
 				String t = Util.codetoString(Body.get(i));
-				//System.out.println(t + " for");
 				for_model.addElement(t);
 			}
 		}
@@ -246,8 +245,6 @@ public class MacroLoopDialog extends JDialog{
 			JOptionPane.showMessageDialog(null, "You must select a basic action", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		
-		//System.out.println(data + " to for list");
 		
 		if(for_model.getSize() == 0 || for_model.getSize() == 1){
 			if(((String)for_model.getElementAt(0)).equalsIgnoreCase("empty")){//remove default value

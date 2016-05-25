@@ -1,4 +1,5 @@
 /**
+ * @author Isaac Tyan
  * @helper Stephen Chung
  */
 
@@ -22,6 +23,7 @@ import model.World;
 import model.World.Contents;
 
 /**
+ * Allows the user to create a World for the Kodename application
  * IMPORTANT: All worlds created through CustomWorld are SQUARE.
  */
 public class CustomWorld extends JDialog{

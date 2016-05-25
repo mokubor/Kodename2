@@ -97,9 +97,6 @@ public class WindowSaveSession extends JDialog{
 	public static void createWindowSaveSession() {
 		
 		JDialog frame = new WindowSaveSession();
-		//frame = new StartPage();
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setTitle("Start Page World Selection");
 		frame.setSize(600,400);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
