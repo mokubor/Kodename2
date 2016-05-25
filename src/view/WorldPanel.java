@@ -1,3 +1,6 @@
+/**
+ * @author Miracle Okubor
+ */
 package view;
 
 
@@ -14,17 +17,19 @@ import javax.swing.JFrame;
 
 import control.*;
 
+/**
+ * A panel which contains the execution buttons, display console and the world of the Kodename robot.
+ *
+ */
 public class WorldPanel extends JPanel{
 	JPanel buttons;
 	JPanel grid;
 	JPanel console;
-	//static Controller cntrl;
 	
-	public WorldPanel(int x, int y/*, Controller _cntrl*/){
+	public WorldPanel(int x, int y){
 		super();
 		
-		//cntrl = _cntrl;
-		buttons = new WorldButtons(/*_cntrl*/);
+		buttons = new WorldButtons();
 		grid = new WorldGrid(x, y);
 		console = new WorldConsole();
 		

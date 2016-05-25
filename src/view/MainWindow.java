@@ -18,6 +18,14 @@ import javax.swing.JPanel;
 import control.*;
 import model.*;
 
+/**
+ * A class which represents the Main Window of the Kodename application
+ * <p>
+ * The Main Window is a frame that contains the Action panel, Pseudocode panel and the World panel.
+ * It is within this window that the user can create their program and most importantly, executed their program.
+ * </p>
+ *
+ */
 public class MainWindow extends Window{
 	
 	JPanel action;
@@ -33,7 +41,7 @@ public class MainWindow extends Window{
 			JButton source = (JButton)e.getSource();
 			
 			 if(source == expand){
-				 Util.printcodeList();
+				 //Util.printcodeList();
 				 WorldButtons.disable_buttons();
 				 
 				 int i = PseudocodeList.getTheJList().getSelectedIndex();
@@ -45,9 +53,7 @@ public class MainWindow extends Window{
 				 
 				 String selected = Util.cntrl.getCodeList().get(i).getClass().toString();
 				 
-				 System.out.println("expand for index "+ PseudocodeList.getTheJList().getSelectedIndex());
-				 if( selected.equalsIgnoreCase("class model.IfElseCode")){
-					 System.out.println(Util.cntrl.getCodeList().get(i).getClass().toString());
+				 if( selected.equalsIgnoreCase("class model.IfElseCode")){//expand if-else code
 					 Util.EditIndex = i;
 					 IfElseCode code = (IfElseCode)Util.cntrl.getCodeList().get(i);
 					 IfElseDialog.getIfDialog(code);
@@ -56,8 +62,7 @@ public class MainWindow extends Window{
 					 return;
 					 
 				 }
-				 else if(selected.equalsIgnoreCase("class model.LoopCode")){
-					 System.out.println(Util.cntrl.getCodeList().get(i).getClass().toString());
+				 else if(selected.equalsIgnoreCase("class model.LoopCode")){//expand for-loop code
 					 Util.EditIndex = i;
 					 LoopCode code = (LoopCode)Util.cntrl.getCodeList().get(i);
 					 LoopDialog.getForDialog(code);
@@ -65,19 +70,15 @@ public class MainWindow extends Window{
 					 PseudocodeList.getTheJList().setSelectedIndex(-1);
 					 return;
 				 }
-				 else if(selected.equalsIgnoreCase("class model.CustomCode")){
-
-					 System.out.println(Util.cntrl.getCodeList().get(i).getClass().toString());
+				 else if(selected.equalsIgnoreCase("class model.CustomCode")){//expand custom action
 					 String key = ((String) PseudocodeList.getTheModel().getElementAt(PseudocodeList.getTheJList().getSelectedIndex())).trim();
 					 CustomCode c = Util.cntrl.getMacroMap().get(key);
-					 System.out.println(key);
-					 System.out.println("before expand call: " + c.getCodeBody().size());
 					 MacroExpand.ExpandMacro(c.getName(), c.getCodeBody());
-					 PseudocodeList.getTheJList().setSelectedIndex(-1);
 					 
+					 PseudocodeList.getTheJList().setSelectedIndex(-1);
 					 return;
 				 }
-				 else{
+				 else{//expand basic action
 					 JOptionPane.showMessageDialog(null, "You cannot expand a Basic action", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
 					 
 					 PseudocodeList.getTheJList().setSelectedIndex(-1);
@@ -89,7 +90,7 @@ public class MainWindow extends Window{
 	}
 
 	
-	MainWindow(int x, int y/*, Controller _cntrl*/){
+	MainWindow(int x, int y){
 		super("Main Window");
 		
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -102,12 +103,10 @@ public class MainWindow extends Window{
 			            JOptionPane.YES_NO_OPTION,
 			            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
 					if(Util.cntrl != null){
-						
 						if(Util.cntrl != null){
-						      //safely logout
-					      WindowSaveSession.createWindowSaveSession();
+							//safely logout
+							WindowSaveSession.createWindowSaveSession();
 
-					      System.out.println("trying to exit");
 						}else{
 							System.exit(0);
 						}
@@ -118,34 +117,26 @@ public class MainWindow extends Window{
 		
 		Main.currentWindow = this;
 		
+		/*initialize panels*/
 		expand = new JButton("Expand");
 		expand.setEnabled(false);
 		
-		action = new ActionPanel(/*cntrl*/);
+		action = new ActionPanel();
 		pL = new PseudocodeList(false);
 		pB = new PseudocodeButtons();
-		world = new WorldPanel(x, y/*, cntrl*/);
+		world = new WorldPanel(x, y);
 		
 		expand.addActionListener(new ButtonListener());
 		
 		pB.add(expand);
 		
 		
-		//setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
 		add(action, BorderLayout.WEST);
-		//add(Box.createRigidArea(new Dimension(0,10)));
-		//add(Box.createRigidArea(new Dimension(0,10)));
 		add(pL, BorderLayout.CENTER);
 		add(pB, BorderLayout.SOUTH);
 		add(world, BorderLayout.EAST);
-		//add(Box.createRigidArea(new Dimension(0,10)));
-		
-		/*addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent e) {
-            	System.exit(0);
-            }
-        });*/
 	}
+	
 	
 	/*public static void main(String[] args) {
 		MainWindow frame = new MainWindow(10,10);
@@ -156,30 +147,41 @@ public class MainWindow extends Window{
 		frame.setLocationRelativeTo(null);
 	}*/
 	
-	public static void createMainWindow(int x, int y/*, Controller _cntrl*/) {
+	/**
+	 * Method to create the main window of the Kodename project. Input is the X by Y size of the world grid.
+	 * @param int x 
+	 * @param int y
+	 */
+	public static void createMainWindow(int x, int y) {
 		
-		//cntrl = new Controller(x, y);
-		
-		JFrame frame = new MainWindow(x,y/*, _cntrl*/);
+		JFrame frame = new MainWindow(x,y);
 		frame.pack();
 		frame.setSize(300, 300);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 	
 	
-
+	/**
+	 * Safely closes the window
+	 */
 	public void close(){
 		this.dispose();
 	}
 	
+	/**
+	 * Disables all buttons
+	 */
 	static void disableAll(){
 		expand.setEnabled(false);
 		pB.clearBut.setEnabled(false);
 		pB.deleteBut.setEnabled(false);
 	}
+	
+	/**
+	 * Enables all buttons
+	 */
 	static void enableAll(){
 		expand.setEnabled(true);
 		pB.clearBut.setEnabled(true);

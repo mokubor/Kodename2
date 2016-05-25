@@ -1,4 +1,6 @@
-
+/**
+ * @author Miracle Okubor
+ */
 
 package view;
 
@@ -22,20 +24,23 @@ import javax.swing.BorderFactory;
 
 import model.*;
 
-// Class to display what actions the user is adding to their program.
-// For now it includes basic moves, but it means nothing, just meant to display strings.
+/**
+ * A panel which display the actions the user is adding to their program.
+ */
+
 public class PseudocodeList extends JPanel {
 
-	public static String[] mActions;/// = {"Move", "Turn Left", "Turn Right", "Pick up beeper", "Put down beeper"};
-	// List and model for regular pseudocode
-	public static JList list;
+	public static String[] mActions;
+	
+	public static JList list; // List and model for regular pseudocode
 	public static DefaultListModel model = new DefaultListModel();
-	// List and model for macro creation pseudocode
-	public static JList listMacro;
+	
+	public static JList listMacro; // List and model for macro creation pseudocode
 	public static DefaultListModel modelMacro = new DefaultListModel();
 	
 	static boolean wasNull = false;
 	public static JScrollPane scroller;
+	
 	// Boolean to determine whether or not this class is currently used on regular pseudocode or macro creation
 	public static boolean isMacro;
 	
@@ -58,17 +63,10 @@ public class PseudocodeList extends JPanel {
 		getTheJList().setModel(getTheModel());
 		getTheModel().clear();
 		
-		/*for(int i = 0; i < mActions.length; i++){
-			model.addElement(mActions[i]);
-		}
-		*/
-		//if(Util.cntrl.getCodeList() == null){
-			mActions = new String[1];
-			//mActions[0] = "You have no Actions.";
-			mActions[0] = "Begin by Draging an Action";
-			//mActions[2] = "into the list";
-			wasNull = true;
-		//}
+		
+		mActions = new String[1];
+		mActions[0] = "Begin by Draging an Action";
+		wasNull = true;
 	
 		if(!isMacro){
 			if(Util.cntrl.getCodeList().size() != 0){
@@ -95,6 +93,11 @@ public class PseudocodeList extends JPanel {
 		getTheJList().setEnabled(true);
 		getTheJList().setVisible(true);
 		
+		/*
+		 * Set the handler for the drag and drop functionality 
+		 * between the action panel and pseudocode panels.
+		 * 
+		 */
 		getTheJList().setTransferHandler(new TransferHandler() {
 			 
             public boolean canImport(TransferHandler.TransferSupport info) {
@@ -119,12 +122,10 @@ public class PseudocodeList extends JPanel {
                  
                 // Check for String flavor
                 if (!info.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-                    //displayDropLocation("List doesn't accept a drop of this type.");
                     return false;
                 }
  
                 JList.DropLocation dl = (JList.DropLocation)info.getDropLocation();
-                //DefaultListModel listModel = (DefaultListModel)list.getModel();
                 int index = dl.getIndex();
                 boolean insert = dl.isInsert();
                 // Get the current string under the drop.
@@ -139,7 +140,6 @@ public class PseudocodeList extends JPanel {
                 catch (Exception e) { return false; }
                  
                 // Display a dialog with the drop information.
-                //String dropValue = "\"" + data + "\" dropped ";
                 if (dl.isInsert()) {
                     if (dl.getIndex() >= 0|| dl.getIndex()>= getTheJList().getModel().getSize()) {
                     	System.out.println(dl.getIndex() + " -> " +data);
@@ -148,12 +148,16 @@ public class PseudocodeList extends JPanel {
                     	data = data.trim();
                     	Util.EditIndex = line;
                     	
+                    	/*
+                    	 * find code type and open a dialog for if-else, or for-loop code
+                    	 * add basic code to controller codelist
+                    	 * get macro from controller macro map and add to codelist
+                    	 */
                     	if(data.equalsIgnoreCase("if-else")){
                     		if(!isMacro){
                     			IfElseDialog.getIfDialog(null);
                     		
                     			if(IfElseDialog.getValue() > 0){
-                    				//Util.EditIndex = line;
                     				add(data, line);
                     			}
                     		}
@@ -170,7 +174,6 @@ public class PseudocodeList extends JPanel {
                     			LoopDialog.getForDialog(null);
                     		
                     			if(LoopDialog.getValue() >0){
-                    			//
                     				add(data, line);
                     			}
                     		}
@@ -178,7 +181,6 @@ public class PseudocodeList extends JPanel {
                     			MacroLoopDialog.getMacroForDialog(null);
                     			
                     			if(MacroLoopDialog.getValue() >0){
-                        			//
                         				add(data, line);
                         			}
                     		}
@@ -191,7 +193,7 @@ public class PseudocodeList extends JPanel {
                     			data.equalsIgnoreCase("pick up beeper")){
                     		
                     		Code temp = Util.matchStringToCode(data);
-                    		if(!isMacro) {
+                    		if(!isMacro) {//updating the main pseudocode list
                     			Util.updateCodeList(line,temp);
                     		}
                     		else{
@@ -207,18 +209,15 @@ public class PseudocodeList extends JPanel {
                     	
                     	
                     	WorldButtons.disable_buttons();
-                    	System.out.println("size after insert "+ getTheJList().getModel().getSize());
                     	
                     }
-                        //displayDropLocation(dropValue + "at beginning of list");
-                    	
                 } else {
-                    //displayDropLocation(dropValue + "on top of " + "\"" + value + "\"");
+                    
                 }
                  
  
         return false;
-            }
+      }
              
             public int getSourceActions(JComponent c) {
                 return COPY;
@@ -254,27 +253,26 @@ public class PseudocodeList extends JPanel {
 	}
 	
 	 @SuppressWarnings("unchecked")
-	 
+	/**
+	 * Add a code piece to the list at the specified index 
+	 * @param code
+	 * @param index
+	 */
 	public static void add(String code, int index){
-		//code = "\t" + code;
 		
 		if(getTheModel().get(0).equals("Begin by Draging an Action")){
 			
 			getTheModel().remove(0);
-			
-			//getTheModel().addElement("Start of Program");
-			//getTheModel().addElement(code);
 			getTheModel().addElement("...");
 			wasNull = false;
 		}
-		System.out.println(code);
 				
-			if(index == -1){
-				getTheModel().addElement(code);
-			}
-			else{
-				getTheModel().add(index,  code);
-			}
+		if(index == -1){
+			getTheModel().addElement(code);
+		}
+		else{
+			getTheModel().add(index,  code);
+		}
 	
 		
 		MainWindow.expand.setEnabled(true);
@@ -282,15 +280,17 @@ public class PseudocodeList extends JPanel {
 		
 	}
 	 
+	 /**
+	  * Reset the Pseudocode List with default messages
+	  * @author Miracle Okubor
+	  */
 	 public static void resetList(){
 		 
 		 getTheModel().clear();
 			mActions = new String[1];
-			//mActions[0] = "You have no Actions.";
 			mActions[0] = "Begin by Draging an Action";
-			//mActions[2] = "into the list";
 			wasNull = true;
-		//}
+		
 		
 		for(int i = 0; i < mActions.length; i++){
 			getTheModel().addElement(mActions[i]);
@@ -300,29 +300,38 @@ public class PseudocodeList extends JPanel {
 	 }
 
 	 
-	 // Return the appropriate model
+	 /**
+	  * Return the appropriate model
+	  * @return DefaultListModel
+	  * @author Miracle Okubor
+	  */
 	 public static DefaultListModel getTheModel() {
 		 
 		 if(isMacro) {
 			 return modelMacro;
 		 }
-		 System.out.println("Main window model");
-		 
 		 return model;
 		 
 	 }
 	 
-	 // Return the appropriate jlist
+	 /**
+	  * Return the appropriate jlist
+	  * @return JList
+	  * @author Miracle Okubor
+	  */
 	 public static JList getTheJList() {
 		 
 		 if(isMacro) {
 			 return listMacro;
 		 }
-
 		 return list;
 		 
 	 }
-	 
+	/**
+	 * Delete a custom action from the pseudocode list 
+	 * @param String key
+	 * @author Miracle Okubor
+	 */
 	public static void onCustomDelete(String key){
 		DefaultListModel model =PseudocodeList.getTheModel();
 		

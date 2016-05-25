@@ -1,3 +1,6 @@
+/**
+ * @author Isaac Tyan
+ */
 package view;
 
 import java.awt.BorderLayout;
@@ -11,7 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-// Class to hold title message and prompt when program starts
+/**
+ * Class to hold title message and prompt when program starts
+ *
+ */
 public class StartPageTitle extends JPanel {
 	
 	JPanel panel = new JPanel();

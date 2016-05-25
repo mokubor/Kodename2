@@ -1,3 +1,6 @@
+/**
+ * @author Isaac Tyan
+ */
 package view;
 
 import java.awt.BorderLayout;
@@ -18,7 +21,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
-// Class to hold the 5 or so pre-made worlds to allow users to pick which one
+/**
+ *  Class to hold the 5 or so pre-made worlds to allow users to pick which one
+ */
 public class StartPageWorldList extends JPanel {
 	
 	JPanel panelLst = new JPanel();
@@ -57,7 +62,6 @@ public class StartPageWorldList extends JPanel {
 		
 		jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jlist.setLayoutOrientation(JList.VERTICAL_WRAP);
-		//jlist.setFixedCellWidth(120);
 		jlist.setEnabled(true);
 		jlist.setVisible(true);
 		

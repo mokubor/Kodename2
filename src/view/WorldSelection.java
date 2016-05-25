@@ -1,3 +1,6 @@
+/**
+ * @author Isaac Tyan
+ */
 package view;
 
 import javax.swing.JButton;
@@ -19,6 +22,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * A frame to select pre-existing worlds for the Robot or to choose to create a custom world.
+ *
+ */
 public class WorldSelection extends JFrame {
 
 	JPanel panel = new JPanel();

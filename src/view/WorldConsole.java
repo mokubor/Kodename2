@@ -1,3 +1,6 @@
+/**
+ * @author Miracle Okubor
+ */
 package view;
 
 import java.awt.FlowLayout;
@@ -7,6 +10,11 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 
+/**
+ * A panel which contains an un-editable text console which displays status messages, 
+ * such as which code statement was just executed or error messages, for the Kodename user to 
+ * see during program execution.
+ */
 public class WorldConsole extends JPanel{
 	static JTextArea console;
 	static String console_text = "";
@@ -26,14 +34,19 @@ public class WorldConsole extends JPanel{
 		add(scroll);
 	}
 	
+	/**
+	 * Adds a new message to the world panel text console
+	 * @param String t
+	 */
 	static void edit(String t){
 		console_text = console_text.concat("\n");
 		console_text = console_text.concat(t);
-		
-		//String s = append(t);
 		console.setText(console_text);
 	}
 	
+	/**
+	 * Deletes all content of the world panel text console
+	 */
 	static void reset(){
 		console_text = "";
 		console.setText(console_text);

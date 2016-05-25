@@ -1,5 +1,7 @@
 package view;
-
+/**
+ * @author Isaac Tyan
+ */
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -15,7 +17,12 @@ import javax.swing.event.ListSelectionListener;
 import control.Controller;
 import model.*;
 
-// Class that has list of worlds to select from, welcome/title message, proceed/ok button, and world grid if include preview feature
+/**
+ *  Class that holds the list of worlds to select from,
+ *  welcome/title message,
+ *  proceed/ok button, and world grid for a  include preview feature
+ *
+ */
 public class StartPage extends Window {
 	
 	StartPageWorldList wl = new StartPageWorldList();
@@ -49,7 +56,6 @@ public class StartPage extends Window {
 
 		wl.jlist.addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e) {
-				//System.out.println("index selected: " + wl.jlist.getSelectedIndex());
 				Util.cntrl = new Controller(Util.worlds.get(wl.jlist.getSelectedIndex()));
 				gd.renderWorld(Util.worlds.get(wl.jlist.getSelectedIndex()));
 		    }
@@ -71,9 +77,6 @@ public class StartPage extends Window {
 	public static void createStartPage() {
 		
 		JFrame frame = new StartPage();
-		//frame = new StartPage();
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setTitle("Start Page World Selection");
 		frame.setSize(1100,600);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);

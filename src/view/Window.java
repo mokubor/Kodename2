@@ -1,19 +1,24 @@
+/**
+ * @author Miracle Okubor
+ */
 package view;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import control.Controller;
 
-
-
+/**
+ * This is the Window abstract class which extends a java swing JFrame.
+ * <p>
+ * The Window abstract class extends the javax.swing.JFrame. 
+ * It has the static method "close()" to safely dispose of the window
+ * <p>
+ * @author liathano
+ *
+ */
 public abstract class Window extends JFrame{
 	
-	public static Controller cntrl;
+	//public static Controller cntrl;
 	
 	public Window(String title){
 		super(title);

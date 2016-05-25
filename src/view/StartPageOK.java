@@ -1,3 +1,6 @@
+/**
+ * @author Isaac Tyan
+ */
 package view;
 
 import java.awt.BorderLayout;
@@ -5,7 +8,9 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-// Its a class to hold one goddamn button.
+/**
+ *  Its a class to hold the start page button.
+ */
 public class StartPageOK extends JPanel {
 
 	JPanel panel = new JPanel();	

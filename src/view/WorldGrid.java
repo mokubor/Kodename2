@@ -1,4 +1,5 @@
 /**
+ * @author Miracle Okubor
  * @helper Stephen Chung
  */
 
@@ -16,6 +17,10 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.BorderFactory;
 
+/**
+ * A JPanel containing a grid which represents the world of the Kodename Robot.
+ *
+ */
 public class WorldGrid extends JPanel {
 	int rows;
 	int cols;
@@ -29,16 +34,6 @@ public class WorldGrid extends JPanel {
 		
 		JPanel panel = new JPanel(layout);
 		
-		//delete
-		/*JLabel wall = new JLabel(" W ");
-		wall.setVisible(true);
-		wall.setSize(10, 10);
-		JLabel beeper = new JLabel(" B ");
-		beeper.setVisible(true);
-		beeper.setSize(10, 10);
-		JLabel Karel = new JLabel (" K ");
-		Karel.setVisible(true);
-		Karel.setSize(10, 10);*/
 	
 		JLabel[][] labels = new JLabel[rows][cols];
 		Util.setLabels(labels);
@@ -53,6 +48,8 @@ public class WorldGrid extends JPanel {
 				labels[row-1][col-1] = label;
 				label.setVisible(true);
 				label.setSize(10, 10);
+				
+				/*draw grid lines*/
 				if (row == 1) {
 					if (col == 1) {
 						// Top left corner, draw all sides

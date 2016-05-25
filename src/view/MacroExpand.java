@@ -29,9 +29,9 @@ import model.LoopCode;
 
 /**
  * A class which defines the component that allows a user to examine the contents of a previously
- * created custom action. 
+ * created custom action or conditional action. 
  * 
- * This custom action cannot be edited within this dialog.
+ * The action expanded cannot be edited within this dialog.
  */
 public class MacroExpand extends JDialog{
 	static JList list;
@@ -75,14 +75,12 @@ public class MacroExpand extends JDialog{
 		/*
 		 * add actions defined to display list
 		 * 
-		 * improvements: removing the temp arraylist; x
+		 * consider: removing the temp arraylist; x
 		 */
 		x = new ArrayList<String>(1);
-		//System.out.println(Body.size());
 		
 		for(int i = 0; i < Body.size(); i++){
 			String temp = Body.get(i).toString();
-			//System.out.println(temp);
 			x.add(temp);
 		}
 			
@@ -131,6 +129,11 @@ public class MacroExpand extends JDialog{
 		
 	}
 	
+	/**
+	 * Method to activate/instantiate a MacroExpand dialog.
+	 * @param String key
+	 * @param Code code
+	 */
 	public static void ExpandMacro(String key, ArrayList<Code> code){
 		JDialog c = new MacroExpand(key, code);
 		c.pack();

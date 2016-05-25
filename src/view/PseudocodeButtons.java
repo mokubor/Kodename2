@@ -1,3 +1,7 @@
+/**
+ * @author Joseph Ancona
+ * @helper Miracle Okubor
+ */
 package view;
 
 import java.awt.BorderLayout;
@@ -11,7 +15,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
-//Class for buttons allowing code to be deleted individually (or in bulk for conditionals) or cleared in its entirety
+/**
+ * Class for buttons allowing code to be deleted individually (or in bulk for conditionals) or cleared in its entirety
+ *
+ */
 public class PseudocodeButtons extends JPanel {
 
 	JPanel panel = new JPanel();
@@ -62,7 +69,7 @@ public class PseudocodeButtons extends JPanel {
 				
 				
 			}
-			// Make sure that default string "Begin by Draging an Action" cannot be deleted and that when list becomes empty by singley
+			// Make sure that default string "Begin by Draging an Action" cannot be deleted and that when list becomes empty by
 			// deleting last item, that the default string "Begin by Draging an Action" is added once again
 			else if(source == deleteBut){
 				

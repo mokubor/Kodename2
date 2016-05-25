@@ -1,3 +1,6 @@
+/**
+ * @author Isaac Tyan
+ */
 package view;
 
 import java.awt.FlowLayout;
@@ -16,6 +19,10 @@ import javax.swing.JTextField;
 
 import control.Controller;
 
+/**
+ * A Dialog implementation which walks the user through properly saving the current session
+ *
+ */
 public class WindowSaveSession extends JDialog{
 	
 	JLabel nameL = new JLabel("Filename: ");
@@ -84,6 +91,9 @@ public class WindowSaveSession extends JDialog{
 	
 	}
 	
+	/**
+	 * initialize and display the save session dialog.
+	 */
 	public static void createWindowSaveSession() {
 		
 		JDialog frame = new WindowSaveSession();

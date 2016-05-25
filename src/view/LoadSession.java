@@ -1,3 +1,6 @@
+/**
+ * @author Isaac Tyan
+ */
 package view;
 
 import java.awt.FlowLayout;
@@ -18,6 +21,11 @@ import javax.swing.JScrollPane;
 
 import control.Controller;
 
+/**
+ * A window to that allows the user to create a new session 
+ * or load a pre-existing session
+ *
+ */
 public class LoadSession extends Window{
 
 	JFrame mW;
@@ -51,7 +59,6 @@ public class LoadSession extends Window{
 		
 		setLayout(new GridLayout(2,1));
 		
-		//rightPanel.setLayout(new GridLayout(1,2));
 		rightPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 		
 		leftPanel.add(jlist);
@@ -76,21 +83,17 @@ public class LoadSession extends Window{
 			public void actionPerformed(ActionEvent e) {
 				
 				if(jlist.getSelectedIndex() == -1){
-					System.out.println("index is negative");
 					return;
 				}
 				
 				String filepath = (String)dlmModel.get(jlist.getSelectedIndex());
 				String filename = getName(filepath).trim();
-				System.out.println("filename: " + filename);
-				//File f = new File(filename);
 				File f = new File("data" + File.separator + filename);
 				
 				Util.cntrl = Controller.load(f);
 				
 				
 				if(Util.cntrl != null){
-					//Main.currentWindow.dispose();
 					mW = new MainWindow(Util.cntrl.getWorld().getXSize(), Util.cntrl.getWorld().getYSize()/*, cntrl*/);
 					mW.setVisible(true);
 					mW.setSize(1000,600);
@@ -110,9 +113,6 @@ public class LoadSession extends Window{
 	public static void createLoadSessionPage() {
 		
 		JFrame frame = new LoadSession();
-		//frame = new StartPage();
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setTitle("Start Page World Selection");
 		frame.setSize(600,400);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
@@ -133,13 +133,11 @@ public class LoadSession extends Window{
 			e.printStackTrace();
 		}
 		
-		System.out.println("datafolder: " + dataFolder);
 		File folder = new File(dataFolder);
 
 		files = folder.listFiles();
 		
 		if(files == null){
-			System.out.println("files are null");
 			return;
 		}
 		for(int i = 0; i < files.length; i++)
@@ -147,7 +145,6 @@ public class LoadSession extends Window{
 			if(files[i].isFile())
 			{
 				sessionNames.add(files[i].toString());
-				//sessionNames.add(stripExtension(files[i]));
 			}
 		}
 	}

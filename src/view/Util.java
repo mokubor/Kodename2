@@ -1,5 +1,6 @@
 /**
- * @helper Stephen Chung
+ * @author Miracle Okubor
+ * @helper Stephen Chung, Isaac Tyan
  */
 
 package view;
@@ -21,14 +22,24 @@ import model.World;
 import model.World.Contents;
 import control.Controller;
 
+/**
+ * A class of utility methods shared by multiple view components of the Kodename project
+ *
+ */
 public class Util {
 	
 	static Controller cntrl;
 	static JLabel[][] worldLabels;
 	static ArrayList<World> worlds;	
 	
-	static int EditIndex;
+	static int EditIndex; //position of the code object being modified
 	
+	/**
+	 * Utility method to initialize Worlds for the user to choose from at the start of the application
+	 * @param int worldCount
+	 * 
+	 * @author Isaac Tyan
+	 */
 	public static void initializeWorlds(int worldCount){
 		worlds = new ArrayList<World>();
 		
@@ -119,27 +130,46 @@ public class Util {
 		worlds.add(w);
 	}
 	
+	/**
+	 * A Utility method to add a Code object to the programs codelist
+	 * @param int index - position where the Code is inserted
+	 * @param Code c
+	 * 
+	 * @author Miracle Okubor
+	 */
 	public static void updateCodeList(int index, Code c){
-		System.out.println("back end codeList size: " + cntrl.getCodeList().size());
-		System.out.println("inserting in index: " + index);
-		if(index == -1){
+		
+		if(index == -1){//add to the end of the list
 			cntrl.getCodeList().add(c);
 		}
 		else{
 			cntrl.getCodeList().add(index, c);
 		}
 		
-		System.out.println("Size after insert: " + cntrl.getCodeList().size());
 	}
 	
+	/*
+	 * setter method for WorldGrid labels
+	 * @author Stephen Chung
+	 */
 	public static void setLabels(JLabel[][] labels) {
 		worldLabels = labels;
 	}
 	
+	/*
+	 * getter method for WorldGrid labels
+	 * @author Stephen Chung
+	 */
 	public static JLabel getLabel(int x, int y) {
 		return worldLabels[x][y];
 	}
 	
+	/**
+	 * Returns an integer representation of the robots direction
+	 * @param Karel karel
+	 * @return int
+	 * @author Stephen Chung
+	 */
 	public static int facingWhere(Karel karel){
 		switch(karel.getFacing()) {
 		case EAST:
@@ -154,6 +184,12 @@ public class Util {
 		return 4;
 		
 	}
+	/**
+	 * Utility method to draw the World UI showing the Karel robot at its update position.
+	 * 
+	 * @author Stephen Chung
+	 * @helper Isaac Tyan
+	 */
 	public static void drawWorld(Karel karel, World world) {
 		if (karel == null) {
 			karel = cntrl.getKarel();
@@ -165,12 +201,10 @@ public class Util {
 			for(int j = 0; j < world.getXSize(); j++) {
 				Contents contents = world.getContents(j, world.getYSize() - 1 - i);
 				JLabel label = worldLabels[i][j];
-				  worldLabels[i][j].setOpaque(true);
+				worldLabels[i][j].setOpaque(true);
 				worldLabels[i][j].setBackground(Color.white);
 				
 				StringBuffer sb = new StringBuffer();
-				//sb.append(String.valueOf(j));
-				//sb.append(String.valueOf(world.getYSize() - 1 - i));
 				
 				boolean karelBeeper = false;
 				
@@ -179,13 +213,13 @@ public class Util {
 				     System.out.println("beeper at xy: " + j + " and " + i);
 				     if(karel.getX() == j && karel.getY() == world.getYSize() - 1 - i){
 				    	 if(facingWhere(karel)==0)
-				    	 worldLabels[i][j].setIcon(new ImageIcon("images/beeperRight.png"));
+				    		 worldLabels[i][j].setIcon(new ImageIcon("images/beeperRight.png"));
 				    	 else if(facingWhere(karel)==1)
 					    	 worldLabels[i][j].setIcon(new ImageIcon("images/beeperLeft.png"));
 				    	 else if(facingWhere(karel)==2)
 					    	 worldLabels[i][j].setIcon(new ImageIcon("images/beeperNorth.png"));
 				    	 else
-						    	 worldLabels[i][j].setIcon(new ImageIcon("images/beeperSouth.png"));
+				    		 worldLabels[i][j].setIcon(new ImageIcon("images/beeperSouth.png"));
 				    	 
 				    	 karelBeeper = true;
 				     }
@@ -196,15 +230,12 @@ public class Util {
 				case NONE:
 					  worldLabels[i][j].setOpaque(true);
 					  worldLabels[i][j].setIcon(null);
-						worldLabels[i][j].setBackground(Color.white);
+					  worldLabels[i][j].setBackground(Color.white);
 
 					break;
 				case OUT_OF_BOUNDS:
-					//sb.append("O ");
 					break;
 				case WALL:
-					//sb.append("Wall ");
-			
 					worldLabels[i][j].setIcon(new ImageIcon("images/wall.png"));
 					            
 					break;
@@ -214,7 +245,7 @@ public class Util {
 				if(!karelBeeper && karel.getX() == j && karel.getY() == world.getYSize() - 1 - i) {
 					ImageIcon image = new ImageIcon("images/right.png");
 					worldLabels[i][j].setIcon(image);
-					//sb.append("Karel ");
+					
 					switch(karel.getFacing()) {
 					case EAST:
 						worldLabels[i][j].setIcon(new ImageIcon("images/right.png"));
@@ -238,11 +269,17 @@ public class Util {
 					}
 				}
 				label.setText(sb.toString());
-				// worldLabels[i][j].setText(String.valueOf(j) + String.valueOf(world.getYSize() - 1 - i));
 			}
 		}
 	}
 	
+	/**
+	 * A Utility method to convert a string representation into a code object
+	 * @param String s
+	 * @return Initialized Basic Code object. Null for other types of Code
+	 * 
+	 * @author Miracle Okubor
+	 */
 	public static Code matchStringToCode(String s){
 
 		switch(s){
@@ -262,7 +299,14 @@ public class Util {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * A Utility method to map a string representation into a Proposition enum.
+	 * @param String s
+	 * @return Proposition enum. 
+	 * 
+	 * @author Miracle Okubor
+	 */
 	public static Proposition stringtoProposition(String s){
 		
 		switch(s){
@@ -281,6 +325,13 @@ public class Util {
 		return null;
 	}
 	
+	/**
+	 * A utility method which converts a code object into a string which is displayed in a list
+	 * @param Code c
+	 * @return String
+	 * 
+	 * @author Miracle Okubor
+	 */
 	public static String codetoString(Code c){
 		Action t = ((BasicCode)c).getInstruction();
 		switch(t){
@@ -296,6 +347,13 @@ public class Util {
 		return null;
 	}
 	
+	/**
+	 * Utility method which returns a string representation of a Proposition enum.
+	 * @param Proposititon p
+	 * @return String
+	 * 
+	 * @author Miracle Okubor
+	 */
 	public static String propositiontoString(Proposition p){
 		
 		switch(p){
@@ -313,22 +371,24 @@ public class Util {
 		return null;
 	}
 	
+	/**
+	 * Utility method which converts the UI Pseudocode list of a custom action into a list of Code objects.
+	 * @return ArrayList<Code>
+	 * 
+	 * @author Miracle Okubor
+	 */
 	public static ArrayList<Code> getBodyMacro(){
 		ArrayList<Code> body = new ArrayList<Code>(1);
 		
-		System.out.println("isMacro " + PseudocodeList.isMacro);
 		if(PseudocodeList.getTheModel().getSize() == 1){
 			if(((String)PseudocodeList.getTheModel().getElementAt(0)).equalsIgnoreCase("Begin by Draging an Action")){// add check for empty for if/for
-				System.out.println("NULL");
 				return null;
 			}
-			System.out.println("not null but still1");
 		}
 		
 		for(int i = 0; i < PseudocodeList.getTheModel().getSize()-1; i++){
 			String s = (String)PseudocodeList.getTheModel().getElementAt(i);
 			s = s.trim();
-			System.out.println("s: "+ s);
 			Code c = matchStringToCode(s);
 			body.add(c);
 		}
@@ -336,6 +396,14 @@ public class Util {
 		return body;
 	}
 	
+	/**
+	 * A method which converts the UI JList representation of statements for If-Else and For-Loop actions
+	 * into a list of Code objects.
+	 * @param JList list
+	 * @return ArrayList<Code>
+	 * 
+	 * @author Miracle Okubor
+	 */
 	public static ArrayList<Code> getBody(JList list){
 		ArrayList<Code> body = new ArrayList<Code>(1);
 		
@@ -355,6 +423,13 @@ public class Util {
 		return body;
 	}
 	
+	
+	/*
+	 * Internal utility method to print the current control code list as represented by their class name. 
+	 * It does not print the contents of custom, if-else or for-loop actions 
+	 * 
+	 * @author Miracle Okubor
+	 */
 	public static void printcodeList(){
 		for(int i = 0; i < cntrl.getCodeList().size(); i ++){
 			 System.out.println(i + " " + cntrl.getCodeList().get(i).getClass().toString());

@@ -9,7 +9,11 @@ import control.Controller;
 import model.Karel;
 import model.World;
 
-// Class to call world grid if we include preview feature
+/**
+ *  Class to call draw the world grid for a preview
+ *  of the users chosen world settings.
+ *
+ */
 public class StartPageGrid extends JPanel {
 
 	JPanel wg;

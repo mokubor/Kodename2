@@ -1,3 +1,6 @@
+/**
+ * @author Miracle Okubor
+ */
 package view;
 
 import java.awt.event.ActionEvent;
@@ -9,17 +12,19 @@ import javax.swing.JButton;
 
 import control.*;
 
+/**
+ *A class which defines a JPanel for the execution buttons on the Kodename world panel
+ *and their functionality.
+ */
 public class WorldButtons extends JPanel{
 	JButton play;
 	static JButton step;
 	static JButton step_through;
-	//static Controller cntrl;
 	
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JButton source = (JButton)e.getSource();
-			if(source == play){
-				/**begin program execution*/	
+			if(source == play){//begin program execution without syntax highlighting
 				WorldConsole.reset();
 				Util.cntrl.compile();
 				Util.drawWorld(Util.cntrl.getKarel(), Util.cntrl.getWorld());
@@ -27,22 +32,17 @@ public class WorldButtons extends JPanel{
 				step.setEnabled(true);
 				step_through.setEnabled(true);
 				
-			}else if(source == step){
+			}else if(source == step){//execute single step
 				if(!Util.cntrl.execute()){
 					disable_buttons();
-					//MainWindow.enableAll();
 					WorldConsole.edit(Util.cntrl.getExecutionMessage());
 					PseudocodeList.getTheJList().setSelectedIndex(-1);
 				}else{
-					//MainWindow.disableAll();
 					WorldConsole.edit(Util.cntrl.getExecutionMessage());
 					PseudocodeList.getTheJList().setSelectedIndex(Util.cntrl.getExecutionLine());
 					Util.drawWorld(Util.cntrl.getKarel(), Util.cntrl.getWorld());
-					//highlight pseudocode list
-					//and update Karel
 				}
-				//MainWindow.enableAll();
-			}else if(source == step_through){
+			}else if(source == step_through){//execute code with syntax highlighting
 				MainWindow.disableAll();
 				while(Util.cntrl.execute()){
 					WorldConsole.edit(Util.cntrl.getExecutionMessage());
@@ -55,18 +55,12 @@ public class WorldButtons extends JPanel{
 				
 			}
 
-			//Util.drawWorld(null, null);
-
-			//Util.drawWorld();
-
 
 		}
 	}
 	
-	public WorldButtons(/*Controller _cntrl*/){
+	public WorldButtons(){
 		super();
-		
-		//cntrl = _cntrl;
 		
 		step = new JButton("Step");
 		play = new JButton("Play"); //this should have a play icon
@@ -86,6 +80,10 @@ public class WorldButtons extends JPanel{
 		
 		
 	}
+	
+	/**
+	 * Disables all execution buttons on the World panel
+	 */
 	static void disable_buttons(){
 		step.setEnabled(false);
 		step_through.setEnabled(false);
