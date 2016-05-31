@@ -1,0 +1,15 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\froman\fcharset0 Times-Roman;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+\margl1440\margr1440\vieww11060\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\ri720\sa200
+
+\f0\fs24 \cf0 \
+\
+\pard\pardeftab720
+
+\f1 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Kodename is a feature-rich application developed by the Kodename team which aims to combine and improve upon the best features of Karel and Scratch for the purposes of teaching children in a fun and interactive manner the fundamentals of programming. This includes learning some pillars of programming such as modularity, reusability,and other skills such as condition statements that can be easily applied to other programming languages they may encounter in the future. Kodename attempts bridge the application gaps present in Karel and Scratch by avoiding the need to understand deep language syntax while still creating a programming vocabulary that bears resemblance to other mainstream languages. Kodename uses the Karel programming language, created by Richard E. Pattis, to teach the user programming and with its user interface, Kodename aims to eliminate the need for the user to focus on syntax.\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\pard\pardeftab720\sa200
+\cf0  The project implements the model-view-control architecture design pattern to control the flow of information between the user and the software. The application was designed for a classroom setting or personal learning. The application has an Action panel with 5 basic instructions; Move, Turn Right, Turn Left, Pick Up Beeper, Put Down Beeper. Using these, the user can create custom actions which are miniature programs. Once created these will also appear in the Action panel. Kodename uses the Java DataTransfer packages drag and drop feature to move code pieces from this panel to the Simple View or Pseudocode panel. The Pseudocode panel is a Swing Jlist, which allows a user to be able to insert or delete code pieces at any position in the Pseudocode panel. Dialogs are used to ensure the user chooses boolean statements to go with If-Else statements or numerical counts with For statements. These dialogs also appear when the user is creating custom actions. Actions are represented as Strings in the UI. There is a World in which the Karel robot moves. This panel is designed with step-by-step and continuous execution buttons. As the user runs a program step-by-step, the line of code being executed at the moment is highlighted and a message is displayed in a text console below the World. The programming objective could be for Karel to pick up all the beepers in its World, put down beepers at certain locations or move in a circle a certain number of times. The user has free reign over the objective of the program they create.}
